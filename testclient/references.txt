@@ -1,6 +1,0 @@
-OS X Clipboard:
-
-	https://developer.apple.com/library/mac/samplecode/ClipboardViewer/Introduction/Intro.html#//apple_ref/doc/uid/DTS40008825
-	https://developer.apple.com/library/mac/samplecode/ClipboardViewer/ClipboardViewer.zip
-
-
