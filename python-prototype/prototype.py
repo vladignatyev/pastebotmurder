@@ -226,6 +226,8 @@ class DropboxTerm(cmd.Cmd):
                 sess = session.DropboxSession(self.app_key, self.app_secret)
                 sess.set_token(access_key, access_secret)
                 self.api_client = client.DropboxClient(sess)
+                self.manager = DatastoreManager(self.api_client)
+                self.datastore = self.manager.open_default_datastore()
                 print "[loaded OAuth 1 access token]"
             elif serialized_token.startswith('oauth2:'):
                 access_token = serialized_token[len('oauth2:'):]
