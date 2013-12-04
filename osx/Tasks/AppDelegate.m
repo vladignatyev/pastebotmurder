@@ -3,9 +3,11 @@
 #import "AppDelegate.h"
 #import "TaskCellView.h"
 
+#import <DropboxOSX/DropboxOSX.h>
 #import <Dropbox/Dropbox.h>
 
-#import "DropboxSession.h"
+
+//#import "DropboxSession.h"
 
 #define APP_KEY     @"nvdl2oouv53cpe1"
 #define APP_SECRET  @"eu2ejm7b41gavas"
@@ -16,19 +18,20 @@
 @property (nonatomic, readonly) DBAccountManager *accountManager;
 @property (nonatomic, readonly) DBAccount *account;
 
-@property (nonatomic, retain) DropboxSession *dropboxSession;
+//@property (nonatomic, retain) DropboxSession *dropboxSession;
 
 @property (nonatomic, retain) DBDatastore *store;
 @property (nonatomic, retain) NSMutableArray *tasks;
 @property (nonatomic, retain) NSTimer *clipboardTimer;
 
 @property (nonatomic, retain) NSString* toPut;
-
+@property (nonatomic, assign) BOOL apiInitialized;
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    self.apiInitialized = NO;
     DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY secret:APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
     __weak AppDelegate *weakSelf = self;
@@ -43,12 +46,29 @@
 //
 //    NSLog(@"Window: %@", self.window);
 //    [self.window makeKeyAndOrderFront:self];
-    self.dropboxSession = [[DropboxSession alloc] init];
-    [self.dropboxSession startWithAppKey:APP_KEY andSecret:APP_SECRET];
+//    self.dropboxSession = [[DropboxSession alloc] init];
+//    [self.dropboxSession startWithAppKey:APP_KEY andSecret:APP_SECRET];
+
+    NSString *root = kDBRootAppFolder; // Should be either kDBRootDropbox or kDBRootAppFolder
+    DBSession *session = [[DBSession alloc] initWithAppKey:APP_KEY appSecret:APP_SECRET root:root];
+    [DBSession setSharedSession:session];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self selector:@selector(authHelperStateChangedNotification:)
+     name:DBAuthHelperOSXStateChangedNotification
+     object:[DBAuthHelperOSX sharedHelper]];
+    
+    [[DBAuthHelperOSX sharedHelper] authenticate];
     
 }
 
-
+- (void)authHelperStateChangedNotification:(NSNotification *)notification {
+    if ([[DBSession sharedSession] isLinked]) {
+        // You can now start using the API!
+        
+        self.apiInitialized = YES;
+    }
+}
 
 - (void) timerHandler {
     //    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:@"pbpaste"];
@@ -68,6 +88,7 @@
         
         NSObject* obj = [copiedItems objectAtIndex:0];
         if ([obj isKindOfClass:[NSImage class]]) {
+            if (self.apiInitialized) {
             NSImage *img = (NSImage*) obj;
             NSBitmapImageRep *imgRep = [[img representations] objectAtIndex: 0];
             NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
@@ -77,7 +98,7 @@
             [data writeToFile: [NSString stringWithUTF8String:tmpFilename]
                    atomically: NO];
             
-            
+            }
             
         } else if ([obj isKindOfClass:[NSString class]]) {
             NSString *string = (NSString *) obj;

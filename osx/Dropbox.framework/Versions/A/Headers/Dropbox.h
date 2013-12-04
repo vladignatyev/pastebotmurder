@@ -16,4 +16,4 @@
 #import <Dropbox/DBRecord.h>
 #import <Dropbox/DBTable.h>
 
-extern NSString * const kDBSDKVersion;
+//extern NSString * const kDBSDKVersion;

@@ -16,7 +16,6 @@
 		67C40D80181568E8005B06DA /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C40D7F181568E8005B06DA /* Dropbox.framework */; };
 		67C40D81181568F0005B06DA /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 67C40D7F181568E8005B06DA /* Dropbox.framework */; };
 		809FEC59184FDA630034B712 /* DropboxOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC58184FDA630034B712 /* DropboxOSX.framework */; };
-		809FEC5C184FDBCF0034B712 /* DropboxSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 809FEC5B184FDBCF0034B712 /* DropboxSession.m */; };
 		809FEC5E184FDD9C0034B712 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC5D184FDD9C0034B712 /* Security.framework */; };
 		809FEC5F184FDDC30034B712 /* DropboxOSX.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC58184FDA630034B712 /* DropboxOSX.framework */; };
 		80FBDB08184FBB8F00A1B639 /* MenuDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */; };
@@ -54,8 +53,6 @@
 		67C40D58181566EE005B06DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		67C40D7F181568E8005B06DA /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		809FEC58184FDA630034B712 /* DropboxOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxOSX.framework; sourceTree = "<group>"; };
-		809FEC5A184FDBCF0034B712 /* DropboxSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropboxSession.h; path = Tasks/DropboxSession.h; sourceTree = "<group>"; };
-		809FEC5B184FDBCF0034B712 /* DropboxSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DropboxSession.m; path = Tasks/DropboxSession.m; sourceTree = "<group>"; };
 		809FEC5D184FDD9C0034B712 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		80FBDB06184FBB8F00A1B639 /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuDelegate.h; path = Tasks/MenuDelegate.h; sourceTree = "<group>"; };
 		80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuDelegate.m; path = Tasks/MenuDelegate.m; sourceTree = "<group>"; };
@@ -79,8 +76,6 @@
 		67C40D05181566AC005B06DA = {
 			isa = PBXGroup;
 			children = (
-				809FEC5A184FDBCF0034B712 /* DropboxSession.h */,
-				809FEC5B184FDBCF0034B712 /* DropboxSession.m */,
 				80FBDB06184FBB8F00A1B639 /* MenuDelegate.h */,
 				80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */,
 				67C40D4B181566EE005B06DA /* Tasks */,
@@ -212,7 +207,6 @@
 				678B6E051816359D00E3F0DA /* TaskCellView.m in Sources */,
 				80FBDB08184FBB8F00A1B639 /* MenuDelegate.m in Sources */,
 				67C40D59181566EE005B06DA /* AppDelegate.m in Sources */,
-				809FEC5C184FDBCF0034B712 /* DropboxSession.m in Sources */,
 				67C40D52181566EE005B06DA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
