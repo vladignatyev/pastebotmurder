@@ -14,7 +14,7 @@
 @property (nonatomic, readonly) DBAccount *account;
 @property (nonatomic, retain) DBDatastore *store;
 @property (nonatomic, retain) NSMutableArray *tasks;
-
+@property (nonatomic, retain) NSTimer *clipboardTimer;
 @end
 
 @implementation AppDelegate
@@ -29,9 +29,24 @@
     [self setupTasks];
     
     [NSApp setActivationPolicy: NSApplicationActivationPolicyAccessory];
+    
+    _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:NULL repeats:YES];
 //
 //    NSLog(@"Window: %@", self.window);
 //    [self.window makeKeyAndOrderFront:self];
+}
+
+- (void) timerHandler {
+//    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:@"pbpaste"];
+//    NSData *data = [handle readDataToEndOfFile];
+//    NSLog(@"%@", data);
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
+    NSDictionary *options = [NSDictionary dictionary];
+    NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
+    if (copiedItems != nil) {
+        NSLog(@"%@", copiedItems);
+    }
 }
 
 #pragma mark NSTableViewDataSource methods
