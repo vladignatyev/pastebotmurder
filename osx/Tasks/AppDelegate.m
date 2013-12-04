@@ -2,7 +2,10 @@
 
 #import "AppDelegate.h"
 #import "TaskCellView.h"
+
 #import <Dropbox/Dropbox.h>
+
+#import "DropboxSession.h"
 
 #define APP_KEY     @"nvdl2oouv53cpe1"
 #define APP_SECRET  @"eu2ejm7b41gavas"
@@ -12,11 +15,15 @@
 
 @property (nonatomic, readonly) DBAccountManager *accountManager;
 @property (nonatomic, readonly) DBAccount *account;
+
+@property (nonatomic, retain) DropboxSession *dropboxSession;
+
 @property (nonatomic, retain) DBDatastore *store;
 @property (nonatomic, retain) NSMutableArray *tasks;
 @property (nonatomic, retain) NSTimer *clipboardTimer;
 
 @property (nonatomic, retain) NSString* toPut;
+
 @end
 
 @implementation AppDelegate
@@ -36,6 +43,9 @@
 //
 //    NSLog(@"Window: %@", self.window);
 //    [self.window makeKeyAndOrderFront:self];
+    self.dropboxSession = [[DropboxSession alloc] init];
+    [self.dropboxSession startWithAppKey:APP_KEY andSecret:APP_SECRET];
+    
 }
 
 
@@ -61,7 +71,13 @@
             NSImage *img = (NSImage*) obj;
             NSBitmapImageRep *imgRep = [[img representations] objectAtIndex: 0];
             NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
-            [data writeToFile: @"/tmp/test.png" atomically: NO];
+            
+            char template[20] = "/tmp/dropbuf.XXXXXX"; //todo: FUCKING SACRED!!
+            char* tmpFilename = mktemp(template);
+            [data writeToFile: [NSString stringWithUTF8String:tmpFilename]
+                   atomically: NO];
+            
+            
             
         } else if ([obj isKindOfClass:[NSString class]]) {
             NSString *string = (NSString *) obj;
