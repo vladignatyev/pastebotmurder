@@ -15,6 +15,8 @@
 @property (nonatomic, retain) DBDatastore *store;
 @property (nonatomic, retain) NSMutableArray *tasks;
 @property (nonatomic, retain) NSTimer *clipboardTimer;
+
+@property (nonatomic, retain) NSString* toPut;
 @end
 
 @implementation AppDelegate
@@ -36,18 +38,54 @@
 //    [self.window makeKeyAndOrderFront:self];
 }
 
+
+
 - (void) timerHandler {
-//    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:@"pbpaste"];
-//    NSData *data = [handle readDataToEndOfFile];
-//    NSLog(@"%@", data);
+    //    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:@"pbpaste"];
+    //    NSData *data = [handle readDataToEndOfFile];
+    //    NSLog(@"%@", data);
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    NSArray *classes = [[NSArray alloc] initWithObjects:[NSString class], nil];
+    NSArray *classes = [[NSArray alloc]
+                        initWithObjects:
+                        [NSString class],
+                        [NSImage class],
+                        nil];
     NSDictionary *options = [NSDictionary dictionary];
     NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
     if (copiedItems != nil) {
-        NSLog(@"%@", copiedItems);
+        
+        //todo: добавить проверку что объекты не идентичны (чтобы не добавлять повторно)
+        
+        NSObject* obj = [copiedItems objectAtIndex:0];
+        if ([obj isKindOfClass:[NSImage class]]) {
+            NSImage *img = (NSImage*) obj;
+            NSBitmapImageRep *imgRep = [[img representations] objectAtIndex: 0];
+            NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
+            [data writeToFile: @"/tmp/test.png" atomically: NO];
+            
+        } else if ([obj isKindOfClass:[NSString class]]) {
+            NSString *string = (NSString *) obj;
+            
+            if ([string isEqualToString:self.toPut]) {
+                return;
+            }
+            else {
+                self.toPut = string;
+            }
+            
+            DBTable *tasksTbl = [self.store getTable:@"bufstest"];
+            
+            DBRecord *buf = [tasksTbl insert:@{@"value": self.toPut,
+                                               @"created": [NSDate date] } ];
+            [_tasks addObject:buf];
+            
+            
+            NSLog(@"%@", copiedItems);
+        }
+        
     }
 }
+
 
 #pragma mark NSTableViewDataSource methods
 
