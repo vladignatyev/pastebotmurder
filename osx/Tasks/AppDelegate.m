@@ -78,6 +78,7 @@
             if ([imageHash isEqualToString:self.toPut]) {
                 return;
             }
+            
             self.toPut = imageHash;
             if (self.firstTime) {
                 self.firstTime = NO;
@@ -134,9 +135,6 @@
             } else {
                 NSLog(@"Error");
             }
-
-            
-
             
         } else if ([obj isKindOfClass:[NSString class]]) {
             NSString *string = (NSString *) obj;
@@ -144,21 +142,15 @@
             if ([string isEqualToString:self.toPut]) {
                 return;
             }
-            else {
-                self.toPut = string;
-            }
+
+            self.toPut = string;
             
             DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-            
             DBRecord *buf = [tasksTbl insert:@{@"value": self.toPut,
                                                @"type": @"plain",
                                                @"created": [NSDate date] } ];
             [_tasks addObject:buf];
-            
-            
-            NSLog(@"%@", copiedItems);
         }
-        
     }
 }
 

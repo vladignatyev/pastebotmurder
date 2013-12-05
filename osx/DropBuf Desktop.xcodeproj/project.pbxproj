@@ -13,6 +13,7 @@
 		67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67C40D4E181566EE005B06DA /* InfoPlist.strings */; };
 		67C40D52181566EE005B06DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C40D51181566EE005B06DA /* main.m */; };
 		67C40D59181566EE005B06DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C40D58181566EE005B06DA /* AppDelegate.m */; };
+		8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		80FBDB08184FBB8F00A1B639 /* MenuDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,8 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */,
 				809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */,
+				67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,10 +297,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/..",
 					"$(inherited)",
 					"$(SRCROOT)",
-					/Users/ignatev/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
@@ -319,10 +319,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/..",
 					"$(inherited)",
 					"$(SRCROOT)",
-					/Users/ignatev/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
