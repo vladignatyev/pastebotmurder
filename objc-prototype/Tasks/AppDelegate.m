@@ -8,7 +8,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     DBAccountManager *mgr =
-        [[DBAccountManager alloc] initWithAppKey:@"nvdl2oouv53cpe1" secret:@"eu2ejm7b41gavas"];
+        [[DBAccountManager alloc] initWithAppKey:@"84zxlqvsmm2py5y" secret:@"u5sva6uz22bvuyy"];
     [DBAccountManager setSharedManager:mgr];
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
