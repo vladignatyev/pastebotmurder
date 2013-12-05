@@ -8,6 +8,7 @@
 
 #define APP_KEY     @"84zxlqvsmm2py5y"
 #define APP_SECRET  @"u5sva6uz22bvuyy"
+#define BUFS_TABLE @"bufs_values"
 
 @interface AppDelegate () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate>
 
@@ -58,10 +59,6 @@
         
         NSObject* obj = [copiedItems objectAtIndex:0];
         if ([obj isKindOfClass:[NSImage class]]) {
-            
-            
-            
-
             NSImage *img = (NSImage*) obj;
             
             NSBitmapImageRep *imgRep = [[img representations] objectAtIndex: 0];
@@ -127,6 +124,13 @@
                 
                 [file close];
                 
+                DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
+                
+                DBRecord *buf = [tasksTbl insert:@{@"value": path,
+                                                   @"type": @"image",
+                                                   @"created": [NSDate date] } ];
+                [_tasks addObject:buf];
+                
             } else {
                 NSLog(@"Error");
             }
@@ -144,9 +148,10 @@
                 self.toPut = string;
             }
             
-            DBTable *tasksTbl = [self.store getTable:@"bufstest"];
+            DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
             
             DBRecord *buf = [tasksTbl insert:@{@"value": self.toPut,
+                                               @"type": @"plain",
                                                @"created": [NSDate date] } ];
             [_tasks addObject:buf];
             
