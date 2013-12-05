@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBA76DC76D11FDC619F6A /* ImageCell.m */; };
 		B546BB0817880051007C5730 /* tasks-example-57.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB0717880051007C5730 /* tasks-example-57.png */; };
 		B546BB0A1788005B007C5730 /* tasks-example-114.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB091788005B007C5730 /* tasks-example-114.png */; };
 		D3B589201780FD18009E2333 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6EB17659DB7007C6115 /* UIKit.framework */; };
@@ -31,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		677DBA76DC76D11FDC619F6A /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		677DBAADD5452CC80E300DAD /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		B546BB0717880051007C5730 /* tasks-example-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tasks-example-57.png"; sourceTree = "<group>"; };
 		B546BB091788005B007C5730 /* tasks-example-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tasks-example-114.png"; sourceTree = "<group>"; };
 		D358F6EB17659DB7007C6115 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -127,6 +130,8 @@
 				D3D50C74178604F1009A694B /* InputTaskCell.m */,
 				D3D50C76178605DF009A694B /* TaskCell.h */,
 				D3D50C77178605DF009A694B /* TaskCell.m */,
+				677DBA76DC76D11FDC619F6A /* ImageCell.m */,
+				677DBAADD5452CC80E300DAD /* ImageCell.h */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				D3B5893C1781010C009E2333 /* TasksController.m in Sources */,
 				D3D50C75178604F1009A694B /* InputTaskCell.m in Sources */,
 				D3D50C78178605DF009A694B /* TaskCell.m in Sources */,
+				677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

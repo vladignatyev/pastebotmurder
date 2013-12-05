@@ -1,6 +1,7 @@
 #import "InputTaskCell.h"
 #import "TasksController.h"
 #import "TaskCell.h"
+#import "ImageCell.h"
 #import <Dropbox/Dropbox.h>
 
 @interface TasksController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
@@ -23,17 +24,20 @@
     [super viewDidLoad];
 
     self.tableView.rowHeight = 50.0f;
+
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 
-    __weak TasksController *slf = self;
-    [self.accountManager addObserver:self block:^(DBAccount *account) {
-        [slf setupTasks];
-    }];
+- (void)viewDidAppear:(BOOL)animated {
 
-    [self setupTasks];
+    [super viewDidAppear:animated];
+
+        __weak TasksController *slf = self;
+        [self.accountManager addObserver:self block:^(DBAccount *account) {
+            [slf setupTasks];
+        }];
+
+        [self setupTasks];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -84,11 +88,26 @@
 
     } else {
 
-        TaskCell *taskCell = [tableView dequeueReusableCellWithIdentifier:@"TaskCell"];
-        DBRecord *task = _tasks[[indexPath row]];
-        taskCell.taskLabel.text = task[@"taskname"];
+        DBRecord *item = _tasks[[indexPath row]];
 
-        return taskCell;
+        if ([item[@"type"] isEqualToString:@"image"]) {
+
+            ImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
+
+            imageCell.taskLabel.text = @"hui";
+
+            [self showImage:item[@"value"] inImageView:imageCell.imageView2];
+
+            return imageCell;
+
+        } else {
+
+            TaskCell *textCell = [tableView dequeueReusableCellWithIdentifier:@"TaskCell"];
+
+            textCell.taskLabel.text = item[@"value"];
+
+            return textCell;
+        }
     }
 }
 
@@ -96,6 +115,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+
+    return;
+
+    DBRecord *item = _tasks[[indexPath row]];
+
+    if ([item[@"type"] isEqualToString:@"image"]) {
+
+        UIViewController *newVC = [[UIViewController alloc] init];
+
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 480)];
+
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+        [self showImage:item[@"value"] inImageView:imageView];
+
+        newVC.view.backgroundColor = [UIColor whiteColor];
+        [newVC.view addSubview:imageView];
+
+        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 40, 100, 20)];
+
+        [closeButton setTitle:@"Close" forState:UIControlStateNormal];
+        [closeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(dismissModalViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+
+        [newVC.view addSubview:closeButton];
+
+        [self presentModalViewController:newVC animated:YES];
+    }
 
 }
 
@@ -169,14 +216,19 @@
 }
 
 - (void)setupTasks {
+
     if (self.account) {
+
+        DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
+        [DBFilesystem setSharedFilesystem:filesystem];
+
         __weak TasksController *slf = self;
         [self.store addObserver:self block:^{
             if (slf.store.status & (DBDatastoreIncoming | DBDatastoreOutgoing)) {
                 [slf syncTasks];
             }
         }];
-        _tasks = [NSMutableArray arrayWithArray:[[self.store getTable:@"tasks"] query:nil error:nil]];
+        _tasks = [NSMutableArray arrayWithArray:[[self.store getTable:@"bufs_values"] query:nil error:nil]];
 
         [_tasks sortUsingComparator:^(DBRecord *task1, DBRecord *task2) {
 
@@ -209,7 +261,7 @@
     }
     [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
 
-    NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[@"tasks"] allObjects]];
+    NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[@"bufs_values"] allObjects]];
     NSMutableArray *updates = [NSMutableArray array];
     for (int i = [changed count] - 1; i >= 0; i--) {
         DBRecord *record = changed[i];
@@ -238,6 +290,31 @@
         [inserts addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
     }
     [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView {
+
+    NSLog(@"srart reading");
+    DBPath *existingPath = [[DBPath root] childPath:imageName];
+    __block DBFile *file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:nil];
+
+    if (!file.status.cached) {
+
+        [file addObserver:self block:^() {
+
+            if(file.status.state == DBFileStateIdle) {
+
+                imageView.image = [UIImage imageWithData:[file readData:nil]];
+            }
+        }];
+
+    } else {
+
+        imageView.image = [UIImage imageWithData:[file readData:nil]];
+    }
+
+
+    return;
 }
 
 @end
