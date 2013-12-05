@@ -3,35 +3,30 @@
 #import "AppDelegate.h"
 #import "TaskCellView.h"
 
-#import <DropboxOSX/DropboxOSX.h>
 #import <Dropbox/Dropbox.h>
+#import <CommonCrypto/CommonDigest.h>
 
-
-//#import "DropboxSession.h"
-
-#define APP_KEY     @"nvdl2oouv53cpe1"
-#define APP_SECRET  @"eu2ejm7b41gavas"
-
+#define APP_KEY     @"84zxlqvsmm2py5y"
+#define APP_SECRET  @"u5sva6uz22bvuyy"
 
 @interface AppDelegate () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate>
 
 @property (nonatomic, readonly) DBAccountManager *accountManager;
 @property (nonatomic, readonly) DBAccount *account;
 
-//@property (nonatomic, retain) DropboxSession *dropboxSession;
-
 @property (nonatomic, retain) DBDatastore *store;
 @property (nonatomic, retain) NSMutableArray *tasks;
 @property (nonatomic, retain) NSTimer *clipboardTimer;
 
 @property (nonatomic, retain) NSString* toPut;
-@property (nonatomic, assign) BOOL apiInitialized;
+@property (nonatomic, assign) BOOL firstTime;
 @end
+
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.apiInitialized = NO;
+    self.firstTime = YES;
     DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY secret:APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
     __weak AppDelegate *weakSelf = self;
@@ -43,37 +38,11 @@
     [NSApp setActivationPolicy: NSApplicationActivationPolicyAccessory];
     
     _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:NULL repeats:YES];
-//
-//    NSLog(@"Window: %@", self.window);
-//    [self.window makeKeyAndOrderFront:self];
-//    self.dropboxSession = [[DropboxSession alloc] init];
-//    [self.dropboxSession startWithAppKey:APP_KEY andSecret:APP_SECRET];
+    
 
-    NSString *root = kDBRootAppFolder; // Should be either kDBRootDropbox or kDBRootAppFolder
-    DBSession *session = [[DBSession alloc] initWithAppKey:APP_KEY appSecret:APP_SECRET root:root];
-    [DBSession setSharedSession:session];
-    
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(authHelperStateChangedNotification:)
-     name:DBAuthHelperOSXStateChangedNotification
-     object:[DBAuthHelperOSX sharedHelper]];
-    
-    [[DBAuthHelperOSX sharedHelper] authenticate];
-    
-}
-
-- (void)authHelperStateChangedNotification:(NSNotification *)notification {
-    if ([[DBSession sharedSession] isLinked]) {
-        // You can now start using the API!
-        
-        self.apiInitialized = YES;
-    }
 }
 
 - (void) timerHandler {
-    //    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:@"pbpaste"];
-    //    NSData *data = [handle readDataToEndOfFile];
-    //    NSLog(@"%@", data);
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *classes = [[NSArray alloc]
                         initWithObjects:
@@ -82,23 +51,88 @@
                         nil];
     NSDictionary *options = [NSDictionary dictionary];
     NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
-    if (copiedItems != nil) {
+
+    if (copiedItems != nil && [self.account isLinked]) {
         
         //todo: добавить проверку что объекты не идентичны (чтобы не добавлять повторно)
         
         NSObject* obj = [copiedItems objectAtIndex:0];
         if ([obj isKindOfClass:[NSImage class]]) {
-            if (self.apiInitialized) {
+            
+            
+            
+
             NSImage *img = (NSImage*) obj;
+            
             NSBitmapImageRep *imgRep = [[img representations] objectAtIndex: 0];
             NSData *data = [imgRep representationUsingType: NSPNGFileType properties: nil];
             
-            char template[20] = "/tmp/dropbuf.XXXXXX"; //todo: FUCKING SACRED!!
-            char* tmpFilename = mktemp(template);
-            [data writeToFile: [NSString stringWithUTF8String:tmpFilename]
+            unsigned char hash[16];
+            CC_MD5([data bytes], [data length], hash);
+            
+            NSString *imageHash = [NSString stringWithFormat:
+                                   @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+                                   hash[0], hash[1], hash[2], hash[3],
+                                   hash[4], hash[5], hash[6], hash[7],
+                                   hash[8], hash[9], hash[10], hash[11],
+                                   hash[12], hash[13], hash[14], hash[15]
+                                   ];
+            
+            if ([imageHash isEqualToString:self.toPut]) {
+                return;
+            }
+            self.toPut = imageHash;
+            if (self.firstTime) {
+                self.firstTime = NO;
+                return;
+            }
+            
+            NSString *dateString = [NSDateFormatter localizedStringFromDate: [[NSDate alloc] init]
+                                                                  dateStyle: NSDateFormatterShortStyle
+                                                                  timeStyle: NSDateFormatterFullStyle];
+
+            NSString *shotAt = @"Shot at ";
+            NSString *tmpFileName =[[shotAt stringByAppendingString:dateString] stringByAppendingString:@".png"];
+            
+            NSString *tmpFilepath = @"/tmp/";
+            [data writeToFile: [tmpFilepath stringByAppendingString: tmpFileName]
                    atomically: NO];
             
+            DBFilesystem *filesystem = [DBFilesystem sharedFilesystem];
+            if (!filesystem) {
+                filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
+                [DBFilesystem setSharedFilesystem:filesystem];
             }
+            DBError *error = nil;
+
+            DBPath *path = [[DBPath root] childPath:tmpFileName];
+            if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
+                
+                NSLog(@"%@", path);
+                // Report error if path look up failed for some other reason than NOT FOUND
+                if ([error code] != DBErrorParamsNotFound) {
+                    NSLog(@"Error");
+                }
+                
+                // Create a new test file.
+                DBFile *file = [[DBFilesystem sharedFilesystem] createFile:path error:&error];
+                if (!file) {
+                    NSLog(@"Error");
+                }
+                
+                // Write to the new test file.
+                if (![file writeData:data error:&error]) {
+                    NSLog(@"Error");
+                }
+                
+                [file close];
+                
+            } else {
+                NSLog(@"Error");
+            }
+
+            
+
             
         } else if ([obj isKindOfClass:[NSString class]]) {
             NSString *string = (NSString *) obj;

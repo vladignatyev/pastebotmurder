@@ -24,21 +24,13 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>Tasks</string>
+			<string>PasteBuf</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>db-nvdl2oouv53cpe1</string>
+				<string>db-u5sva6uz22bvuyy</string>
 			</array>
 		</dict>
-        <dict>
-            <key>CFBundleURLName</key>
-            <string>Dropbox SDK</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>db-nvdl2oouv53cpe1</string>
-            </array>
-        </dict>
-    </array>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
