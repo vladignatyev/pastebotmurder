@@ -87,7 +87,7 @@
             
             NSString *dateString = [NSDateFormatter localizedStringFromDate: [[NSDate alloc] init]
                                                                   dateStyle: NSDateFormatterShortStyle
-                                                                  timeStyle: NSDateFormatterFullStyle];
+                                                                  timeStyle: NSDateFormatterShortStyle];
 
             NSString *shotAt = @"Shot at ";
             NSString *tmpFileName =[[shotAt stringByAppendingString:dateString] stringByAppendingString:@".png"];
@@ -104,6 +104,7 @@
             DBError *error = nil;
 
             DBPath *path = [[DBPath root] childPath:tmpFileName];
+            NSLog(@"%@", path.stringValue);
             if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
                 
                 NSLog(@"%@", path);
