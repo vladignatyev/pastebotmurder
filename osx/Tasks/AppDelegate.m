@@ -35,7 +35,7 @@
         [weakSelf setupTasks];
     }];
     [self setupTasks];
-    
+
     [NSApp setActivationPolicy: NSApplicationActivationPolicyAccessory];
     
     _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:NULL repeats:YES];
@@ -91,7 +91,7 @@
 
             NSString *shotAt = @"Shot at ";
             NSString *tmpFileName =[[shotAt stringByAppendingString:dateString] stringByAppendingString:@".png"];
-            
+
             NSString *tmpFilepath = @"/tmp/";
             [data writeToFile: [tmpFilepath stringByAppendingString: tmpFileName]
                    atomically: NO];
@@ -191,7 +191,7 @@
 -(CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     if (self.account) {
         if (row == [_tasks count] + 1) {
-            return 34.0;
+            return 70.0;
         }
     } else {
         return 34.0;
@@ -227,6 +227,20 @@
         [record deleteRecord];
         [_tasks removeObjectAtIndex:row];
         [self.tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectFade];
+    }
+}
+
+- (IBAction)didPressClearTable:(id)sender {
+
+    // не нашел в доках более подходящего метода, чем удалять все записи по отдельности
+
+    DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
+
+    NSArray * records= [bufsTbl query:nil error:nil];
+
+    for(DBRecord *record in records) {
+
+        [record deleteRecord];
     }
 }
 
