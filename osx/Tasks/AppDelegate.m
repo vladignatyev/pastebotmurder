@@ -6,6 +6,8 @@
 #import <Dropbox/Dropbox.h>
 #import <CommonCrypto/CommonDigest.h>
 
+#import "NSString+LinkDetection.h"
+
 #define APP_KEY     @"84zxlqvsmm2py5y"
 #define APP_SECRET  @"u5sva6uz22bvuyy"
 #define BUFS_TABLE @"bufs_values"
@@ -54,15 +56,9 @@
     NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
 
     if (copiedItems != nil && [self.account isLinked]) {
-
-
-        //todo: добавить проверку что объекты не идентичны (чтобы не добавлять повторно)
-
         NSObject *obj = [copiedItems objectAtIndex:0];
 
-
         if (![self isNewObject:obj]) {
-
             return;
         }
 
@@ -127,10 +123,18 @@
         } else if ([obj isKindOfClass:[NSString class]]) {
 
             NSString *string = (NSString *) obj;
+            NSString *stringType = @"plain";
+            if ([string isEmail]) {
+                stringType = @"email";
+            } else if ([string isSchemeLink]) {
+                stringType = @"scheme";
+            } else if ([string isWebURL]) {
+                stringType = @"www";
+            }
 
             DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
             DBRecord *buf = [tasksTbl insert:@{@"value" : string,
-                    @"type" : @"plain",
+                    @"type" : stringType,
                     @"created" : [NSDate date]}];
             [_tasks addObject:buf];
         }
