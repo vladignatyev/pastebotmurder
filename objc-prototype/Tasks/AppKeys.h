@@ -10,5 +10,8 @@
 #define Datastore_Examples_AppKeys_h
 
 
+NSString const* APP_KEY;
+NSString const* APP_SECRET;
+NSString const* BUFS_TABLE;
 
 #endif

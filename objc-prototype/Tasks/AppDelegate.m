@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
 #import <Dropbox/Dropbox.h>
+#import "AppKeys.h"
 
 @implementation AppDelegate
 
@@ -7,8 +8,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    DBAccountManager *mgr =
-        [[DBAccountManager alloc] initWithAppKey:@"84zxlqvsmm2py5y" secret:@"u5sva6uz22bvuyy"];
+    DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey: APP_KEY
+                                                              secret: APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];

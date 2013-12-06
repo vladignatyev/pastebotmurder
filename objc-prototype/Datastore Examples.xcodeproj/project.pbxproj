@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBA76DC76D11FDC619F6A /* ImageCell.m */; };
+		801A172E18525D230083A25D /* AppKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A172D18525D230083A25D /* AppKeys.m */; };
 		B546BB0817880051007C5730 /* tasks-example-57.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB0717880051007C5730 /* tasks-example-57.png */; };
 		B546BB0A1788005B007C5730 /* tasks-example-114.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB091788005B007C5730 /* tasks-example-114.png */; };
 		D3B589201780FD18009E2333 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6EB17659DB7007C6115 /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		677DBA76DC76D11FDC619F6A /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		677DBAADD5452CC80E300DAD /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
+		801A172C18525B990083A25D /* AppKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKeys.h; sourceTree = "<group>"; };
+		801A172D18525D230083A25D /* AppKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppKeys.m; sourceTree = "<group>"; };
 		B546BB0717880051007C5730 /* tasks-example-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tasks-example-57.png"; sourceTree = "<group>"; };
 		B546BB091788005B007C5730 /* tasks-example-114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tasks-example-114.png"; sourceTree = "<group>"; };
 		D358F6EB17659DB7007C6115 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -120,6 +123,8 @@
 		D3B589231780FD18009E2333 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				801A172C18525B990083A25D /* AppKeys.h */,
+				801A172D18525D230083A25D /* AppKeys.m */,
 				D3B5892C1780FD18009E2333 /* AppDelegate.h */,
 				D3B5892D1780FD18009E2333 /* AppDelegate.m */,
 				D3B589241780FD18009E2333 /* Supporting Files */,
@@ -224,6 +229,7 @@
 				D3B5893C1781010C009E2333 /* TasksController.m in Sources */,
 				D3D50C75178604F1009A694B /* InputTaskCell.m in Sources */,
 				D3D50C78178605DF009A694B /* TaskCell.m in Sources */,
+				801A172E18525D230083A25D /* AppKeys.m in Sources */,
 				677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

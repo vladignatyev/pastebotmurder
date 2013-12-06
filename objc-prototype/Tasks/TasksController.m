@@ -4,6 +4,8 @@
 #import "ImageCell.h"
 #import <Dropbox/Dropbox.h>
 
+#import "AppKeys.h"
+
 @interface TasksController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property(nonatomic, readonly) DBAccountManager *accountManager;
@@ -178,18 +180,20 @@
 #pragma mark - UITextFieldDelegate methods
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([textField.text length]) {
-        DBTable *tasksTbl = [self.store getTable:@"tasks"];
-
-        DBRecord *task = [tasksTbl insert:@{@"taskname" : textField.text, @"completed" : @NO, @"created" : [NSDate date]}];
-        [_tasks addObject:task];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([_tasks count] - 1) inSection:0];
-        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
-        textField.text = nil;
-    }
-
-    [textField resignFirstResponder];
+//    if ([textField.text length]) {
+//        DBTable *tasksTbl = [self.store getTable: BUFS_TABLE];
+//
+//        DBRecord *task = [tasksTbl insert:@{@"taskname": textField.text,
+//                                            @"completed": @NO,
+//                                            @"created": [NSDate date]}];
+//        [_tasks addObject:task];
+//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([_tasks count] - 1) inSection:0];
+//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//
+//        textField.text = nil;
+//    }
+//
+//    [textField resignFirstResponder];
     return YES;
 }
 
@@ -228,7 +232,7 @@
                 [slf syncTasks];
             }
         }];
-        _tasks = [NSMutableArray arrayWithArray:[[self.store getTable:@"bufs_values"] query:nil error:nil]];
+        _tasks = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
 
         [_tasks sortUsingComparator:^(DBRecord *task1, DBRecord *task2) {
 
@@ -261,7 +265,7 @@
     }
     [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
 
-    NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[@"bufs_values"] allObjects]];
+    NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
     NSMutableArray *updates = [NSMutableArray array];
     for (int i = [changed count] - 1; i >= 0; i--) {
         DBRecord *record = changed[i];
