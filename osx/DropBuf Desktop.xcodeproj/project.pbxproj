@@ -13,10 +13,24 @@
 		67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67C40D4E181566EE005B06DA /* InfoPlist.strings */; };
 		67C40D52181566EE005B06DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C40D51181566EE005B06DA /* main.m */; };
 		67C40D59181566EE005B06DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C40D58181566EE005B06DA /* AppDelegate.m */; };
+		801A1731185262F50083A25D /* NSString+LinkDetection.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A1730185262F50083A25D /* NSString+LinkDetection.m */; };
+		801A177C18526BAD0083A25D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C40D30181566AC005B06DA /* XCTest.framework */; };
+		801A178218526BAD0083A25D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 801A178018526BAD0083A25D /* InfoPlist.strings */; };
+		801A178418526BAD0083A25D /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A178318526BAD0083A25D /* Tests.m */; };
 		8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		80FBDB08184FBB8F00A1B639 /* MenuDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		801A178618526BAD0083A25D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67C40D06181566AC005B06DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 67C40D48181566EE005B06DA;
+			remoteInfo = Tasks;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		67C40D79181567C8005B06DA /* CopyFiles */ = {
@@ -47,6 +61,13 @@
 		67C40D53181566EE005B06DA /* Tasks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tasks-Prefix.pch"; sourceTree = "<group>"; };
 		67C40D57181566EE005B06DA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		67C40D58181566EE005B06DA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		801A172F185262F50083A25D /* NSString+LinkDetection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+LinkDetection.h"; path = "Tasks/NSString+LinkDetection.h"; sourceTree = "<group>"; };
+		801A1730185262F50083A25D /* NSString+LinkDetection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+LinkDetection.m"; path = "Tasks/NSString+LinkDetection.m"; sourceTree = "<group>"; };
+		801A177B18526BAC0083A25D /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		801A177F18526BAD0083A25D /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		801A178118526BAD0083A25D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		801A178318526BAD0083A25D /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
+		801A178518526BAD0083A25D /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		809FEC60184FF5A00034B712 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		80FBDB06184FBB8F00A1B639 /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuDelegate.h; path = Tasks/MenuDelegate.h; sourceTree = "<group>"; };
 		80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuDelegate.m; path = Tasks/MenuDelegate.m; sourceTree = "<group>"; };
@@ -62,6 +83,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		801A177818526BAC0083A25D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				801A177C18526BAD0083A25D /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -70,7 +99,9 @@
 			children = (
 				80FBDB06184FBB8F00A1B639 /* MenuDelegate.h */,
 				80FBDB07184FBB8F00A1B639 /* MenuDelegate.m */,
+				801A1735185269620083A25D /* Utilities */,
 				67C40D4B181566EE005B06DA /* Tasks */,
+				801A177D18526BAD0083A25D /* Tests */,
 				67C40D10181566AC005B06DA /* Frameworks */,
 				67C40D0F181566AC005B06DA /* Products */,
 			);
@@ -80,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				67C40D49181566EE005B06DA /* DropBuf Desktop.app */,
+				801A177B18526BAC0083A25D /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,6 +161,34 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		801A1735185269620083A25D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				801A172F185262F50083A25D /* NSString+LinkDetection.h */,
+				801A1730185262F50083A25D /* NSString+LinkDetection.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		801A177D18526BAD0083A25D /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				801A178318526BAD0083A25D /* Tests.m */,
+				801A177E18526BAD0083A25D /* Supporting Files */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		801A177E18526BAD0083A25D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				801A177F18526BAD0083A25D /* Tests-Info.plist */,
+				801A178018526BAD0083A25D /* InfoPlist.strings */,
+				801A178518526BAD0083A25D /* Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,6 +210,24 @@
 			productReference = 67C40D49181566EE005B06DA /* DropBuf Desktop.app */;
 			productType = "com.apple.product-type.application";
 		};
+		801A177A18526BAC0083A25D /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 801A178818526BAD0083A25D /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				801A177718526BAC0083A25D /* Sources */,
+				801A177818526BAC0083A25D /* Frameworks */,
+				801A177918526BAC0083A25D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				801A178718526BAD0083A25D /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 801A177B18526BAC0083A25D /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -158,6 +236,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Dropbox, Inc";
+				TargetAttributes = {
+					801A177A18526BAC0083A25D = {
+						TestTargetID = 67C40D48181566EE005B06DA;
+					};
+				};
 			};
 			buildConfigurationList = 67C40D09181566AC005B06DA /* Build configuration list for PBXProject "DropBuf Desktop" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -173,6 +256,7 @@
 			projectRoot = "";
 			targets = (
 				67C40D48181566EE005B06DA /* Tasks */,
+				801A177A18526BAC0083A25D /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +271,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		801A177918526BAC0083A25D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				801A178218526BAD0083A25D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -194,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				801A1731185262F50083A25D /* NSString+LinkDetection.m in Sources */,
 				678B6E051816359D00E3F0DA /* TaskCellView.m in Sources */,
 				80FBDB08184FBB8F00A1B639 /* MenuDelegate.m in Sources */,
 				67C40D59181566EE005B06DA /* AppDelegate.m in Sources */,
@@ -201,7 +294,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		801A177718526BAC0083A25D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				801A178418526BAD0083A25D /* Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		801A178718526BAD0083A25D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 67C40D48181566EE005B06DA /* Tasks */;
+			targetProxy = 801A178618526BAD0083A25D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		678B6DFD181608AE00E3F0DA /* MainMenu.xib */ = {
@@ -216,6 +325,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				67C40D4F181566EE005B06DA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		801A178018526BAD0083A25D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				801A178118526BAD0083A25D /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -331,6 +448,46 @@
 			};
 			name = Release;
 		};
+		801A178918526BAD0083A25D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DropBuf Desktop.app/Contents/MacOS/DropBuf Desktop";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		801A178A18526BAD0083A25D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DropBuf Desktop.app/Contents/MacOS/DropBuf Desktop";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -348,6 +505,15 @@
 			buildConfigurations = (
 				67C40D71181566EE005B06DA /* Debug */,
 				67C40D72181566EE005B06DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		801A178818526BAD0083A25D /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				801A178918526BAD0083A25D /* Debug */,
+				801A178A18526BAD0083A25D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
