@@ -238,7 +238,7 @@
 				ORGANIZATIONNAME = "Dropbox, Inc";
 				TargetAttributes = {
 					801A177A18526BAC0083A25D = {
-						TestTargetID = 67C40D48181566EE005B06DA;
+						TestTargetID = 67C40D48181566EE005B06DA /* Tasks */;
 					};
 				};
 			};

@@ -1,4 +1,3 @@
-#import "InputTaskCell.h"
 #import "TasksController.h"
 #import "TaskCell.h"
 #import "ImageCell.h"
@@ -12,7 +11,6 @@
 @property(nonatomic, readonly) DBAccount *account;
 @property(nonatomic, retain) DBDatastore *store;
 @property(nonatomic, retain) NSMutableArray *tasks;
-@property(nonatomic, retain) InputTaskCell *inputTaskCell;
 
 @end
 
@@ -34,15 +32,17 @@
 
     [super viewDidAppear:animated];
 
-        __weak TasksController *slf = self;
-        [self.accountManager addObserver:self block:^(DBAccount *account) {
-            [slf setupTasks];
-        }];
+    __weak TasksController *slf = self;
 
-        [self setupTasks];
+    [self.accountManager addObserver:self block:^(DBAccount *account) {
+        [slf setupTasks];
+    }];
+
+    [self setupTasks];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+
     [super viewWillDisappear:animated];
 
     [self.accountManager removeObserver:self];
@@ -96,9 +96,9 @@
 
             ImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
 
-            imageCell.taskLabel.text = @"hui";
+            imageCell.taskLabel.text = @"image";
 
-            [self showImage:item[@"value"] inImageView:imageCell.imageView2];
+            [self performSelectorInBackground:@selector(functionWrapperShowImageInImageView:) withObject:@[item[@"value"], imageCell.imageView2]];
 
             return imageCell;
 
@@ -296,29 +296,61 @@
     [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+
 - (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView {
 
-    NSLog(@"srart reading");
     DBPath *existingPath = [[DBPath root] childPath:imageName];
-    __block DBFile *file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:nil];
 
-    if (!file.status.cached) {
+    DBError *error = nil;
 
-        [file addObserver:self block:^() {
+    DBFile *file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:&error];
 
-            if(file.status.state == DBFileStateIdle) {
+    if (error) {
 
-                imageView.image = [UIImage imageWithData:[file readData:nil]];
-            }
-        }];
+        if([error code] == DBErrorParamsNotFound) {
+
+            [file close];
+
+            [NSThread sleepForTimeInterval:1];
+
+            [self performSelector:@selector(functionWrapperShowImageInImageView:) withObject:@[imageName, imageView]];
+        }
 
     } else {
 
-        imageView.image = [UIImage imageWithData:[file readData:nil]];
+        UIImage *image = [UIImage imageWithData:[file readData:nil]];
+
+        while (image == nil) {
+
+            [file close];
+
+            [NSThread sleepForTimeInterval:0.5];
+
+            file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:nil];
+
+            image = [UIImage imageWithData:[file readData:nil]];
+        }
+
+        [file close];
+
+        [self performSelectorOnMainThread:@selector(setImageInImageView:)
+                               withObject:@[image, imageView]
+                            waitUntilDone:NO];
     }
+}
 
+- (void)functionWrapperShowImageInImageView:(NSArray *)arguments {
 
-    return;
+    [self showImage:[arguments firstObject] inImageView:[arguments lastObject]];
+}
+
+- (void)setImageInImageView:(NSArray *)arguments {
+
+    UIImage *image = [arguments firstObject];
+
+    UIImageView *imageView = [arguments lastObject];
+
+    imageView.image = image;
 }
 
 @end

@@ -28,7 +28,6 @@
 		D3B5894017810DD3009E2333 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F717659DE6007C6115 /* libc++.dylib */; };
 		D3B5894117810DD7009E2333 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6FB17659E07007C6115 /* CFNetwork.framework */; };
 		D3B5894217810E53009E2333 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F117659DCD007C6115 /* Security.framework */; };
-		D3D50C75178604F1009A694B /* InputTaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D50C74178604F1009A694B /* InputTaskCell.m */; };
 		D3D50C78178605DF009A694B /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D50C77178605DF009A694B /* TaskCell.m */; };
 /* End PBXBuildFile section */
 
@@ -61,8 +60,6 @@
 		D3B589381780FD3B009E2333 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		D3B5893A1781010C009E2333 /* TasksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksController.h; sourceTree = "<group>"; };
 		D3B5893B1781010C009E2333 /* TasksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksController.m; sourceTree = "<group>"; };
-		D3D50C73178604F1009A694B /* InputTaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTaskCell.h; sourceTree = "<group>"; };
-		D3D50C74178604F1009A694B /* InputTaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTaskCell.m; sourceTree = "<group>"; };
 		D3D50C76178605DF009A694B /* TaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
 		D3D50C77178605DF009A694B /* TaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,8 +128,6 @@
 				D3B589381780FD3B009E2333 /* Storyboard.storyboard */,
 				D3B5893A1781010C009E2333 /* TasksController.h */,
 				D3B5893B1781010C009E2333 /* TasksController.m */,
-				D3D50C73178604F1009A694B /* InputTaskCell.h */,
-				D3D50C74178604F1009A694B /* InputTaskCell.m */,
 				D3D50C76178605DF009A694B /* TaskCell.h */,
 				D3D50C77178605DF009A694B /* TaskCell.m */,
 				677DBA76DC76D11FDC619F6A /* ImageCell.m */,
@@ -227,7 +222,6 @@
 				D3B5892A1780FD18009E2333 /* main.m in Sources */,
 				D3B5892E1780FD18009E2333 /* AppDelegate.m in Sources */,
 				D3B5893C1781010C009E2333 /* TasksController.m in Sources */,
-				D3D50C75178604F1009A694B /* InputTaskCell.m in Sources */,
 				D3D50C78178605DF009A694B /* TaskCell.m in Sources */,
 				801A172E18525D230083A25D /* AppKeys.m in Sources */,
 				677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */,
