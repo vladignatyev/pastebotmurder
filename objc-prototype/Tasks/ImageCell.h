@@ -11,4 +11,6 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView *imageView2;
 
+@property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+
 @end

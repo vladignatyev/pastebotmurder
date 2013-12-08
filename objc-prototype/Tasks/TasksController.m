@@ -98,6 +98,10 @@
 
             imageCell.taskLabel.text = @"image";
 
+            imageCell.imageView2.image = nil;
+
+            [imageCell.activityIndicatorView startAnimating];
+
             [self performSelectorInBackground:@selector(functionWrapperShowImageInImageView:) withObject:@[item[@"value"], imageCell.imageView2]];
 
             return imageCell;

@@ -109,6 +109,7 @@
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <connections>
+                                    <outlet property="activityIndicatorView" destination="tLu-je-peB" id="kKs-ib-Kxi"/>
                                     <outlet property="imageView2" destination="NBb-7X-lAS" id="Rei-mp-APF"/>
                                     <outlet property="taskLabel" destination="WaX-pv-dOp" id="HfA-FR-NFu"/>
                                 </connections>
