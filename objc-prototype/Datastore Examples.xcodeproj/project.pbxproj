@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBA76DC76D11FDC619F6A /* ImageCell.m */; };
+		677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8FF779C5FC74D11B427 /* SBRecord.m */; };
 		801A172E18525D230083A25D /* AppKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A172D18525D230083A25D /* AppKeys.m */; };
 		B546BB0817880051007C5730 /* tasks-example-57.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB0717880051007C5730 /* tasks-example-57.png */; };
 		B546BB0A1788005B007C5730 /* tasks-example-114.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB091788005B007C5730 /* tasks-example-114.png */; };
@@ -32,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		677DB8FF779C5FC74D11B427 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecord.m; sourceTree = "<group>"; };
+		677DBA29FBA01048D7A8D481 /* SBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecord.h; sourceTree = "<group>"; };
 		677DBA76DC76D11FDC619F6A /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		677DBAADD5452CC80E300DAD /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
 		801A172C18525B990083A25D /* AppKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKeys.h; sourceTree = "<group>"; };
@@ -84,6 +87,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		677DBF3876A76E13F68B04A8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				677DB8FF779C5FC74D11B427 /* SBRecord.m */,
+				677DBA29FBA01048D7A8D481 /* SBRecord.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D358F6AF17659D1C007C6115 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +144,7 @@
 				D3D50C77178605DF009A694B /* TaskCell.m */,
 				677DBA76DC76D11FDC619F6A /* ImageCell.m */,
 				677DBAADD5452CC80E300DAD /* ImageCell.h */,
+				677DBF3876A76E13F68B04A8 /* Model */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -225,6 +238,7 @@
 				D3D50C78178605DF009A694B /* TaskCell.m in Sources */,
 				801A172E18525D230083A25D /* AppKeys.m in Sources */,
 				677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */,
+				677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

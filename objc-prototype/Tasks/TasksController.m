@@ -4,53 +4,42 @@
 #import <Dropbox/Dropbox.h>
 
 #import "AppKeys.h"
+#import "SBRecord.h"
 
-@interface TasksController () <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface TasksController () <UITableViewDataSource>
 
 @property(nonatomic, readonly) DBAccountManager *accountManager;
 @property(nonatomic, readonly) DBAccount *account;
 @property(nonatomic, retain) DBDatastore *store;
-@property(nonatomic, retain) NSMutableArray *tasks;
+@property(nonatomic, retain) NSMutableArray *records;
 
 @end
 
 @implementation TasksController
 
+
 - (void)dealloc {
+
     [_store removeObserver:self];
 }
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
 
     self.tableView.rowHeight = 50.0f;
 
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-
-    [super viewDidAppear:animated];
-
-    __weak TasksController *slf = self;
-
     [self.accountManager addObserver:self block:^(DBAccount *account) {
-        [slf setupTasks];
+
+        [self setupTasks];
     }];
 
     [self setupTasks];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
 
-    [super viewWillDisappear:animated];
 
-    [self.accountManager removeObserver:self];
-    if (_store) {
-        [_store removeObserver:self];
-    }
-    self.store = nil;
-}
+// user events
 
 - (IBAction)didPressLink {
     [[DBAccountManager sharedManager] linkFromController:self];
@@ -63,70 +52,19 @@
     [self.tableView reloadData];
 }
 
-
-#pragma mark UITableViewDataSource methods
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!self.account) {
-        return 1;
-    } else {
-        return [_tasks count] + 1;
-    }
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if (![DBAccountManager sharedManager].linkedAccount) {
-
-        return [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
-
-    } else if ([indexPath row] == [_tasks count]) {
-
-        return [tableView dequeueReusableCellWithIdentifier:@"UnlinkCell"];
-
-    } else {
-
-        DBRecord *item = _tasks[[indexPath row]];
-
-        if ([item[@"type"] isEqualToString:@"image"]) {
-
-            ImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
-
-            imageCell.taskLabel.text = @"image";
-
-            imageCell.imageView2.image = nil;
-
-            [imageCell.activityIndicatorView startAnimating];
-
-            [self performSelectorInBackground:@selector(functionWrapperShowImageInImageView:) withObject:@[item[@"value"], imageCell.imageView2]];
-
-            return imageCell;
-
-        } else {
-
-            TaskCell *textCell = [tableView dequeueReusableCellWithIdentifier:@"TaskCell"];
-
-            textCell.taskLabel.text = item[@"value"];
-
-            return textCell;
-        }
-    }
-}
-
-#pragma mark - UITableViewDelegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    SBRecord *record = _records[[indexPath row]];
 
-    return;
+    if ([record isLink]) {
 
-    DBRecord *item = _tasks[[indexPath row]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[record value]]];
 
-    if ([item[@"type"] isEqualToString:@"image"]) {
+    } else if ([record isMail]) {
+
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [record value]]]];
+
+    } else if ([record isImage]) {
 
         UIViewController *newVC = [[UIViewController alloc] init];
 
@@ -134,7 +72,7 @@
 
         imageView.contentMode = UIViewContentModeScaleAspectFit;
 
-        [self showImage:item[@"value"] inImageView:imageView];
+        [self showImage:[record value] inImageView:imageView];
 
         newVC.view.backgroundColor = [UIColor whiteColor];
         [newVC.view addSubview:imageView];
@@ -149,19 +87,73 @@
 
         [self presentModalViewController:newVC animated:YES];
     }
-
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.account && [indexPath row] < [_tasks count];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    DBRecord *record = [_tasks objectAtIndex:[indexPath row]];
+    SBRecord *record = [_records objectAtIndex:[indexPath row]];
     [record deleteRecord];
-    [_tasks removeObjectAtIndex:[indexPath row]];
+    [_records removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
+
+// table data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (!self.account) {
+        return 1;
+    } else {
+        return [_records count] + 1;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if (![DBAccountManager sharedManager].linkedAccount) {
+
+        return [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
+
+    } else if ([indexPath row] == [_records count]) {
+
+        return [tableView dequeueReusableCellWithIdentifier:@"UnlinkCell"];
+
+    } else {
+
+        SBRecord *record = _records[[indexPath row]];
+
+        if ([record isImage]) {
+
+            ImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
+
+            imageCell.taskLabel.text = @"image";
+
+            imageCell.imageView2.image = nil;
+
+            [imageCell.activityIndicatorView startAnimating];
+
+            [self performSelectorInBackground:@selector(functionWrapperShowImageInImageView:) withObject:@[[record value], imageCell.imageView2]];
+
+            return imageCell;
+
+        } else {
+
+            TaskCell *textCell = [tableView dequeueReusableCellWithIdentifier:@"TaskCell"];
+
+            textCell.taskLabel.text = [record value];
+
+            return textCell;
+        }
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.account && [indexPath row] < [_records count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -181,32 +173,116 @@
 }
 
 
-#pragma mark - UITextFieldDelegate methods
+// model
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-//    if ([textField.text length]) {
-//        DBTable *tasksTbl = [self.store getTable: BUFS_TABLE];
-//
-//        DBRecord *task = [tasksTbl insert:@{@"taskname": textField.text,
-//                                            @"completed": @NO,
-//                                            @"created": [NSDate date]}];
-//        [_tasks addObject:task];
-//        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:([_tasks count] - 1) inSection:0];
-//        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//
-//        textField.text = nil;
-//    }
-//
-//    [textField resignFirstResponder];
-    return YES;
+- (void)setupTasks {
+
+    if (self.account) {
+
+        DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
+        [DBFilesystem setSharedFilesystem:filesystem];
+
+        __weak TasksController *slf = self;
+
+        [self.store addObserver:self block:^{
+            if (slf.store.status & (DBDatastoreIncoming | DBDatastoreOutgoing)) {
+                [slf syncTasks];
+            }
+        }];
+
+        NSArray *tempRecords = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
+
+        self.records = [NSMutableArray arrayWithCapacity:[tempRecords count]];
+
+        for(DBRecord *record in tempRecords) {
+
+            [_records addObject:[SBRecord recordByDBRecord:record]];
+        }
+
+        [_records sortUsingComparator:^(SBRecord *record1, SBRecord *record2) {
+
+            return [[record2 created] compare:[record1 created]];
+        }];
+
+    } else {
+
+        _store = nil;
+        _records = nil;
+        [DBFilesystem setSharedFilesystem:nil];
+    }
+
+    [self.tableView reloadData];
+
+    [self syncTasks];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_tasks count] inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+- (void)syncTasks {
+
+    if (self.account) {
+
+        NSDictionary *changed = [self.store sync:nil];
+
+        [self update:changed];
+    }
 }
 
-#pragma mark - private methods
+- (void)update:(NSDictionary *)changedDict {
+
+    NSMutableArray *deleted = [NSMutableArray array];
+    for (int i = [_records count] - 1; i >= 0; i--) {
+        SBRecord *record = _records[i];
+        if ([record isDeleted]) {
+            [deleted addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            [_records removeObjectAtIndex:i];
+        }
+    }
+
+    [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    NSArray *tempChanged = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
+
+    NSMutableArray *changed = [NSMutableArray arrayWithCapacity:0];
+
+    for(DBRecord *record in tempChanged) {
+
+        [changed addObject:[SBRecord recordByDBRecord:record]];
+    }
+
+    NSMutableArray *updates = [NSMutableArray array];
+
+    for (int i = [changed count] - 1; i >= 0; i--) {
+        SBRecord *record = changed[i];
+        if ([record isDeleted]) {
+            [changed removeObjectAtIndex:i];
+        } else {
+            NSUInteger idx = [_records indexOfObject:record];
+            if (idx != NSNotFound) {
+                [updates addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
+                [changed removeObjectAtIndex:i];
+            }
+        }
+    }
+    [self.tableView reloadRowsAtIndexPaths:updates withRowAnimation:UITableViewRowAnimationAutomatic];
+
+
+    [_records addObjectsFromArray:changed];
+    [_records sortUsingComparator:^(SBRecord *record1, SBRecord *record2) {
+
+        return [[record2 created] compare:[record1 created]];
+    }];
+
+    NSMutableArray *inserts = [NSMutableArray array];
+    for (SBRecord *record in changed) {
+        int idx = [_records indexOfObject:record];
+        [inserts addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
+    }
+    [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+
+
+
+// system
 
 - (DBAccount *)account {
     return [DBAccountManager sharedManager].linkedAccount;
@@ -223,84 +299,6 @@
     return _store;
 }
 
-- (void)setupTasks {
-
-    if (self.account) {
-
-        DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
-        [DBFilesystem setSharedFilesystem:filesystem];
-
-        __weak TasksController *slf = self;
-        [self.store addObserver:self block:^{
-            if (slf.store.status & (DBDatastoreIncoming | DBDatastoreOutgoing)) {
-                [slf syncTasks];
-            }
-        }];
-        _tasks = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
-
-        [_tasks sortUsingComparator:^(DBRecord *task1, DBRecord *task2) {
-
-            return [task2[@"created"] compare:task1[@"created"]];
-        }];
-
-    } else {
-        _store = nil;
-        _tasks = nil;
-    }
-    [self.tableView reloadData];
-    [self syncTasks];
-}
-
-- (void)syncTasks {
-    if (self.account) {
-        NSDictionary *changed = [self.store sync:nil];
-        [self update:changed];
-    }
-}
-
-- (void)update:(NSDictionary *)changedDict {
-    NSMutableArray *deleted = [NSMutableArray array];
-    for (int i = [_tasks count] - 1; i >= 0; i--) {
-        DBRecord *task = _tasks[i];
-        if (task.deleted) {
-            [deleted addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-            [_tasks removeObjectAtIndex:i];
-        }
-    }
-    [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
-
-    NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
-    NSMutableArray *updates = [NSMutableArray array];
-    for (int i = [changed count] - 1; i >= 0; i--) {
-        DBRecord *record = changed[i];
-        if (record.deleted) {
-            [changed removeObjectAtIndex:i];
-        } else {
-            NSUInteger idx = [_tasks indexOfObject:record];
-            if (idx != NSNotFound) {
-                [updates addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
-                [changed removeObjectAtIndex:i];
-            }
-        }
-    }
-    [self.tableView reloadRowsAtIndexPaths:updates withRowAnimation:UITableViewRowAnimationAutomatic];
-
-
-    [_tasks addObjectsFromArray:changed];
-    [_tasks sortUsingComparator:^(DBRecord *obj1, DBRecord *obj2) {
-
-        return [obj2[@"created"] compare:obj1[@"created"]];
-    }];
-
-    NSMutableArray *inserts = [NSMutableArray array];
-    for (DBRecord *record in changed) {
-        int idx = [_tasks indexOfObject:record];
-        [inserts addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
-    }
-    [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-
 - (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView {
 
     DBPath *existingPath = [[DBPath root] childPath:imageName];
@@ -311,7 +309,7 @@
 
     if (error) {
 
-        if([error code] == DBErrorParamsNotFound) {
+        if ([error code] == DBErrorParamsNotFound) {
 
             [file close];
 
@@ -356,5 +354,6 @@
 
     imageView.image = image;
 }
+
 
 @end
