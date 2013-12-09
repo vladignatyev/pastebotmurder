@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBA76DC76D11FDC619F6A /* ImageCell.m */; };
+		677DB01ECA7BD69F0F4362C5 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8565799FA9E1626A5CC /* TaskCell.m */; };
+		677DB37FC59062EA7E4F5DA4 /* TasksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB63AC85B733D689301CB /* TasksController.m */; };
+		677DB5042504A573227F42DC /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC2003E2A4E6DD5C4A02 /* ImageCell.m */; };
 		677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8FF779C5FC74D11B427 /* SBRecord.m */; };
+		677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */; };
 		801A172E18525D230083A25D /* AppKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A172D18525D230083A25D /* AppKeys.m */; };
 		B546BB0817880051007C5730 /* tasks-example-57.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB0717880051007C5730 /* tasks-example-57.png */; };
 		B546BB0A1788005B007C5730 /* tasks-example-114.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB091788005B007C5730 /* tasks-example-114.png */; };
@@ -22,21 +25,25 @@
 		D3B589321780FD18009E2333 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3B589311780FD18009E2333 /* Default@2x.png */; };
 		D3B589341780FD18009E2333 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3B589331780FD18009E2333 /* Default-568h@2x.png */; };
 		D3B589391780FD3B009E2333 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3B589381780FD3B009E2333 /* Storyboard.storyboard */; };
-		D3B5893C1781010C009E2333 /* TasksController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B5893B1781010C009E2333 /* TasksController.m */; };
 		D3B5893D17810D6E009E2333 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F917659DFA007C6115 /* Dropbox.framework */; };
 		D3B5893E17810DC4009E2333 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F317659DD7007C6115 /* QuartzCore.framework */; };
 		D3B5893F17810DC8009E2333 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F517659DDF007C6115 /* SystemConfiguration.framework */; };
 		D3B5894017810DD3009E2333 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F717659DE6007C6115 /* libc++.dylib */; };
 		D3B5894117810DD7009E2333 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6FB17659E07007C6115 /* CFNetwork.framework */; };
 		D3B5894217810E53009E2333 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6F117659DCD007C6115 /* Security.framework */; };
-		D3D50C78178605DF009A694B /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D50C77178605DF009A694B /* TaskCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		677DB3095D5B611D02D3DEFE /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
+		677DB4F4AE554D1E03687EFB /* TasksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksController.h; sourceTree = "<group>"; };
+		677DB63AC85B733D689301CB /* TasksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksController.m; sourceTree = "<group>"; };
+		677DB8565799FA9E1626A5CC /* TaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCell.m; sourceTree = "<group>"; };
 		677DB8FF779C5FC74D11B427 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecord.m; sourceTree = "<group>"; };
+		677DB90FFA2ACA099EFE7646 /* TaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
 		677DBA29FBA01048D7A8D481 /* SBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecord.h; sourceTree = "<group>"; };
-		677DBA76DC76D11FDC619F6A /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
-		677DBAADD5452CC80E300DAD /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
+		677DBB7B2120799A43F82258 /* SBImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageViewController.h; sourceTree = "<group>"; };
+		677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageViewController.m; sourceTree = "<group>"; };
+		677DBC2003E2A4E6DD5C4A02 /* ImageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		801A172C18525B990083A25D /* AppKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKeys.h; sourceTree = "<group>"; };
 		801A172D18525D230083A25D /* AppKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppKeys.m; sourceTree = "<group>"; };
 		B546BB0717880051007C5730 /* tasks-example-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tasks-example-57.png"; sourceTree = "<group>"; };
@@ -61,10 +68,6 @@
 		D3B589311780FD18009E2333 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D3B589331780FD18009E2333 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D3B589381780FD3B009E2333 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		D3B5893A1781010C009E2333 /* TasksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksController.h; sourceTree = "<group>"; };
-		D3B5893B1781010C009E2333 /* TasksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksController.m; sourceTree = "<group>"; };
-		D3D50C76178605DF009A694B /* TaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
-		D3D50C77178605DF009A694B /* TaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		677DB130D9E03C55DE828DDE /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				677DB63AC85B733D689301CB /* TasksController.m */,
+				677DB4F4AE554D1E03687EFB /* TasksController.h */,
+				677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */,
+				677DBB7B2120799A43F82258 /* SBImageViewController.h */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		677DBAB29126115674165594 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				677DB8565799FA9E1626A5CC /* TaskCell.m */,
+				677DB90FFA2ACA099EFE7646 /* TaskCell.h */,
+				677DB3095D5B611D02D3DEFE /* ImageCell.h */,
+				677DBC2003E2A4E6DD5C4A02 /* ImageCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		677DBF3876A76E13F68B04A8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,13 +163,9 @@
 				D3B5892D1780FD18009E2333 /* AppDelegate.m */,
 				D3B589241780FD18009E2333 /* Supporting Files */,
 				D3B589381780FD3B009E2333 /* Storyboard.storyboard */,
-				D3B5893A1781010C009E2333 /* TasksController.h */,
-				D3B5893B1781010C009E2333 /* TasksController.m */,
-				D3D50C76178605DF009A694B /* TaskCell.h */,
-				D3D50C77178605DF009A694B /* TaskCell.m */,
-				677DBA76DC76D11FDC619F6A /* ImageCell.m */,
-				677DBAADD5452CC80E300DAD /* ImageCell.h */,
 				677DBF3876A76E13F68B04A8 /* Model */,
+				677DB130D9E03C55DE828DDE /* Screens */,
+				677DBAB29126115674165594 /* Cells */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -234,11 +255,12 @@
 			files = (
 				D3B5892A1780FD18009E2333 /* main.m in Sources */,
 				D3B5892E1780FD18009E2333 /* AppDelegate.m in Sources */,
-				D3B5893C1781010C009E2333 /* TasksController.m in Sources */,
-				D3D50C78178605DF009A694B /* TaskCell.m in Sources */,
 				801A172E18525D230083A25D /* AppKeys.m in Sources */,
-				677DB0CE3791640A4D9ADB28 /* ImageCell.m in Sources */,
 				677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */,
+				677DB37FC59062EA7E4F5DA4 /* TasksController.m in Sources */,
+				677DB01ECA7BD69F0F4362C5 /* TaskCell.m in Sources */,
+				677DB5042504A573227F42DC /* ImageCell.m in Sources */,
+				677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

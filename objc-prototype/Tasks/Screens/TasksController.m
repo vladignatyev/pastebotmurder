@@ -5,15 +5,7 @@
 
 #import "AppKeys.h"
 #import "SBRecord.h"
-
-@interface TasksController () <UITableViewDataSource>
-
-@property(nonatomic, readonly) DBAccountManager *accountManager;
-@property(nonatomic, readonly) DBAccount *account;
-@property(nonatomic, retain) DBDatastore *store;
-@property(nonatomic, retain) NSMutableArray *records;
-
-@end
+#import "SBImageViewController.h"
 
 @implementation TasksController
 
@@ -66,6 +58,12 @@
 
     } else if ([record isImage]) {
 
+        self.imageNameForOpen = [record value];
+
+        [self performSegueWithIdentifier:@"image" sender:self];
+
+
+        return;
         UIViewController *newVC = [[UIViewController alloc] init];
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 480)];
@@ -97,6 +95,15 @@
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
+
+        SBImageViewController *imageViewController = (SBImageViewController *)segue.destinationViewController;
+
+        imageViewController.imageName = _imageNameForOpen;
+    }
+}
 
 
 // table data source
