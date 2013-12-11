@@ -31,6 +31,8 @@
 }
 
 
+
+
 // user events
 
 - (IBAction)didPressLink {
@@ -46,7 +48,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SBRecord *record = _records[[indexPath row]];
+    SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
     if ([record isLink]) {
 
@@ -66,7 +68,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SBRecord *record = [_records objectAtIndex:[indexPath row]];
+    SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
     [record deleteRecord];
     [_records removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -81,6 +83,8 @@
         imageViewController.imageName = _imageNameForOpen;
     }
 }
+
+
 
 
 // table data source
@@ -109,7 +113,7 @@
 
     } else {
 
-        SBRecord *record = _records[[indexPath row]];
+        SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
         if ([record isImage]) {
 
@@ -163,6 +167,8 @@
     return 85;
 }
 
+
+
 // model
 
 - (void)setupTasks {
@@ -180,18 +186,11 @@
             }
         }];
 
-        NSArray *tempRecords = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
+        self.records = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
 
-        self.records = [NSMutableArray arrayWithCapacity:[tempRecords count]];
+        [_records sortUsingComparator:^(DBRecord *record1, DBRecord *record2) {
 
-        for (DBRecord *record in tempRecords) {
-
-            [_records addObject:[SBRecord recordByDBRecord:record]];
-        }
-
-        [_records sortUsingComparator:^(SBRecord *record1, SBRecord *record2) {
-
-            return [[record2 created] compare:[record1 created]];
+            return [record2[@"created"] compare:record1[@"created"]];
         }];
 
     } else {
@@ -220,7 +219,7 @@
 
     NSMutableArray *deleted = [NSMutableArray array];
     for (int i = [_records count] - 1; i >= 0; i--) {
-        SBRecord *record = _records[i];
+        DBRecord *record = _records[i];
         if ([record isDeleted]) {
             [deleted addObject:[NSIndexPath indexPathForRow:i inSection:0]];
             [_records removeObjectAtIndex:i];
@@ -229,19 +228,13 @@
 
     [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
 
-    NSArray *tempChanged = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
+    NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
 
-    NSMutableArray *changed = [NSMutableArray arrayWithCapacity:0];
-
-    for (DBRecord *record in tempChanged) {
-
-        [changed addObject:[SBRecord recordByDBRecord:record]];
-    }
 
     NSMutableArray *updates = [NSMutableArray array];
 
     for (int i = [changed count] - 1; i >= 0; i--) {
-        SBRecord *record = changed[i];
+        DBRecord *record = changed[i];
         if ([record isDeleted]) {
             [changed removeObjectAtIndex:i];
         } else {
@@ -256,13 +249,14 @@
 
 
     [_records addObjectsFromArray:changed];
-    [_records sortUsingComparator:^(SBRecord *record1, SBRecord *record2) {
+    [_records sortUsingComparator:^(DBRecord *record1, DBRecord *record2) {
 
-        return [[record2 created] compare:[record1 created]];
+        return [record2[@"created"] compare:record1[@"created"]];
     }];
 
     NSMutableArray *inserts = [NSMutableArray array];
-    for (SBRecord *record in changed) {
+
+    for (DBRecord *record in changed) {
         int idx = [_records indexOfObject:record];
         [inserts addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
     }

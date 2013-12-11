@@ -15,7 +15,7 @@
 
     [super fillByRecord:record];
 
-    self.mainLabel.text = @"Title";
+    self.mainLabel.text = [record titleForLink];
 
     _linkLabel.text = [record value];
 }

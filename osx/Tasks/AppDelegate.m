@@ -46,6 +46,7 @@
 }
 
 - (void)timerHandler {
+
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *classes = [[NSArray alloc]
             initWithObjects:
@@ -133,10 +134,37 @@
             }
 
             DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-            DBRecord *buf = [tasksTbl insert:@{@"value" : string,
+            __strong DBRecord *buf = [tasksTbl insert:@{@"value" : string,
                     @"type" : stringType,
                     @"created" : [NSDate date]}];
             [_tasks addObject:buf];
+
+
+            if ([string isWebURL]) {
+
+                [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]
+                                                   queue:[NSOperationQueue new]
+                                       completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+
+                                           NSString *responseText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
+                                           if (responseText) {
+
+                                               NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<title>([^<]+)</title>"
+                                                                                                                      options:NSRegularExpressionCaseInsensitive
+                                                                                                                        error:&error];
+
+                                               NSTextCheckingResult *result = [regex firstMatchInString:responseText options:0 range:NSMakeRange(0, [responseText length])];
+
+                                               if (result && [result numberOfRanges] > 1) {
+
+                                                   NSString *title = [responseText substringWithRange:[result rangeAtIndex:1]];
+
+                                                   buf[@"title"] = title;
+                                               }
+                                           }
+                                       }];
+            }
         }
     }
 }

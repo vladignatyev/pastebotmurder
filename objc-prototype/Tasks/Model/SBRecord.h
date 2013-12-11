@@ -19,6 +19,8 @@
 
 - (NSString *)value;
 
+- (NSString *)titleForLink;
+
 - (BOOL)isLink;
 - (BOOL)isMail;
 - (BOOL)isPlain;

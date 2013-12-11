@@ -30,6 +30,18 @@
     return _record[@"value"];
 }
 
+- (NSString *)titleForLink {
+
+    NSString *result = _record[@"title"];
+
+    if(!result) {
+
+        result = @"";
+    }
+
+    return result;
+}
+
 - (BOOL)isLink {
 
     return [_record[@"type"] isEqualToString:@"www"] || [_record[@"type"] isEqualToString:@"scheme"];
