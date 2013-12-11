@@ -1,6 +1,5 @@
 #import "SBMainViewController.h"
-#import "TaskCell.h"
-#import "ImageCell.h"
+#import "SBImageCell.h"
 #import <Dropbox/Dropbox.h>
 
 #import "AppKeys.h"
@@ -29,7 +28,6 @@
 
     [self setupTasks];
 }
-
 
 
 // user events
@@ -114,25 +112,19 @@
 
         if ([record isImage]) {
 
-            ImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
+            SBImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
 
-            imageCell.taskLabel.text = @"image";
-
-            imageCell.imageView2.image = nil;
-
-            [imageCell.activityIndicatorView startAnimating];
-
-            [[SBImageManager manager] showImage:[record value] inImageView:imageCell.imageView2];
+            [imageCell fillByRecord:record];
 
             return imageCell;
 
         } else {
 
-            TaskCell *textCell = [tableView dequeueReusableCellWithIdentifier:@"TaskCell"];
+            SBBaseCell *baseCell = [tableView dequeueReusableCellWithIdentifier:@"BaseCell"];
 
-            textCell.taskLabel.text = [record value];
+            [baseCell fillByRecord:record];
 
-            return textCell;
+            return baseCell;
         }
     }
 }
@@ -142,7 +134,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60.0f;
+    return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -157,6 +149,10 @@
     return [UIView new];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    return 85;
+}
 
 // model
 

@@ -16,8 +16,6 @@
 
     [super viewDidLoad];
 
-
-
     [[SBImageManager manager] showImage:_imageName inImageView:_imageView];
 }
 

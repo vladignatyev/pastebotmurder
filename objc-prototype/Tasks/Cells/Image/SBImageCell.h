@@ -4,12 +4,12 @@
 
 
 #import <Foundation/Foundation.h>
-#import "TaskCell.h"
+#import "SBBaseCell.h"
 
 
-@interface ImageCell : TaskCell
+@interface SBImageCell : SBBaseCell
 
-@property (nonatomic, strong) IBOutlet UIImageView *imageView2;
+@property (nonatomic, strong) IBOutlet UIImageView *mainImageView;
 
 @property (nonatomic, strong) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
