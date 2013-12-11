@@ -119,7 +119,7 @@
 
             return imageCell;
 
-        } else if([record isLink]){
+        } else if ([record isLink]) {
 
             SBLinkCell *linkCell = [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
 
@@ -129,7 +129,7 @@
 
         } else {
 
-            SBBaseCell *baseCell = [tableView dequeueReusableCellWithIdentifier:@"BaseCell"];
+            SBBaseCell *baseCell = [tableView dequeueReusableCellWithIdentifier:([record isMail] ? @"MailCell" : @"BaseCell")];
 
             [baseCell fillByRecord:record];
 

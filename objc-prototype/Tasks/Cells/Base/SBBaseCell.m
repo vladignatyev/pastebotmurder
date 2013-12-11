@@ -29,7 +29,7 @@
 
     } else if ([record isMail]) {
 
-        _iconImageView.image = [UIImage imageNamed:@"textIcon.png"];
+        _iconImageView.image = [UIImage imageNamed:@"mailIcon.png"];
 
     } else {
 
