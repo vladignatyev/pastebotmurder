@@ -6,6 +6,7 @@
 #import "SBRecord.h"
 #import "SBImageViewController.h"
 #import "SBImageManager.h"
+#import "SBLinkCell.h"
 
 @implementation SBMainViewController
 
@@ -100,7 +101,7 @@
 
     if (![DBAccountManager sharedManager].linkedAccount) {
 
-        return [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
+        return [tableView dequeueReusableCellWithIdentifier:@"LoginCell"];
 
     } else if ([indexPath row] == [_records count]) {
 
@@ -117,6 +118,14 @@
             [imageCell fillByRecord:record];
 
             return imageCell;
+
+        } else if([record isLink]){
+
+            SBLinkCell *linkCell = [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
+
+            [linkCell fillByRecord:record];
+
+            return linkCell;
 
         } else {
 

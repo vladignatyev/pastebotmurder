@@ -12,6 +12,7 @@
 		677DB3D5918FFC1CE334BB96 /* imageIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */; };
 		677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8FF779C5FC74D11B427 /* SBRecord.m */; };
 		677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0FD214BD497FCE1164D /* SBImageManager.m */; };
+		677DB77009BD2C905C606083 /* SBLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */; };
 		677DB8DD3F111FBA56D57820 /* linkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB4E748C094B83AB8370F /* linkIcon@2x.png */; };
 		677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */; };
 		677DBD3CB8CE8B6D28F0464B /* textIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB18E24FF4C8C6420C5C1 /* textIcon@2x.png */; };
@@ -53,7 +54,9 @@
 		677DBA29FBA01048D7A8D481 /* SBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecord.h; sourceTree = "<group>"; };
 		677DBB7B2120799A43F82258 /* SBImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageViewController.h; sourceTree = "<group>"; };
 		677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageViewController.m; sourceTree = "<group>"; };
+		677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLinkCell.m; sourceTree = "<group>"; };
 		677DBD5DB68ABC06D78316D6 /* SBBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBaseCell.h; sourceTree = "<group>"; };
+		677DBE4C551EBED69AA0BEC6 /* SBLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLinkCell.h; sourceTree = "<group>"; };
 		677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageIcon@2x.png"; sourceTree = "<group>"; };
 		801A172C18525B990083A25D /* AppKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKeys.h; sourceTree = "<group>"; };
 		801A172D18525D230083A25D /* AppKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppKeys.m; sourceTree = "<group>"; };
@@ -143,6 +146,8 @@
 		677DB570B83742E9E9653B62 /* Link */ = {
 			isa = PBXGroup;
 			children = (
+				677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */,
+				677DBE4C551EBED69AA0BEC6 /* SBLinkCell.h */,
 			);
 			path = Link;
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 				677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */,
 				677DB25DDFED5D1A6E8BBD54 /* SBBaseCell.m in Sources */,
 				677DBEEEF65141C53C470CF6 /* SBImageCell.m in Sources */,
+				677DB77009BD2C905C606083 /* SBLinkCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
