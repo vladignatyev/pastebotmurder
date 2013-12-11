@@ -17,5 +17,7 @@
 @property(nonatomic, strong) NSMutableArray *records;
 
 @property (nonatomic, strong) NSString *imageNameForOpen;
+@property (nonatomic, strong) NSString *textToOpen;
+
 
 @end

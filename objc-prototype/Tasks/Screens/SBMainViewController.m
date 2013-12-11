@@ -7,6 +7,7 @@
 #import "SBImageViewController.h"
 #import "SBImageManager.h"
 #import "SBLinkCell.h"
+#import "SBPlainTextViewController.h"
 
 @implementation SBMainViewController
 
@@ -46,22 +47,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SBRecord *record = _records[[indexPath row]];
-
-    if ([record isLink]) {
-
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[record value]]];
-
-    } else if ([record isMail]) {
-
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [record value]]]];
-
-    } else if ([record isImage]) {
-
-        self.imageNameForOpen = [record value];
-
-        [self performSegueWithIdentifier:@"image" sender:self];
-    }
+//    SBRecord *record = _records[[indexPath row]];
+//
+//    if ([record isLink]) {
+//
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[record value]]];
+//
+//    } else if ([record isMail]) {
+//
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [record value]]]];
+//
+//    } else if ([record isImage]) {
+//
+//        self.imageNameForOpen = [record value];
+//
+//        [self performSegueWithIdentifier:@"image" sender:self];
+//    } else if ([record isPlain]) {
+//        self.textToOpen = [record value];
+//        
+//        [self performSegueWithIdentifier:@"plain" sender:self];
+//    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -73,12 +78,18 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+    SBRecord *record = [_records objectAtIndex: path.row ];
+    NSString *value = [record value];
+    
     if ([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
-
         SBImageViewController *imageViewController = (SBImageViewController *) segue.destinationViewController;
 
-        imageViewController.imageName = _imageNameForOpen;
+        imageViewController.imageName = value;
+    } else if ([segue.destinationViewController isKindOfClass:[SBPlainTextViewController class]]) {
+        SBPlainTextViewController *plainTextViewController = (SBPlainTextViewController *) segue.destinationViewController;
+
+        plainTextViewController.textToPresent = value;
     }
 }
 
