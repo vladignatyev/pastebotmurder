@@ -1,4 +1,4 @@
-#import "TasksController.h"
+#import "SBMainViewController.h"
 #import "TaskCell.h"
 #import "ImageCell.h"
 #import <Dropbox/Dropbox.h>
@@ -6,8 +6,9 @@
 #import "AppKeys.h"
 #import "SBRecord.h"
 #import "SBImageViewController.h"
+#import "SBImageManager.h"
 
-@implementation TasksController
+@implementation SBMainViewController
 
 
 - (void)dealloc {
@@ -61,29 +62,6 @@
         self.imageNameForOpen = [record value];
 
         [self performSegueWithIdentifier:@"image" sender:self];
-
-
-        return;
-        UIViewController *newVC = [[UIViewController alloc] init];
-
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, 320, 480)];
-
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-        [self showImage:[record value] inImageView:imageView];
-
-        newVC.view.backgroundColor = [UIColor whiteColor];
-        [newVC.view addSubview:imageView];
-
-        UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 40, 100, 20)];
-
-        [closeButton setTitle:@"Close" forState:UIControlStateNormal];
-        [closeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [closeButton addTarget:self action:@selector(dismissModalViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-
-        [newVC.view addSubview:closeButton];
-
-        [self presentModalViewController:newVC animated:YES];
     }
 }
 
@@ -97,9 +75,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    if([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
 
-        SBImageViewController *imageViewController = (SBImageViewController *)segue.destinationViewController;
+        SBImageViewController *imageViewController = (SBImageViewController *) segue.destinationViewController;
 
         imageViewController.imageName = _imageNameForOpen;
     }
@@ -144,7 +122,7 @@
 
             [imageCell.activityIndicatorView startAnimating];
 
-            [self performSelectorInBackground:@selector(functionWrapperShowImageInImageView:) withObject:@[[record value], imageCell.imageView2]];
+            [[SBImageManager manager] showImage:[record value] inImageView:imageCell.imageView2];
 
             return imageCell;
 
@@ -189,7 +167,7 @@
         DBFilesystem *filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
         [DBFilesystem setSharedFilesystem:filesystem];
 
-        __weak TasksController *slf = self;
+        __weak SBMainViewController *slf = self;
 
         [self.store addObserver:self block:^{
             if (slf.store.status & (DBDatastoreIncoming | DBDatastoreOutgoing)) {
@@ -201,7 +179,7 @@
 
         self.records = [NSMutableArray arrayWithCapacity:[tempRecords count]];
 
-        for(DBRecord *record in tempRecords) {
+        for (DBRecord *record in tempRecords) {
 
             [_records addObject:[SBRecord recordByDBRecord:record]];
         }
@@ -250,7 +228,7 @@
 
     NSMutableArray *changed = [NSMutableArray arrayWithCapacity:0];
 
-    for(DBRecord *record in tempChanged) {
+    for (DBRecord *record in tempChanged) {
 
         [changed addObject:[SBRecord recordByDBRecord:record]];
     }
@@ -304,62 +282,6 @@
         _store = [DBDatastore openDefaultStoreForAccount:self.account error:nil];
     }
     return _store;
-}
-
-- (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView {
-
-    DBPath *existingPath = [[DBPath root] childPath:imageName];
-
-    DBError *error = nil;
-
-    DBFile *file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:&error];
-
-    if (error) {
-
-        if ([error code] == DBErrorParamsNotFound) {
-
-            [file close];
-
-            [NSThread sleepForTimeInterval:1];
-
-            [self performSelector:@selector(functionWrapperShowImageInImageView:) withObject:@[imageName, imageView]];
-        }
-
-    } else {
-
-        UIImage *image = [UIImage imageWithData:[file readData:nil]];
-
-        while (image == nil) {
-
-            [file close];
-
-            [NSThread sleepForTimeInterval:0.5];
-
-            file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:nil];
-
-            image = [UIImage imageWithData:[file readData:nil]];
-        }
-
-        [file close];
-
-        [self performSelectorOnMainThread:@selector(setImageInImageView:)
-                               withObject:@[image, imageView]
-                            waitUntilDone:NO];
-    }
-}
-
-- (void)functionWrapperShowImageInImageView:(NSArray *)arguments {
-
-    [self showImage:[arguments firstObject] inImageView:[arguments lastObject]];
-}
-
-- (void)setImageInImageView:(NSArray *)arguments {
-
-    UIImage *image = [arguments firstObject];
-
-    UIImageView *imageView = [arguments lastObject];
-
-    imageView.image = image;
 }
 
 

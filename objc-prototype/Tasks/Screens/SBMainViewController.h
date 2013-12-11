@@ -4,7 +4,7 @@
 @class DBAccount;
 @class DBAccountManager;
 
-@interface TasksController : UITableViewController
+@interface SBMainViewController : UITableViewController
 
 - (IBAction)didPressLink;
 - (IBAction)didPressUnlink;

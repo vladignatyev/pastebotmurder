@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		677DB01ECA7BD69F0F4362C5 /* TaskCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8565799FA9E1626A5CC /* TaskCell.m */; };
-		677DB37FC59062EA7E4F5DA4 /* TasksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB63AC85B733D689301CB /* TasksController.m */; };
+		677DB37FC59062EA7E4F5DA4 /* SBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB63AC85B733D689301CB /* SBMainViewController.m */; };
 		677DB5042504A573227F42DC /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBC2003E2A4E6DD5C4A02 /* ImageCell.m */; };
 		677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8FF779C5FC74D11B427 /* SBRecord.m */; };
+		677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0FD214BD497FCE1164D /* SBImageManager.m */; };
 		677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */; };
 		801A172E18525D230083A25D /* AppKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A172D18525D230083A25D /* AppKeys.m */; };
 		B546BB0817880051007C5730 /* tasks-example-57.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB0717880051007C5730 /* tasks-example-57.png */; };
@@ -34,9 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		677DB0C8523B150C5E800EDC /* SBImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageManager.h; sourceTree = "<group>"; };
+		677DB0FD214BD497FCE1164D /* SBImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageManager.m; sourceTree = "<group>"; };
 		677DB3095D5B611D02D3DEFE /* ImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
-		677DB4F4AE554D1E03687EFB /* TasksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TasksController.h; sourceTree = "<group>"; };
-		677DB63AC85B733D689301CB /* TasksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TasksController.m; sourceTree = "<group>"; };
+		677DB4F4AE554D1E03687EFB /* SBMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMainViewController.h; sourceTree = "<group>"; };
+		677DB63AC85B733D689301CB /* SBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMainViewController.m; sourceTree = "<group>"; };
 		677DB8565799FA9E1626A5CC /* TaskCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCell.m; sourceTree = "<group>"; };
 		677DB8FF779C5FC74D11B427 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecord.m; sourceTree = "<group>"; };
 		677DB90FFA2ACA099EFE7646 /* TaskCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCell.h; sourceTree = "<group>"; };
@@ -93,12 +96,21 @@
 		677DB130D9E03C55DE828DDE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				677DB63AC85B733D689301CB /* TasksController.m */,
-				677DB4F4AE554D1E03687EFB /* TasksController.h */,
+				677DB63AC85B733D689301CB /* SBMainViewController.m */,
+				677DB4F4AE554D1E03687EFB /* SBMainViewController.h */,
 				677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */,
 				677DBB7B2120799A43F82258 /* SBImageViewController.h */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		677DB47EA59C527AA7C8CF7B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				677DB0FD214BD497FCE1164D /* SBImageManager.m */,
+				677DB0C8523B150C5E800EDC /* SBImageManager.h */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		677DBAB29126115674165594 /* Cells */ = {
@@ -166,6 +178,7 @@
 				677DBF3876A76E13F68B04A8 /* Model */,
 				677DB130D9E03C55DE828DDE /* Screens */,
 				677DBAB29126115674165594 /* Cells */,
+				677DB47EA59C527AA7C8CF7B /* Managers */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -257,10 +270,11 @@
 				D3B5892E1780FD18009E2333 /* AppDelegate.m in Sources */,
 				801A172E18525D230083A25D /* AppKeys.m in Sources */,
 				677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */,
-				677DB37FC59062EA7E4F5DA4 /* TasksController.m in Sources */,
+				677DB37FC59062EA7E4F5DA4 /* SBMainViewController.m in Sources */,
 				677DB01ECA7BD69F0F4362C5 /* TaskCell.m in Sources */,
 				677DB5042504A573227F42DC /* ImageCell.m in Sources */,
 				677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */,
+				677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
