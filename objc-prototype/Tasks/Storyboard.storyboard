@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-834" y="-187"/>
         </scene>
-        <!--Main View Controller - ShotBuf-->
+        <!--Main View Controller - Bufs list-->
         <scene sceneID="HYK-6s-RxW">
             <objects>
                 <tableViewController id="zji-Yj-eIJ" customClass="SBMainViewController" sceneMemberID="viewController">
@@ -75,6 +75,7 @@
                                     <outlet property="dateLabel" destination="nJo-N7-Hej" id="I0L-1T-kFV"/>
                                     <outlet property="iconImageView" destination="Xgm-KL-E0u" id="PaR-lB-iNG"/>
                                     <outlet property="mainImageView" destination="xNd-TH-Ch3" id="cdM-Nn-ogu"/>
+                                    <segue destination="gvl-n8-1jh" kind="modal" identifier="image" id="AWN-oz-cdD"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoginCell" rowHeight="78" id="nwN-Dt-Zh3">
@@ -123,15 +124,15 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BaseCell" rowHeight="85" id="jZk-p6-804" customClass="SBBaseCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BaseCell" rowHeight="85" id="jZk-p6-804" customClass="SBBaseCell">
                                 <rect key="frame" x="0.0" y="327" width="320" height="85"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jZk-p6-804" id="mJ7-ZK-wLF">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="84"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="76" contentMode="left" text="Text" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IX4-vp-ajM">
-                                            <rect key="frame" x="38" y="19" width="262" height="38"/>
+                                            <rect key="frame" x="38" y="19" width="229" height="38"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -155,6 +156,7 @@
                                     <outlet property="dateLabel" destination="oGg-DY-dZZ" id="trc-tj-1Dj"/>
                                     <outlet property="iconImageView" destination="cKH-BM-YTH" id="pFr-8m-icI"/>
                                     <outlet property="mainLabel" destination="IX4-vp-ajM" id="3lj-ah-0wX"/>
+                                    <segue destination="CUr-oG-aKr" kind="push" identifier="plain" id="qPS-Gp-Yoh"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LinkCell" rowHeight="85" id="Szh-iO-Ju3" customClass="SBLinkCell">
@@ -239,10 +241,11 @@
                             <outlet property="delegate" destination="zji-Yj-eIJ" id="GlU-d9-YBt"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ShotBuf" id="KAK-yk-ufV"/>
+                    <navigationItem key="navigationItem" title="Bufs list" id="KAK-yk-ufV">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="8gv-uz-pYr"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="headerView" destination="YoM-VB-AaH" id="80h-Jt-5u0"/>
-                        <segue destination="gvl-n8-1jh" kind="modal" identifier="image" id="o8n-qM-ykb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="siY-oG-iMw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -266,7 +269,31 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-208" y="-177"/>
+            <point key="canvasLocation" x="-354" y="-187"/>
+        </scene>
+        <!--Plain Text View Controller-->
+        <scene sceneID="U7V-E5-hOW">
+            <objects>
+                <viewController id="CUr-oG-aKr" customClass="SBPlainTextViewController" sceneMemberID="viewController">
+                    <textView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="From scale to fake to memory" id="4QT-hO-2rW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.27715567495327548" green="0.36102185242709206" blue="0.91264748086734693" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                    </textView>
+                    <navigationItem key="navigationItem" id="5Nt-gX-6VG">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="tVu-YI-Axb"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="4QT-hO-2rW" id="se5-z5-zjW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8HH-3l-ppo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="248" y="661"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="zQY-ca-Jtd">
@@ -317,6 +344,7 @@
             <point key="canvasLocation" x="248" y="-91"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
