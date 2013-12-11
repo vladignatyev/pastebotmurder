@@ -47,26 +47,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-//    SBRecord *record = _records[[indexPath row]];
-//
-//    if ([record isLink]) {
-//
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[record value]]];
-//
-//    } else if ([record isMail]) {
-//
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [record value]]]];
-//
-//    } else if ([record isImage]) {
-//
-//        self.imageNameForOpen = [record value];
-//
-//        [self performSegueWithIdentifier:@"image" sender:self];
-//    } else if ([record isPlain]) {
-//        self.textToOpen = [record value];
-//        
-//        [self performSegueWithIdentifier:@"plain" sender:self];
-//    }
+    SBRecord *record = _records[[indexPath row]];
+
+    if ([record isLink]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[record value]]];
+    } else if ([record isMail]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [record value]]]];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
