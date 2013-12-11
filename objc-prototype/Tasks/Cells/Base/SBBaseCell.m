@@ -32,7 +32,7 @@
         relativeString = @"!n the future!";
         
     } else if (delta < 1 * MINUTE) {
-        relativeString = (components.second == 1) ? @"One second ago" : [NSString stringWithFormat:@"%d seconds ago",components.second];
+        relativeString = (components.second == 1) ? @"One second ago" : @"Just now";
         
     } else if (delta < 2 * MINUTE) {
         relativeString =  @"a minute ago";
