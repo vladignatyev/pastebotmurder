@@ -67,8 +67,9 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-    SBRecord *record = [_records objectAtIndex: path.row ];
+    SBRecord *record = [SBRecord recordByDBRecord:_records[[path row]]];
     NSString *value = [record value];
     
     if ([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
