@@ -12,6 +12,8 @@
 
 - (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView;
 
-- (UIImage *)imageByImageName:(NSString *)name;
+- (UIImage *)imageByName:(NSString *)name;
+
+- (void)deleteImageByName:(NSString *)name;
 
 @end

@@ -27,8 +27,16 @@
     [self performSelectorInBackground:@selector(showImageInImageView:) withObject:@[imageView, imageName]];
 }
 
+- (void)deleteImageByName:(NSString *)name {
 
-- (UIImage *)imageByImageName:(NSString *)name {
+    DBPath *existingPath = [[DBPath root] childPath:name];
+
+    DBError *error = nil;
+
+    [[DBFilesystem sharedFilesystem] deletePath:existingPath error:&error];
+}
+
+- (UIImage *)imageByName:(NSString *)name {
 
     DBPath *existingPath = [[DBPath root] childPath:name];
 

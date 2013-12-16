@@ -61,6 +61,12 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
+
+    if([record isImage]) {
+
+        [[SBImageManager manager] deleteImageByName:[record value]];
+    }
+
     [record deleteRecord];
     [_records removeObjectAtIndex:[indexPath row]];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];

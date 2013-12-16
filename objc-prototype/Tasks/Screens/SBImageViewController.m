@@ -21,7 +21,7 @@
 
 - (void)setUpImage {
 
-    UIImage *image = [[SBImageManager manager] imageByImageName:_imageName];
+    UIImage *image = [[SBImageManager manager] imageByName:_imageName];
 
     if(image) {
 
