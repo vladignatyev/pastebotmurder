@@ -124,6 +124,9 @@
         } else if ([obj isKindOfClass:[NSString class]]) {
 
             NSString *string = (NSString *) obj;
+            
+            string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            
             NSString *stringType = @"plain";
             if ([string isEmail]) {
                 stringType = @"email";
