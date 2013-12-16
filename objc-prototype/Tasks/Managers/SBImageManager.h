@@ -12,4 +12,6 @@
 
 - (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView;
 
+- (UIImage *)imageByImageName:(NSString *)name;
+
 @end

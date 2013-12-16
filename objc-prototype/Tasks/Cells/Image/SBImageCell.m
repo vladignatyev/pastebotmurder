@@ -20,6 +20,8 @@
 
     _mainImageView.image = nil;
 
+    _mainImageView.hidden = YES;
+
     [_activityIndicatorView startAnimating];
 
     [[SBImageManager manager] showImage:[record value] inImageView:_mainImageView];

@@ -16,12 +16,38 @@
 
     [super viewDidLoad];
 
-    [[SBImageManager manager] showImage:_imageName inImageView:_imageView];
+    [self setUpImage];
+}
+
+- (void)setUpImage {
+
+    UIImage *image = [[SBImageManager manager] imageByImageName:_imageName];
+
+    if(image) {
+
+        CGSize screenSize = [self currentScreenSize];
+
+        if(image.size.width > screenSize.width || image.size.height > screenSize.height) {
+
+            _imageView.contentMode = UIViewContentModeScaleAspectFit;
+
+        } else {
+
+            _imageView.contentMode = UIViewContentModeCenter;
+        }
+
+        _imageView.image = image;
+
+    } else {
+
+        [self performSelector:@selector(setUpImage) withObject:nil afterDelay:1];
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
+
 
 // user events
 
@@ -33,6 +59,14 @@
 - (IBAction)closeButtonPress:(id)sender {
 
     [self dismissModalViewControllerAnimated:YES];
+}
+
+
+// system
+
+- (CGSize)currentScreenSize {
+
+    return CGSizeMake(320, 480);
 }
 
 @end

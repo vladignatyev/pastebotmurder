@@ -27,6 +27,30 @@
     [self performSelectorInBackground:@selector(showImageInImageView:) withObject:@[imageView, imageName]];
 }
 
+
+- (UIImage *)imageByImageName:(NSString *)name {
+
+    DBPath *existingPath = [[DBPath root] childPath:name];
+
+    DBError *error = nil;
+
+    DBFile *file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:&error];
+
+    UIImage *result = nil;
+
+    if (!error) {
+
+        if (file.status.cached) {
+
+            result = [UIImage imageWithData:[file readData:nil]];
+        }
+    }
+
+    [file close];
+
+    return result;
+}
+
 - (void)showImageInImageView:(NSArray *)arguments {
 
     UIImageView *imageView = [arguments firstObject];
@@ -80,6 +104,8 @@
     UIImageView *imageView = [arguments lastObject];
 
     imageView.image = image;
+
+    imageView.hidden = NO;
 }
 
 @end
