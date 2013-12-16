@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SBPlainTextViewController : UIViewController
+@interface SBPlainTextViewController : UIViewController <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @property(strong, nonatomic) NSString *textToPresent;
+
 @end

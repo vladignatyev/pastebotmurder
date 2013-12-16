@@ -8,32 +8,35 @@
 
 #import "SBPlainTextViewController.h"
 
-@interface SBPlainTextViewController ()
-
-@end
 
 @implementation SBPlainTextViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
     self.textView.text = self.textToPresent;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillDisappear:(BOOL)animated {
+
+    [super viewWillDisappear:animated];
+
+    self.textView.delegate = nil;
+}
+
+
+// user events
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    BOOL statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
+
+    BOOL needStatusBar = (scrollView.contentInset.top + scrollView.contentOffset.y) <= 0;
+
+    if(statusBarHidden == needStatusBar) {
+
+        [[UIApplication sharedApplication] setStatusBarHidden:!needStatusBar withAnimation:UIStatusBarAnimationSlide];
+    }
 }
 
 @end

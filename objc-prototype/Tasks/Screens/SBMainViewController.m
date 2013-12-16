@@ -32,6 +32,13 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+}
+
 
 
 // user events
@@ -77,7 +84,7 @@
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
     SBRecord *record = [SBRecord recordByDBRecord:_records[[path row]]];
     NSString *value = [record value];
-    
+
     if ([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
         SBImageViewController *imageViewController = (SBImageViewController *) segue.destinationViewController;
 
@@ -234,7 +241,6 @@
     [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
 
     NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
-
 
     NSMutableArray *updates = [NSMutableArray array];
 

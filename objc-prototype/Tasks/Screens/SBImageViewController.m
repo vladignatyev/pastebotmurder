@@ -44,9 +44,14 @@
     }
 }
 
-- (BOOL)prefersStatusBarHidden {
-    return YES;
+
+- (void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 }
+
 
 
 // user events

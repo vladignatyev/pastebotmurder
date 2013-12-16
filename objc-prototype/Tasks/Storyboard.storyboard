@@ -284,6 +284,9 @@
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                        <connections>
+                            <outlet property="delegate" destination="CUr-oG-aKr" id="lxq-xG-bzU"/>
+                        </connections>
                     </textView>
                     <navigationItem key="navigationItem" id="5Nt-gX-6VG">
                         <barButtonItem key="backBarButtonItem" title="Back" id="tVu-YI-Axb"/>
