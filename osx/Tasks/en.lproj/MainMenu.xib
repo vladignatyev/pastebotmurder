@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
@@ -14,16 +14,16 @@
         <customObject id="-3" userLabel="Application"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
-                <menuItem title="Tasks" id="56">
-                    <menu key="submenu" title="Tasks" systemMenu="apple" id="57">
+                <menuItem title="ShotBuf" id="56">
+                    <menu key="submenu" title="ShotBuf" systemMenu="apple" id="57">
                         <items>
-                            <menuItem title="About Tasks" id="58">
+                            <menuItem title="About ShotBuf" id="58">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="orderFrontStandardAboutPanel:" target="-2" id="142"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Quit Tasks" keyEquivalent="q" id="136">
+                            <menuItem title="Quit ShotBuf" keyEquivalent="q" id="136">
                                 <connections>
                                     <action selector="terminate:" target="-3" id="449"/>
                                 </connections>
@@ -33,164 +33,28 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="My Tasks" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
+        <window title="ShotBuf" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="250" height="344"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <rect key="contentRect" x="335" y="390" width="412" height="324"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="250" height="344"/>
+                <rect key="frame" x="0.0" y="0.0" width="412" height="324"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NiQ-kS-FaZ">
-                        <rect key="frame" x="-1" y="-1" width="252" height="346"/>
+                        <rect key="frame" x="-1" y="-1" width="414" height="326"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="Ni8-TL-yOz">
-                            <rect key="frame" x="1" y="1" width="250" height="344"/>
+                            <rect key="frame" x="1" y="1" width="412" height="324"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" viewBased="YES" id="sP0-Yy-3b8">
-                                    <rect key="frame" x="0.0" y="0.0" width="250" height="344"/>
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="sP0-Yy-3b8">
+                                    <rect key="frame" x="0.0" y="0.0" width="412" height="326"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                    <tableColumns>
-                                        <tableColumn width="247.09375" minWidth="40" maxWidth="1000" id="DKa-jv-xOF">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Text" id="sHf-hU-L3x">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <prototypeCellViews>
-                                                <tableCellView identifier="LinkCell" id="dc5-hA-aW4">
-                                                    <rect key="frame" x="1" y="1" width="247" height="34"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LmB-MG-b4n">
-                                                            <rect key="frame" x="52" y="0.0" width="143" height="32"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="push" title="Link to Dropbox" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="epW-0r-87n">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="didPressLink:" target="494" id="hES-ko-NYE"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="centerX" secondItem="LmB-MG-b4n" secondAttribute="centerX" id="8A1-Z9-M2Y"/>
-                                                        <constraint firstAttribute="centerY" secondItem="LmB-MG-b4n" secondAttribute="centerY" id="Ee0-yC-yqC"/>
-                                                    </constraints>
-                                                </tableCellView>
-                                                <tableCellView identifier="TaskCell" id="qAI-g6-PKQ" customClass="TaskCellView">
-                                                    <rect key="frame" x="1" y="37" width="247" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <button horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="mY0-cR-TvJ">
-                                                            <rect key="frame" x="1" y="0.0" width="221" height="18"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="check" title="Task" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="GBL-AH-miO">
-                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="didClickTaskCheckbox:" target="494" id="5ly-pg-aRp"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LhN-Kr-ZmC">
-                                                            <rect key="frame" x="223" y="-2" width="21" height="19"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="recessed" title="✗" bezelStyle="recessed" imagePosition="left" alignment="center" borderStyle="border" inset="2" id="dcL-m9-zVN">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" size="12" name="LucidaGrande-Bold"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="didPressDeleteTask:" target="494" id="fBU-VK-Lyh"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="LhN-Kr-ZmC" firstAttribute="leading" secondItem="mY0-cR-TvJ" secondAttribute="trailing" constant="3" id="LUQ-f7-NG1"/>
-                                                        <constraint firstAttribute="centerY" secondItem="mY0-cR-TvJ" secondAttribute="centerY" id="gsx-Bz-LBn"/>
-                                                        <constraint firstAttribute="centerY" secondItem="LhN-Kr-ZmC" secondAttribute="centerY" id="iQ5-8o-CmD"/>
-                                                        <constraint firstAttribute="trailing" secondItem="LhN-Kr-ZmC" secondAttribute="trailing" constant="3" id="w3n-l4-8MN"/>
-                                                        <constraint firstItem="mY0-cR-TvJ" firstAttribute="leading" secondItem="qAI-g6-PKQ" secondAttribute="leading" constant="3" id="x1L-dT-XDa"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <outlet property="checkbox" destination="mY0-cR-TvJ" id="RUB-pa-gbt"/>
-                                                        <outlet property="deleteButton" destination="LhN-Kr-ZmC" id="fjt-9j-Los"/>
-                                                    </connections>
-                                                </tableCellView>
-                                                <tableCellView identifier="InputTaskCell" id="YmI-fO-CA2">
-                                                    <rect key="frame" x="1" y="56" width="247" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Dwt-y2-dQS">
-                                                            <rect key="frame" x="19" y="0.0" width="228" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" alignment="left" placeholderString="Enter a new task..." id="yd6-8o-EEY">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                            <connections>
-                                                                <outlet property="delegate" destination="494" id="mNt-Ro-At9"/>
-                                                            </connections>
-                                                        </textField>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="centerY" secondItem="Dwt-y2-dQS" secondAttribute="centerY" id="VkD-LX-5tj"/>
-                                                        <constraint firstItem="Dwt-y2-dQS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="YmI-fO-CA2" secondAttribute="leading" constant="22" id="h3K-Bf-v7N"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Dwt-y2-dQS" secondAttribute="trailing" constant="3" id="kJH-jC-Zto"/>
-                                                        <constraint firstItem="Dwt-y2-dQS" firstAttribute="leading" secondItem="YmI-fO-CA2" secondAttribute="leading" constant="22" id="qvP-30-VJi"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <outlet property="textField" destination="Dwt-y2-dQS" id="G2k-ag-6Yx"/>
-                                                    </connections>
-                                                </tableCellView>
-                                                <tableCellView identifier="UnlinkCell" id="DPG-Yy-A2J">
-                                                    <rect key="frame" x="1" y="75" width="247" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <subviews>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Se9-c3-E3w">
-                                                            <rect key="frame" x="36" y="36" width="174" height="32"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="push" title="Unlink from Dropbox" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Dt-cW-8ZU">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="didPressUnlink:" target="494" id="IQZ-nc-tbg"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ml-MW-1X7">
-                                                            <rect key="frame" x="36" y="3" width="174" height="32"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <buttonCell key="cell" type="push" title="Clear Table" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="66A-bD-dI3">
-                                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                <font key="font" metaFont="system"/>
-                                                            </buttonCell>
-                                                            <connections>
-                                                                <action selector="didPressClearTable:" target="494" id="DEY-Zh-1di"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                </tableCellView>
-                                            </prototypeCellViews>
-                                        </tableColumn>
-                                    </tableColumns>
-                                    <connections>
-                                        <outlet property="dataSource" destination="494" id="lZv-q2-5b7"/>
-                                        <outlet property="delegate" destination="494" id="GOv-cD-UtB"/>
-                                    </connections>
                                 </tableView>
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -215,7 +79,6 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="tableView" destination="sP0-Yy-3b8" id="9eD-S0-fGj"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>

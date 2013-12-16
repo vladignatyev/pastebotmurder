@@ -214,48 +214,6 @@
 }
 
 
-#pragma mark NSTableViewDataSource methods
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    if (!self.account) {
-        return 1; // link account
-    } else {
-        return [_tasks count] + 2; // 2 extra cells for input task and unlink account
-    }
-}
-
-- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    return nil;
-}
-
-#pragma mark - NSTableViewDelegate
-
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    if (![DBAccountManager sharedManager].linkedAccount) {
-        return [tableView makeViewWithIdentifier:@"LinkCell" owner:self];
-    } else if (row == [_tasks count]) {
-        return [tableView makeViewWithIdentifier:@"InputTaskCell" owner:self];
-    } else if (row == [_tasks count] + 1) {
-        return [tableView makeViewWithIdentifier:@"UnlinkCell" owner:self];
-    } else {
-        TaskCellView *taskCell = [tableView makeViewWithIdentifier:@"TaskCell" owner:self];
-        DBRecord *task = _tasks[row];
-        taskCell.checkbox.title = task[@"taskname"];
-        taskCell.checkbox.state = [task[@"completed"] boolValue] ? NSOnState : NSOffState;
-        return taskCell;
-    }
-}
-
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-    if (self.account) {
-        if (row == [_tasks count] + 1) {
-            return 70.0;
-        }
-    } else {
-        return 34.0;
-    }
-    return 17.0;
-}
 
 #pragma mark - target-actions
 
@@ -270,25 +228,6 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)didClickTaskCheckbox:(id)sender {
-    NSUInteger row = [self.tableView rowForView:sender];
-    if (row != -1) {
-        DBRecord *task = _tasks[row];
-        task[@"completed"] = [task[@"completed"] boolValue] ? @NO : @YES;
-        [[self tableView] reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:row] columnIndexes:[NSIndexSet indexSetWithIndex:0]];
-    }
-}
-
-- (IBAction)didPressDeleteTask:(id)sender {
-    NSUInteger row = [self.tableView rowForView:sender];
-    if (row != -1) {
-        DBRecord *record = _tasks[row];
-        [record deleteRecord];
-        [_tasks removeObjectAtIndex:row];
-        [self.tableView removeRowsAtIndexes:[NSIndexSet indexSetWithIndex:row] withAnimation:NSTableViewAnimationEffectFade];
-    }
-}
-
 - (IBAction)didPressClearTable:(id)sender {
 
     // не нашел в доках более подходящего метода, чем удалять все записи по отдельности
@@ -301,21 +240,6 @@
 
         [record deleteRecord];
     }
-}
-
-#pragma mark - NSTextFieldDelegate
-
-- (BOOL)control:(NSTextField *)textField textShouldEndEditing:(NSText *)fieldEditor {
-    if (self.account && [textField.stringValue length]) {
-        DBTable *tasksTbl = [self.store getTable:@"tasks"];
-
-        DBRecord *task = [tasksTbl insert:@{@"taskname" : textField.stringValue, @"completed" : @NO, @"created" : [NSDate date]}];
-        [_tasks addObject:task];
-        [self.tableView insertRowsAtIndexes:[NSIndexSet indexSetWithIndex:[_tasks count] - 1] withAnimation:NSTableViewAnimationEffectFade];
-
-    }
-    textField.stringValue = @"";
-    return YES;
 }
 
 #pragma mark - private methods
