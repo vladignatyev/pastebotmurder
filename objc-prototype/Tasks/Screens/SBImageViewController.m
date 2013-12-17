@@ -41,6 +41,8 @@
 
     if (image) {
 
+        [_activityIndicator stopAnimating];
+
         CGSize screenSize = [self currentViewSize];
 
         BOOL imageMoreThenView = (image.size.width > screenSize.width || image.size.height > screenSize.height);

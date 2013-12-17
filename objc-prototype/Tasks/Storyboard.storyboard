@@ -349,6 +349,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="i2V-Yi-Lys">
+                                <rect key="frame" x="141" y="266" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.18823531269999999" green="0.52549022440000004" blue="0.90980398650000005" alpha="1" colorSpace="deviceRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     </view>
@@ -356,6 +361,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="i2V-Yi-Lys" id="Dsy-eD-egY"/>
                         <outlet property="imageView" destination="LxU-XS-ibQ" id="rRC-4j-A7O"/>
                         <outlet property="menuView" destination="yzZ-IN-C40" id="4WO-mx-Cvq"/>
                         <outlet property="scrollView" destination="Lvh-II-Idh" id="HFl-dI-0zY"/>
