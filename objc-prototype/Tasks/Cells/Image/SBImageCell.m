@@ -12,6 +12,11 @@
 
 }
 
++ (float)defaultHeight {
+
+    return 170;
+}
+
 - (void)fillByRecord:(SBRecord *)record {
 
     [super fillByRecord:record];

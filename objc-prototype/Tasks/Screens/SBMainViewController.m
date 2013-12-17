@@ -174,11 +174,27 @@
     return [UIView new];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+
+    /*
+     метод хреновый потому что каждая ячейка прогружается по два раза. не хорошо
     UITableViewCell *cell = [self tableView:tableView
                       cellForRowAtIndexPath:indexPath];
     return cell.frame.size.height;
+    */
+
+    if(indexPath.row < [_records count]) {
+
+        SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
+
+        if ([record isImage]) {
+
+            return [SBImageCell defaultHeight];
+        }
+    }
+
+    return [SBBaseCell defaultHeight];
 }
 
 

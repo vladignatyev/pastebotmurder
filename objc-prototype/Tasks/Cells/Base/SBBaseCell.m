@@ -11,6 +11,11 @@
 
 }
 
++ (float)defaultHeight {
+
+    return 85;
+}
+
 - (NSString *)relativeDateString: (NSDate*) date
 {
     const int SECOND = 1;
