@@ -6,7 +6,6 @@
 
 @interface SBMainViewController : UITableViewController
 
-- (IBAction)didPressLink;
 - (IBAction)didPressUnlink;
 
 @property (nonatomic, retain) IBOutlet UIView *headerView;

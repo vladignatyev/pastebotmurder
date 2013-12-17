@@ -12,10 +12,20 @@
                                                               secret: APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
 
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
-    UIViewController *root = [storyboard instantiateInitialViewController];
-    self.window.rootViewController = root;
 
+    UIViewController *first = nil;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+
+    if(mgr.linkedAccount) {
+
+        first = [storyboard instantiateViewControllerWithIdentifier:@"main"];
+
+    } else {
+
+        first = [storyboard instantiateInitialViewController];
+    }
+
+    self.window.rootViewController = first;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 

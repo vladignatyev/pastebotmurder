@@ -21,13 +21,6 @@
 
     [super viewDidLoad];
 
-    self.tableView.rowHeight = 50.0f;
-
-    [self.accountManager addObserver:self block:^(DBAccount *account) {
-
-        [self setupTasks];
-    }];
-
     [self setupTasks];
 }
 
@@ -43,15 +36,11 @@
 
 // user events
 
-- (IBAction)didPressLink {
-    [[DBAccountManager sharedManager] linkFromController:self];
-}
-
 - (IBAction)didPressUnlink {
-    [[[DBAccountManager sharedManager] linkedAccount] unlink];
-    self.store = nil;
 
-    [self.tableView reloadData];
+    [self unlinkAccount];
+
+    [self openLoginScreen];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -69,7 +58,7 @@
 
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
-    if([record isImage]) {
+    if ([record isImage]) {
 
         [[SBImageManager manager] deleteImageByName:[record value]];
     }
@@ -106,72 +95,43 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!self.account) {
-        return 1;
-    } else {
-        return [_records count] + 1;
-    }
+
+    return [_records count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if (![DBAccountManager sharedManager].linkedAccount) {
+    SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
-        return [tableView dequeueReusableCellWithIdentifier:@"LoginCell"];
+    if ([record isImage]) {
 
-    } else if ([indexPath row] == [_records count]) {
+        SBImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
 
-        return [tableView dequeueReusableCellWithIdentifier:@"UnlinkCell"];
+        [imageCell fillByRecord:record];
+
+        return imageCell;
+
+    } else if ([record isLink]) {
+
+        SBLinkCell *linkCell = [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
+
+        [linkCell fillByRecord:record];
+
+        return linkCell;
 
     } else {
 
-        SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
+        SBBaseCell *baseCell = [tableView dequeueReusableCellWithIdentifier:([record isMail] ? @"MailCell" : @"BaseCell")];
 
-        if ([record isImage]) {
+        [baseCell fillByRecord:record];
 
-            SBImageCell *imageCell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
-
-            [imageCell fillByRecord:record];
-
-            return imageCell;
-
-        } else if ([record isLink]) {
-
-            SBLinkCell *linkCell = [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
-
-            [linkCell fillByRecord:record];
-
-            return linkCell;
-
-        } else {
-
-            SBBaseCell *baseCell = [tableView dequeueReusableCellWithIdentifier:([record isMail] ? @"MailCell" : @"BaseCell")];
-
-            [baseCell fillByRecord:record];
-
-            return baseCell;
-        }
+        return baseCell;
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return self.account && [indexPath row] < [_records count];
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return self.headerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 24.0f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [UIView new];
+    return YES;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -184,17 +144,24 @@
     return cell.frame.size.height;
     */
 
-    if(indexPath.row < [_records count]) {
 
-        SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
+    SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
-        if ([record isImage]) {
+    if ([record isImage]) {
 
-            return [SBImageCell defaultHeight];
-        }
+        return [SBImageCell defaultHeight];
     }
 
     return [SBBaseCell defaultHeight];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+
+    return 1;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+
+    return [UIView new];
 }
 
 
@@ -296,12 +263,23 @@
 
 // system
 
-- (DBAccount *)account {
-    return [DBAccountManager sharedManager].linkedAccount;
+- (void)openLoginScreen {
+
+    [self dismissModalViewControllerAnimated:YES];
+
 }
 
-- (DBAccountManager *)accountManager {
-    return [DBAccountManager sharedManager];
+- (void)unlinkAccount {
+
+    [[[DBAccountManager sharedManager] linkedAccount] unlink];
+
+    _store = nil;
+    _records = nil;
+    [DBFilesystem setSharedFilesystem:nil];
+}
+
+- (DBAccount *)account {
+    return [DBAccountManager sharedManager].linkedAccount;
 }
 
 - (DBDatastore *)store {
