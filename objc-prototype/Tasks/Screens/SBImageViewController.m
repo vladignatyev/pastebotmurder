@@ -25,16 +25,7 @@
 
     if(image) {
 
-        CGSize screenSize = [self currentScreenSize];
-
-//        if(image.size.width > screenSize.width || image.size.height > screenSize.height) {
-//
-//            _imageView.contentMode = UIViewContentModeScaleAspectFit;
-//
-//        } else {
-
-            _imageView.contentMode = UIViewContentModeCenter;
-//        }
+        _imageView.contentMode = UIViewContentModeCenter;
 
         _imageView.image = image;
 
@@ -78,14 +69,6 @@
 - (BOOL)shouldAutorotate
 {
     return YES;
-}
-
-
-// system
-
-- (CGSize)currentScreenSize {
-    
-    return CGSizeMake(320, 480);
 }
 
 @end
