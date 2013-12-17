@@ -112,6 +112,8 @@
     UIImageView *imageView = [arguments lastObject];
 
     imageView.image = image;
+    
+    
 
     imageView.hidden = NO;
 }
