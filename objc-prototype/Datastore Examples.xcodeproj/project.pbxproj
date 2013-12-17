@@ -18,6 +18,7 @@
 		677DBD3CB8CE8B6D28F0464B /* textIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB18E24FF4C8C6420C5C1 /* textIcon@2x.png */; };
 		677DBD640FC269818486075F /* mailIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB2636E7213F370D8408F /* mailIcon@2x.png */; };
 		677DBEEEF65141C53C470CF6 /* SBImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB1398B85E16D5A2F1A38 /* SBImageCell.m */; };
+		800D920E185FCF76003A09C6 /* NLImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 800D920D185FCF76003A09C6 /* NLImageViewer.m */; };
 		801A172E18525D230083A25D /* AppKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 801A172D18525D230083A25D /* AppKeys.m */; };
 		80BFCCFD1858B86E009A78B9 /* SBPlainTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80BFCCFC1858B86E009A78B9 /* SBPlainTextViewController.m */; };
 		B546BB0817880051007C5730 /* tasks-example-57.png in Resources */ = {isa = PBXBuildFile; fileRef = B546BB0717880051007C5730 /* tasks-example-57.png */; };
@@ -59,6 +60,8 @@
 		677DBD5DB68ABC06D78316D6 /* SBBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBaseCell.h; sourceTree = "<group>"; };
 		677DBE4C551EBED69AA0BEC6 /* SBLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLinkCell.h; sourceTree = "<group>"; };
 		677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageIcon@2x.png"; sourceTree = "<group>"; };
+		800D920C185FCF76003A09C6 /* NLImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLImageViewer.h; sourceTree = "<group>"; };
+		800D920D185FCF76003A09C6 /* NLImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLImageViewer.m; sourceTree = "<group>"; };
 		801A172C18525B990083A25D /* AppKeys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppKeys.h; sourceTree = "<group>"; };
 		801A172D18525D230083A25D /* AppKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppKeys.m; sourceTree = "<group>"; };
 		80BFCCFB1858B86E009A78B9 /* SBPlainTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlainTextViewController.h; sourceTree = "<group>"; };
@@ -194,9 +197,19 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		800D920B185FCF2F003A09C6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				800D920C185FCF76003A09C6 /* NLImageViewer.h */,
+				800D920D185FCF76003A09C6 /* NLImageViewer.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		D358F6AF17659D1C007C6115 = {
 			isa = PBXGroup;
 			children = (
+				800D920B185FCF2F003A09C6 /* Views */,
 				D3B589231780FD18009E2333 /* Tasks */,
 				D358F6BC17659D35007C6115 /* Frameworks */,
 				D358F6BB17659D35007C6115 /* Products */,
@@ -337,6 +350,7 @@
 				D3B5892E1780FD18009E2333 /* AppDelegate.m in Sources */,
 				801A172E18525D230083A25D /* AppKeys.m in Sources */,
 				677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */,
+				800D920E185FCF76003A09C6 /* NLImageViewer.m in Sources */,
 				677DB37FC59062EA7E4F5DA4 /* SBMainViewController.m in Sources */,
 				677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */,
 				677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */,
