@@ -33,9 +33,8 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="ShotBuf" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+        <window identifier="welcome" title="ShotBuf" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
+            <windowStyleMask key="styleMask" titled="YES"/>
             <rect key="contentRect" x="335" y="390" width="412" height="324"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="372">
@@ -50,7 +49,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="sP0-Yy-3b8">
-                                    <rect key="frame" x="0.0" y="0.0" width="412" height="326"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="412" height="324"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,6 +67,22 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-QR-DxY">
+                        <rect key="frame" x="133" y="17" width="147" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="bevel" title="Connect now" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NIG-iG-WJU">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <action selector="didPressLinkUnlinkButton:" target="494" id="Dvy-hR-FJ2"/>
+                            </connections>
+                        </buttonCell>
+                    </button>
+                    <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhY-bw-ZcZ">
+                        <rect key="frame" x="182" y="138" width="48" height="48"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageFrameStyle="photo" id="aaX-Vg-Xk8"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="NiQ-kS-FaZ" firstAttribute="top" secondItem="372" secondAttribute="top" constant="-1" id="K33-qa-4sk"/>
@@ -79,7 +94,10 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="window" destination="371" id="532"/>
+                <outlet property="enableShotBufItem" destination="Ogh-A2-vY8" id="MEr-Wv-I2B"/>
+                <outlet property="menu" destination="hLk-zd-nP5" id="dfc-2S-m39"/>
+                <outlet property="unlinkDropboxItem" destination="1DK-WC-TSJ" id="lbc-Ml-6Kb"/>
+                <outlet property="welcomeWindow" destination="371" id="kF6-DO-0fb"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
@@ -90,14 +108,31 @@
         </customObject>
         <menu id="hLk-zd-nP5">
             <items>
-                <menuItem title="Item 1" id="Ogh-A2-vY8">
+                <menuItem title="Disable ShotBuf" id="Ogh-A2-vY8">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="disableShotBuf:" target="494" id="kn6-qB-8bW"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Item 2" state="on" id="1DK-WC-TSJ">
+                <menuItem isSeparatorItem="YES" id="hhc-ed-lRG"/>
+                <menuItem title="Unlink DropBox" id="1DK-WC-TSJ">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="didPressLinkUnlinkButton:" target="494" id="4E1-Ty-htv"/>
+                    </connections>
                 </menuItem>
-                <menuItem title="Item 3" id="dji-3r-Kus">
+                <menuItem title="Clear data" id="dji-3r-Kus">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="didPressClearData:" target="494" id="5IA-ED-OSd"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="xZA-Qh-kf5"/>
+                <menuItem title="Quit ShotBuf" id="30j-cI-6rI">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="exitShotBuf:" target="494" id="89s-KM-BIw"/>
+                    </connections>
                 </menuItem>
             </items>
             <connections>

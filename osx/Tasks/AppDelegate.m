@@ -13,6 +13,10 @@
 #define BUFS_TABLE @"bufs_values"
 
 @interface AppDelegate () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate>
+{
+
+   NSStatusItem *statusItem;
+}
 
 @property(nonatomic, readonly) DBAccountManager *accountManager;
 @property(nonatomic, readonly) DBAccount *account;
@@ -23,6 +27,8 @@
 
 @property(nonatomic, retain) NSData *oldObject;
 @property(nonatomic, assign) BOOL firstTime;
+
+@property(nonatomic, assign) BOOL isEnabled;
 @end
 
 
@@ -30,6 +36,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.firstTime = YES;
+
     DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY secret:APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
     __weak AppDelegate *weakSelf = self;
@@ -40,13 +47,16 @@
 
     [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
 
-    _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerHandler) userInfo:NULL repeats:YES];
-
-
+    _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                       target:self
+                                                     selector:@selector(timerHandler)
+                                                     userInfo:NULL
+                                                      repeats:YES];
 }
 
 - (void)timerHandler {
 
+    if (!self.isEnabled) return;
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *classes = [[NSArray alloc]
             initWithObjects:
@@ -140,6 +150,7 @@
             __strong DBRecord *buf = [tasksTbl insert:@{@"value" : string,
                     @"type" : stringType,
                     @"created" : [NSDate date]}];
+
             [_tasks addObject:buf];
 
 
@@ -168,6 +179,7 @@
                                            }
                                        }];
             }
+            
         }
     }
 }
@@ -213,33 +225,83 @@
     return NO;
 }
 
+- (IBAction)disableShotBuf:(id)sender {
+    if (self.isEnabled) {
+        [self disableShotBuf];
+    } else {
+        [self enableShotBuf];
+    }
+}
+
+- (void)enableShotBuf {
+    self.isEnabled = YES;
+    [self.enableShotBufItem setTitle:@"Disable ShotBuf"];
+}
+
+- (void)disableShotBuf {
+    self.isEnabled = NO;
+    [self.enableShotBufItem setTitle:@"Enable ShotBuf"];
+}
+
+- (IBAction)exitShotBuf:(id)sender {
+    [NSApp terminate:self];
+}
+
+//- (void)enableShotBuf {
+//    self.isEnabled = YES;
+//    [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+//}
+//
+//- (void)disableShotBuf {
+//    self.isEnabled = NO;
+//    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
+//}
 
 
 #pragma mark - target-actions
-
-- (IBAction)didPressLink:(id)sender {
-    [[DBAccountManager sharedManager] linkFromWindow:[self window] withCompletionBlock:nil];
-}
-
-- (IBAction)didPressUnlink:(id)sender {
-    [[[DBAccountManager sharedManager] linkedAccount] unlink];
-    self.store = nil;
-
-    [self.tableView reloadData];
-}
-
-- (IBAction)didPressClearTable:(id)sender {
-
+- (IBAction)didPressClearData:(id)sender {
     // не нашел в доках более подходящего метода, чем удалять все записи по отдельности
-
+    [self disableShotBuf:nil];
     DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
-
+    
     NSArray *records = [bufsTbl query:nil error:nil];
-
+    
     for (DBRecord *record in records) {
-
+        
         [record deleteRecord];
     }
+
+}
+
+- (IBAction)didPressLinkUnlinkButton:(id)sender {
+    if ([[DBAccountManager sharedManager] linkedAccount]){
+        [self unlinkAccount];
+    } else {
+        [self linkAccount];
+    }
+}
+
+- (void) linkAccount {
+    if (!self.welcomeWindow.isVisible) {
+        [NSApp showWindow:self.welcomeWindow];
+    }
+    
+    __weak AppDelegate* slf = self;
+    [[DBAccountManager sharedManager]
+     linkFromWindow:self.welcomeWindow withCompletionBlock:^(DBAccount *account){
+         [slf enableShotBuf];
+         [slf.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+     }];
+}
+
+- (void) unlinkAccount {
+    [self disableShotBuf:nil];
+    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
+    [[[DBAccountManager sharedManager] linkedAccount] unlink];
+    
+
+    
+    self.store = nil;
 }
 
 #pragma mark - private methods
@@ -261,63 +323,25 @@
 
 - (void)setupTasks {
     if (self.account) {
-        __weak AppDelegate *slf = self;
-        [self.store addObserver:self block:^{
-            if (slf.store.status & (DBDatastoreIncoming | DBDatastoreOutgoing)) {
-                [slf syncTasks];
-            }
-        }];
-        _tasks = [NSMutableArray arrayWithArray:[[self.store getTable:@"tasks"] query:nil error:nil]];
-        [_tasks sortUsingComparator:^(DBRecord *obj1, DBRecord *obj2) {
-            return [obj1[@"created"] compare:obj2[@"created"]];
-        }];
+        _tasks = [NSMutableArray alloc];
     } else {
         _store = nil;
         _tasks = nil;
     }
-    [self.tableView reloadData];
-    [self syncTasks];
 }
 
-- (void)syncTasks {
-    if (self.account) {
-        NSDictionary *changed = [self.store sync:nil];
-        [self update:changed];
-    }
-}
-
-- (void)update:(NSDictionary *)changedDict {
-    NSMutableDictionary *changed = [NSMutableDictionary dictionary]; // dictionary of recordId -> record
-    for (DBRecord *changedTask in [changedDict[@"tasks"] allObjects]) {
-        changed[changedTask.recordId] = changedTask;
+- (void)setupStatusBarMenu {
+    statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    [statusItem setMenu:self.menu];
+    [statusItem setHighlightMode:YES];
+    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon"];
+    NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbaricon_invert"];
+    [statusItem setImage:statusIcon];
+    [statusItem setAlternateImage:statusIconHighlighted];
     }
 
-    // Remove deleted rows, update existing rows
-    NSMutableIndexSet *deletes = [[NSMutableIndexSet alloc] init];
-    NSMutableIndexSet *updates = [[NSMutableIndexSet alloc] init];
-    [_tasks enumerateObjectsUsingBlock:^(DBRecord *obj, NSUInteger idx, BOOL *stop) {
-        if (changed[obj.recordId] != nil) {
-            if (obj.deleted) {
-                [deletes addIndex:idx];
-            } else {
-                [updates addIndex:idx];
-            }
-            [changed removeObjectForKey:obj.recordId]; // mark that we processed this update
-        }
-    }];
-    [_tasks removeObjectsAtIndexes:deletes];
-    [self.tableView removeRowsAtIndexes:deletes withAnimation:NSTableViewAnimationEffectFade];
-    [self.tableView reloadDataForRowIndexes:updates columnIndexes:[NSIndexSet indexSetWithIndex:0]];
-
-    // Add new rows (in sorted order assuming _tasks is already sorted)
-    [_tasks addObjectsFromArray:[changed allValues]]; // anything not processed in changed are inserts
-    [_tasks sortUsingComparator:^(DBRecord *obj1, DBRecord *obj2) {
-        return [obj1[@"created"] compare:obj2[@"created"]];
-    }];
-    NSIndexSet *inserts = [_tasks indexesOfObjectsPassingTest:^BOOL(DBRecord *obj, NSUInteger idx, BOOL *stop) {
-        return changed[obj.recordId] != nil;
-    }];
-    [self.tableView insertRowsAtIndexes:inserts withAnimation:NSTableViewAnimationEffectFade];
+- (void) awakeFromNib {
+    [self setupStatusBarMenu];
 }
 
 @end

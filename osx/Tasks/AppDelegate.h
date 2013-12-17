@@ -2,9 +2,15 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSTableView *tableView;
+@property (assign) IBOutlet NSWindow *welcomeWindow;
+@property (weak) IBOutlet NSMenu *menu;
+
+@property (weak) IBOutlet NSMenuItem *unlinkDropboxItem;
+@property (weak) IBOutlet NSMenuItem *enableShotBufItem;
+
+- (IBAction)didPressLinkUnlinkButton:(id)sender;
+
 
 @end
