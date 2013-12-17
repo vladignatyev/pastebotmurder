@@ -16,7 +16,23 @@
 
     [super viewDidLoad];
 
+    [self setUpTouch];
+
     [self setUpImage];
+}
+
+- (void)setUpTouch {
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+
+    [_scrollView addGestureRecognizer:tap];
+
+
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap)];
+
+    [doubleTap setNumberOfTapsRequired:2];
+
+    [_scrollView addGestureRecognizer:doubleTap];
 }
 
 - (void)setUpImage {
@@ -68,6 +84,20 @@
     [self setUpImage];
 }
 
+- (void)tap {
+
+    [UIView animateWithDuration:0.5
+                     animations:^() {
+
+                         _menuView.alpha = !_menuView.alpha;
+                     }];
+}
+
+- (void)doubleTap {
+
+    _menuView.alpha = !_menuView.alpha;
+    [_scrollView setZoomScale:_scrollView.zoomScale * 1.5 animated:YES];
+}
 
 
 // Autorotation
