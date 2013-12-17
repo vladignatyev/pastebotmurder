@@ -262,7 +262,7 @@
 			children = (
 				800D920F185FD8D9003A09C6 /* Images */,
 				800D920B185FCF2F003A09C6 /* Views */,
-				D3B589231780FD18009E2333 /* Tasks */,
+				D3B589231780FD18009E2333 /* ShotBuf */,
 				D358F6BC17659D35007C6115 /* Frameworks */,
 				D358F6BB17659D35007C6115 /* Products */,
 			);
@@ -292,7 +292,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D3B589231780FD18009E2333 /* Tasks */ = {
+		D3B589231780FD18009E2333 /* ShotBuf */ = {
 			isa = PBXGroup;
 			children = (
 				801A172C18525B990083A25D /* AppKeys.h */,
@@ -307,6 +307,7 @@
 				677DB47EA59C527AA7C8CF7B /* Managers */,
 				677DB31BAFB524FE2E3862FF /* Images */,
 			);
+			name = ShotBuf;
 			path = Tasks;
 			sourceTree = "<group>";
 		};
