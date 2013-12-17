@@ -23,9 +23,13 @@
 
     UIImage *image = [[SBImageManager manager] imageByName:_imageName];
 
-    if(image) {
+    if (image) {
 
-        _imageView.contentMode = UIViewContentModeCenter;
+        CGSize screenSize = [self currentViewSize];
+
+        BOOL imageMoreThenView = (image.size.width > screenSize.width || image.size.height > screenSize.height);
+
+        _imageView.contentMode = (_imageFitMode && imageMoreThenView ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter);
 
         _imageView.image = image;
 
@@ -57,18 +61,48 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+- (IBAction)changeMode:(UISwitch *)sender {
+
+    _imageFitMode = [sender isOn];
+
+    [self setUpImage];
+}
+
+
+
 // Autorotation
 
-- (NSUInteger)supportedInterfaceOrientations
-{
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-
-
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return YES;
 }
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+    [self setUpImage];
+}
+
+// system
+
+- (CGSize)currentViewSize {
+
+    float width = self.view.frame.size.width;
+    float height = self.view.frame.size.height;
+
+    if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+
+        return CGSizeMake(height, width);
+
+    } else {
+
+        return CGSizeMake(width, height);
+    }
+}
+
 
 @end
