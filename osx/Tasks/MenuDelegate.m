@@ -12,8 +12,11 @@
 -(void)awakeFromNib{
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:self.menu];
-    [statusItem setTitle:@"DropBuf"];
     [statusItem setHighlightMode:YES];
+    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon"];
+    NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbaricon_invert"];
+    [statusItem setImage:statusIcon];
+    [statusItem setAlternateImage:statusIconHighlighted];
 }
 
 @end
