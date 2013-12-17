@@ -105,7 +105,7 @@
 		D358F6F717659DE6007C6115 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libc++.dylib"; sourceTree = DEVELOPER_DIR; };
 		D358F6F917659DFA007C6115 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		D358F6FB17659E07007C6115 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		D3B5891F1780FD18009E2333 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B5891F1780FD18009E2333 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Tasks.app; path = ShotBuf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B589251780FD18009E2333 /* Tasks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tasks-Info.plist"; sourceTree = "<group>"; };
 		D3B589271780FD18009E2333 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3B589291780FD18009E2333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -352,7 +352,7 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 			};
-			buildConfigurationList = D358F6B317659D1C007C6115 /* Build configuration list for PBXProject "Datastore Examples" */;
+			buildConfigurationList = D358F6B317659D1C007C6115 /* Build configuration list for PBXProject "ShotBuf" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -532,7 +532,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D358F6B317659D1C007C6115 /* Build configuration list for PBXProject "Datastore Examples" */ = {
+		D358F6B317659D1C007C6115 /* Build configuration list for PBXProject "ShotBuf" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D358F6B417659D1C007C6115 /* Debug */,
