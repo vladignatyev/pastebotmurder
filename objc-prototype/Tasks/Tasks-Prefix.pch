@@ -14,3 +14,5 @@
 
     #define IS_iOS6 ([[[UIDevice currentDevice] systemVersion] floatValue] < 7)
 #endif
+
+#define SHOTBUF_IOS 1

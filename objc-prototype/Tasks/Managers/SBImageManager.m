@@ -23,19 +23,22 @@
     return sharedInstance;
 }
 
+- (void)deleteImageByName:(NSString *)name {
+    
+    DBPath *existingPath = [[DBPath root] childPath:name];
+    
+    DBError *error = nil;
+    
+    [[DBFilesystem sharedFilesystem] deletePath:existingPath error:&error];
+}
+
+#ifdef SHOTBUF_IOS
+
 - (void)showImage:(NSString *)imageName inImageCell:(SBImageCell *)imageCell {
 
     [self performSelectorInBackground:@selector(showImageInImageCell:) withObject:@[imageCell, imageName]];
 }
 
-- (void)deleteImageByName:(NSString *)name {
-
-    DBPath *existingPath = [[DBPath root] childPath:name];
-
-    DBError *error = nil;
-
-    [[DBFilesystem sharedFilesystem] deletePath:existingPath error:&error];
-}
 
 - (UIImage *)imageByName:(NSString *)name {
 
@@ -118,5 +121,7 @@
 
     [imageCell.activityIndicatorView stopAnimating];
 }
+
+#endif
 
 @end
