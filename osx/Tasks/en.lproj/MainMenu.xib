@@ -74,7 +74,7 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <connections>
-                                <action selector="didPressLinkUnlinkButton:" target="494" id="Dvy-hR-FJ2"/>
+                                <action selector="didPressWelcomeConnectButton:" target="494" id="1gO-Ne-w9p"/>
                             </connections>
                         </buttonCell>
                     </button>
@@ -120,7 +120,7 @@
                 <menuItem title="Disable ShotBuf" id="Ogh-A2-vY8">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="disableShotBuf:" target="494" id="kn6-qB-8bW"/>
+                        <action selector="enableDisableShotBufAction:" target="494" id="xhd-TL-8Jf"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="hhc-ed-lRG"/>

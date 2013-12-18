@@ -26,52 +26,18 @@
 @property(nonatomic, retain) NSTimer *clipboardTimer;
 
 @property(nonatomic, retain) NSData *oldObject;
-@property(nonatomic, assign) BOOL firstTime;
 
-@property(nonatomic, assign) BOOL isEnabled;
+@property(nonatomic, assign) BOOL justStarted;
+@property(nonatomic, assign) BOOL shotBufEnabled;
+
 @end
 
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    self.firstTime = YES;
-    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
-    
-    
-
-    DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY secret:APP_SECRET];
-    [DBAccountManager setSharedManager:mgr];
-    __weak AppDelegate *weakSelf = self;
-
-
-    [self.accountManager addObserver:self block:^(DBAccount *account) {
-        [weakSelf setupTasks];
-    }];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"welcomePassed"];
-
-    if (![defaults boolForKey:@"welcomePassed"]) {
-        [defaults setBool:YES forKey:@"welcomePassed"];
-        [self.welcomeWindow makeKeyAndOrderFront:self];
-        [NSApp activateWithOptions:NSApplicationActivateAllWindows];
-    } else {
-        [self setupTasks];
-    }
-
-
-
-    _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
-                                                       target:self
-                                                     selector:@selector(timerHandler)
-                                                     userInfo:NULL
-                                                      repeats:YES];
-}
+//todo: делегировать другому классу, инстанс которого создавать при старте прилаги
 
 - (void)timerHandler {
-
-    if (!self.isEnabled) return;
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *classes = [[NSArray alloc]
             initWithObjects:
@@ -200,80 +166,50 @@
 }
 
 - (BOOL)isNewObject:(NSObject *)object {
-
     NSData *data;
-
     if ([object isKindOfClass:[NSImage class]]) {
-
         NSImage *img = (NSImage *) object;
-
         data = [img TIFFRepresentation];
-
     } else if ([object isKindOfClass:[NSString class]]) {
-
         NSString *string = (NSString *) object;
-
         data = [string dataUsingEncoding:NSUTF8StringEncoding];
     }
 
     if ([_oldObject isEqualToData:data]) {
-
         return NO;
-
-    } else {
-
-        self.oldObject = data;
-
-        return ([self isFirstTime] ? NO : YES );
     }
+    
+    self.oldObject = data;
+    return ([self isFirstTime] ? NO : YES );
 }
 
-- (BOOL)isFirstTime {
+#pragma mark - target-actions
 
-    if (self.firstTime) {
-
-        self.firstTime = NO;
-
-        return YES;
-    }
-
-    return NO;
-}
-
-- (IBAction)disableShotBuf:(id)sender {
-    if (self.isEnabled) {
+- (IBAction)enableDisableShotBufAction:(id)sender {
+    if (self.shotBufEnabled) {
         [self disableShotBuf];
     } else {
         [self enableShotBuf];
     }
 }
 
-- (void)enableShotBuf {
-    self.isEnabled = YES;
-    [self.enableShotBufItem setTitle:@"Disable ShotBuf"];
-}
-
-- (void)disableShotBuf {
-    self.isEnabled = NO;
-    [self.enableShotBufItem setTitle:@"Enable ShotBuf"];
+- (IBAction)didPressWelcomeConnectButton:(id)sender {
+    [self linkAccount];
 }
 
 - (IBAction)exitShotBuf:(id)sender {
     [NSApp terminate:self];
 }
 
-
-#pragma mark - target-actions
 - (IBAction)didPressClearData:(id)sender {
-    // не нашел в доках более подходящего метода, чем удалять все записи по отдельности
-    [self disableShotBuf:nil];
-    DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
+    [self disableShotBuf];
     
+    DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
     NSArray *records = [bufsTbl query:nil error:nil];
     
     for (DBRecord *record in records) {
-        
         [record deleteRecord];
+        // TODO: если тип картинка - удалить и файлы из директории приложения
     }
 
 }
@@ -283,34 +219,118 @@
         [self unlinkAccount];
     } else {
         [self linkAccount];
-
     }
 }
 
+#pragma mark - lifecycle
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    self.justStarted = YES;
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
+    [self setupDroboxSharedManager];
+    [self passWelcomeScenario];
+}
+
+- (void)setupDroboxSharedManager {
+    DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY secret:APP_SECRET];
+    [DBAccountManager setSharedManager:mgr];
+}
+
+- (void)passWelcomeScenario {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"welcomePassed"];
+    
+    if ([defaults boolForKey:@"welcomePassed"] || self.account) {
+        [self setupShotbuf];
+        return;
+    }
+    
+    [defaults setBool:YES forKey:@"welcomePassed"];
+    [self presentWelcomeWindow];
+}
+
+- (void)presentWelcomeWindow {
+    [self.welcomeWindow makeKeyAndOrderFront:self];
+    [NSApp activateWithOptions:NSApplicationActivateAllWindows];
+}
+
+- (void)closeWelcomeWindow {
+    [self.welcomeWindow close];
+}
+
+- (void)tearDownShotBuf {
+    [self disableShotBuf];
+    [self.enableShotBufItem setEnabled:NO];
+    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
+    [self.enableShotBufItem setEnabled:NO];
+    [self.accountManager removeObserver:self];
+    _store = nil;
+    _tasks = nil;
+}
+
+- (void)setupShotbuf {
+    if (self.account) {
+        __weak AppDelegate* weakSelf = self;
+        [self.accountManager addObserver:self block:^(DBAccount *account) {
+            [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
+            [self.accountManager removeObserver:self];
+        }];
+        
+        _tasks = [NSMutableArray alloc];
+
+        [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+        [self closeWelcomeWindow];
+        [self enableShotBuf];
+    } else {
+        [self tearDownShotBuf];
+    }
+}
+
+- (BOOL)isFirstTime {
+    if (self.justStarted) {
+        self.justStarted = NO;
+        return YES;
+    }
+    return NO;
+}
+
+- (void)enableShotBuf {
+    [self.enableShotBufItem setTitle:@"Disable ShotBuf"];
+    [self.enableShotBufItem setEnabled:YES];
+    _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
+                                                       target:self
+                                                     selector:@selector(timerHandler)
+                                                     userInfo:NULL
+                                                      repeats:YES];
+    [self setNormalStatusIcon];
+    self.shotBufEnabled = YES;
+}
+
+- (void)disableShotBuf {
+    [self.enableShotBufItem setTitle:@"Enable ShotBuf"];
+    [_clipboardTimer invalidate];
+    [self setDisabledStatusIcon];
+    self.shotBufEnabled = NO;
+}
+
+#pragma mark - account methods
+
 - (void) linkAccount {
-        if (!self.welcomeWindow.isVisible) {
+    if (!self.welcomeWindow.isVisible) {
         [self.welcomeWindow makeKeyAndOrderFront:self];
     }
     
-    __weak AppDelegate* slf = self;
+    __weak AppDelegate *weakSelf = self;
     [[DBAccountManager sharedManager]
      linkFromWindow:self.welcomeWindow withCompletionBlock:^(DBAccount *account){
-         [slf enableShotBuf];
-         [slf.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+         [weakSelf setupShotbuf];
      }];
 }
 
 - (void) unlinkAccount {
-    [self disableShotBuf:nil];
-    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
     [[[DBAccountManager sharedManager] linkedAccount] unlink];
-    
-
-    
-    self.store = nil;
+    [self tearDownShotBuf];
 }
-
-#pragma mark - private methods
 
 - (DBAccountManager *)accountManager {
     return [DBAccountManager sharedManager];
@@ -327,30 +347,32 @@
     return _store;
 }
 
-- (void)setupTasks {
-    
-    if (self.account) {
-        _tasks = [NSMutableArray alloc];
-        [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
-        [self.welcomeWindow close];
-
-
-    } else {
-        [self.unlinkDropboxItem setTitle:@"Link DropBox"];
-        _store = nil;
-        _tasks = nil;
-    }
-}
+#pragma mark - UI methods
 
 - (void)setupStatusBarMenu {
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:self.menu];
     [statusItem setHighlightMode:YES];
-    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon"];
+    
+    [self setDisabledStatusIcon];
+    [self setAlternativeStatusIcon];
+}
+
+- (void)setAlternativeStatusIcon {
     NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbaricon_invert"];
-    [statusItem setImage:statusIcon];
     [statusItem setAlternateImage:statusIconHighlighted];
-    }
+}
+
+
+- (void)setDisabledStatusIcon {
+    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon_black"];
+    [statusItem setImage:statusIcon];
+}
+
+- (void)setNormalStatusIcon {
+    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon"];
+    [statusItem setImage:statusIcon];
+}
 
 - (void) awakeFromNib {
     [self setupStatusBarMenu];
