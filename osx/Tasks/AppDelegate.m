@@ -36,7 +36,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.firstTime = YES;
-    
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
     
     
 
@@ -51,17 +51,16 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //    [defaults setBool:NO forKey:@"welcomePassed"];
-//    return;
-//
+
     if (![defaults boolForKey:@"welcomePassed"]) {
         [defaults setBool:YES forKey:@"welcomePassed"];
         [self.welcomeWindow makeKeyAndOrderFront:self];
         [NSApp activateWithOptions:NSApplicationActivateAllWindows];
     } else {
-    [self setupTasks];
+        [self setupTasks];
     }
 
-    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
+
 
     _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
                                                        target:self
@@ -263,16 +262,6 @@
     [NSApp terminate:self];
 }
 
-//- (void)enableShotBuf {
-//    self.isEnabled = YES;
-//    [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
-//}
-//
-//- (void)disableShotBuf {
-//    self.isEnabled = NO;
-//    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
-//}
-
 
 #pragma mark - target-actions
 - (IBAction)didPressClearData:(id)sender {
@@ -339,7 +328,6 @@
 }
 
 - (void)setupTasks {
-    
     
     if (self.account) {
         _tasks = [NSMutableArray alloc];
