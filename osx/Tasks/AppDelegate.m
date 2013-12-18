@@ -1,4 +1,4 @@
-//  Copyright (c) 2013 Dropbox, Inc. All rights reserved.
+//  Copyright (c) 2013 ShotBuf. All rights reserved.
 
 #import "AppDelegate.h"
 #import "TaskCellView.h"

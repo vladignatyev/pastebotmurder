@@ -1,9 +1,9 @@
 //
 //  Tests.m
-//  Tests
+//  ShotBuf
 //
 //  Created by Vladimir Ignatev on 07.12.13.
-//  Copyright (c) 2013 Dropbox, Inc. All rights reserved.
+//  Copyright (c) 2013 ShotBuf, Inc. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

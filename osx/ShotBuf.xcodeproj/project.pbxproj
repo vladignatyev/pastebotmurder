@@ -502,7 +502,7 @@
 		801A178918526BAD0083A25D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DropBuf Desktop.app/Contents/MacOS/DropBuf Desktop";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ShotBuf.app/Contents/MacOS/ShotBuf";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -524,7 +524,7 @@
 		801A178A18526BAD0083A25D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DropBuf Desktop.app/Contents/MacOS/DropBuf Desktop";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ShotBuf.app/Contents/MacOS/ShotBuf";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
