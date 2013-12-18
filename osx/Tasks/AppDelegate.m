@@ -36,14 +36,30 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     self.firstTime = YES;
+    
+    
+    
 
     DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY secret:APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
     __weak AppDelegate *weakSelf = self;
+
+
     [self.accountManager addObserver:self block:^(DBAccount *account) {
         [weakSelf setupTasks];
     }];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setBool:NO forKey:@"welcomePassed"];
+//    return;
+//
+    if (![defaults boolForKey:@"welcomePassed"]) {
+        [defaults setBool:YES forKey:@"welcomePassed"];
+        [self.welcomeWindow makeKeyAndOrderFront:self];
+        [NSApp activateWithOptions:NSApplicationActivateAllWindows];
+    } else {
     [self setupTasks];
+    }
 
     [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
 
@@ -274,16 +290,17 @@
 }
 
 - (IBAction)didPressLinkUnlinkButton:(id)sender {
-    if ([[DBAccountManager sharedManager] linkedAccount]){
+    if (self.account){
         [self unlinkAccount];
     } else {
         [self linkAccount];
+
     }
 }
 
 - (void) linkAccount {
-    if (!self.welcomeWindow.isVisible) {
-        [NSApp showWindow:self.welcomeWindow];
+        if (!self.welcomeWindow.isVisible) {
+        [self.welcomeWindow makeKeyAndOrderFront:self];
     }
     
     __weak AppDelegate* slf = self;
@@ -322,9 +339,16 @@
 }
 
 - (void)setupTasks {
+    
+    
     if (self.account) {
         _tasks = [NSMutableArray alloc];
+        [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+        [self.welcomeWindow close];
+
+
     } else {
+        [self.unlinkDropboxItem setTitle:@"Link DropBox"];
         _store = nil;
         _tasks = nil;
     }

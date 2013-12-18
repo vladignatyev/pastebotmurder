@@ -33,7 +33,7 @@
                 </menuItem>
             </items>
         </menu>
-        <window identifier="welcome" title="ShotBuf" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
+        <window identifier="welcome" title="ShotBuf" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES"/>
             <rect key="contentRect" x="335" y="390" width="412" height="324"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
