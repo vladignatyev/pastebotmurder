@@ -217,6 +217,7 @@
 - (IBAction)didPressLinkUnlinkButton:(id)sender {
     if (self.account){
         [self unlinkAccount];
+        [self presentWelcomeWindow];
     } else {
         [self linkAccount];
     }
