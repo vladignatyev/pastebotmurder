@@ -270,21 +270,21 @@
 }
 
 - (void)setupShotbuf {
-    if (self.account) {
-        __weak AppDelegate* weakSelf = self;
-        [self.accountManager addObserver:self block:^(DBAccount *account) {
-            [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
-            [self.accountManager removeObserver:self];
-        }];
-        
-        _tasks = [NSMutableArray alloc];
-
-        [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
-        [self closeWelcomeWindow];
-        [self enableShotBuf];
-    } else {
+    if (!self.account) {
         [self tearDownShotBuf];
+        return;
     }
+    __weak AppDelegate* weakSelf = self;
+    [self.accountManager addObserver:self block:^(DBAccount *account) {
+        [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
+        [self.accountManager removeObserver:self];
+    }];
+    
+    _tasks = [NSMutableArray alloc];
+
+    [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+    [self closeWelcomeWindow];
+    [self enableShotBuf];
 }
 
 - (BOOL)isFirstTime {
