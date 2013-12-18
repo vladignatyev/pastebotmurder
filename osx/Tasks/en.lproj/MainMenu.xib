@@ -35,21 +35,21 @@
         </menu>
         <window identifier="welcome" title="ShotBuf" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES"/>
-            <rect key="contentRect" x="335" y="390" width="412" height="324"/>
+            <rect key="contentRect" x="335" y="390" width="412" height="266"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="412" height="324"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <rect key="frame" x="0.0" y="0.0" width="412" height="266"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NiQ-kS-FaZ">
-                        <rect key="frame" x="-1" y="-1" width="414" height="326"/>
+                        <rect key="frame" x="-1" y="-1" width="414" height="268"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <clipView key="contentView" id="Ni8-TL-yOz">
-                            <rect key="frame" x="1" y="1" width="412" height="324"/>
+                            <rect key="frame" x="1" y="1" width="412" height="266"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="none" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="sP0-Yy-3b8">
-                                    <rect key="frame" x="0.0" y="0.0" width="412" height="324"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="412" height="266"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,7 +68,7 @@
                         </scroller>
                     </scrollView>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lM6-QR-DxY">
-                        <rect key="frame" x="133" y="17" width="147" height="29"/>
+                        <rect key="frame" x="133" y="21" width="147" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="bevel" title="Connect now" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NIG-iG-WJU">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -79,10 +79,19 @@
                         </buttonCell>
                     </button>
                     <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OhY-bw-ZcZ">
-                        <rect key="frame" x="182" y="138" width="48" height="48"/>
+                        <rect key="frame" x="50" y="56" width="313" height="165"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageFrameStyle="photo" id="aaX-Vg-Xk8"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="welcome" id="aaX-Vg-Xk8"/>
                     </imageView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2xt-ND-88x">
+                        <rect key="frame" x="57" y="220" width="299" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Connect to your Dropbox account" id="P2A-6t-6Xx">
+                            <font key="font" metaFont="system" size="17"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="NiQ-kS-FaZ" firstAttribute="top" secondItem="372" secondAttribute="top" constant="-1" id="K33-qa-4sk"/>
@@ -140,4 +149,7 @@
             </connections>
         </menu>
     </objects>
+    <resources>
+        <image name="welcome" width="583" height="310"/>
+    </resources>
 </document>

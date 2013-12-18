@@ -50,7 +50,7 @@
     }];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setBool:NO forKey:@"welcomePassed"];
+    [defaults setBool:NO forKey:@"welcomePassed"];
 
     if (![defaults boolForKey:@"welcomePassed"]) {
         [defaults setBool:YES forKey:@"welcomePassed"];
