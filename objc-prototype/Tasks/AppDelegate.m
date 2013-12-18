@@ -31,7 +31,6 @@
     if ([DBAccountManager sharedManager].linkedAccount) {
 
         first = [storyboard instantiateViewControllerWithIdentifier:@"main"];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     } else {
 

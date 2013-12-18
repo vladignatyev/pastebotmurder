@@ -29,6 +29,8 @@
 
 - (void)setUpNavigationBar {
 
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     if (IS_iOS6) {
 
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBG.png"]
@@ -279,7 +281,7 @@
 
 - (void)openLoginScreen {
 
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 
