@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		677DB25DDFED5D1A6E8BBD54 /* SBBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0532F2E87107E83CAE6 /* SBBaseCell.m */; };
 		677DB3D5918FFC1CE334BB96 /* imageIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */; };
+		677DB4D3EBCEC61211A9491C /* navBarBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBE862FA038DD3C72C6C8 /* navBarBG.png */; };
 		677DB5A05B5926A3926A3D47 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB8FF779C5FC74D11B427 /* SBRecord.m */; };
 		677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0FD214BD497FCE1164D /* SBImageManager.m */; };
 		677DB77009BD2C905C606083 /* SBLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */; };
@@ -80,6 +81,7 @@
 		677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLinkCell.m; sourceTree = "<group>"; };
 		677DBD5DB68ABC06D78316D6 /* SBBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBaseCell.h; sourceTree = "<group>"; };
 		677DBE4C551EBED69AA0BEC6 /* SBLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLinkCell.h; sourceTree = "<group>"; };
+		677DBE862FA038DD3C72C6C8 /* navBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBG.png; sourceTree = "<group>"; };
 		677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageIcon@2x.png"; sourceTree = "<group>"; };
 		800D920C185FCF76003A09C6 /* NLImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLImageViewer.h; sourceTree = "<group>"; };
 		800D920D185FCF76003A09C6 /* NLImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLImageViewer.m; sourceTree = "<group>"; };
@@ -112,7 +114,7 @@
 		D358F6F717659DE6007C6115 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/usr/lib/libc++.dylib"; sourceTree = DEVELOPER_DIR; };
 		D358F6F917659DFA007C6115 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		D358F6FB17659E07007C6115 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		D3B5891F1780FD18009E2333 /* Tasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Tasks.app; path = ShotBuf.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B5891F1780FD18009E2333 /* ShotBuf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShotBuf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B589251780FD18009E2333 /* Tasks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tasks-Info.plist"; sourceTree = "<group>"; };
 		D3B589271780FD18009E2333 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3B589291780FD18009E2333 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				677DB27F8E4E5288EA429FB7 /* CellIcons */,
 				677DB546477917E4DE840DC5 /* loginButton@2x.png */,
 				677DB1401EAEE3E857CF370B /* forIdiots@2x.png */,
+				677DBE862FA038DD3C72C6C8 /* navBarBG.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -298,7 +301,7 @@
 		D358F6BB17659D35007C6115 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3B5891F1780FD18009E2333 /* Tasks.app */,
+				D3B5891F1780FD18009E2333 /* ShotBuf.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -369,7 +372,7 @@
 			);
 			name = ShotBuf;
 			productName = Tasks;
-			productReference = D3B5891F1780FD18009E2333 /* Tasks.app */;
+			productReference = D3B5891F1780FD18009E2333 /* ShotBuf.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -429,6 +432,7 @@
 				800D9224185FD8E6003A09C6 /* AppIcon50x50.png in Resources */,
 				677DB8EDA8E6CD40C4376824 /* loginButton@2x.png in Resources */,
 				677DB7DBAC5475214B0F5B91 /* forIdiots@2x.png in Resources */,
+				677DB4D3EBCEC61211A9491C /* navBarBG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +476,7 @@
 		D358F6B417659D1C007C6115 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -479,6 +484,7 @@
 		D358F6B517659D1C007C6115 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Release;
 		};
@@ -515,7 +521,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Tasks/Tasks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -550,7 +556,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Tasks/Tasks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
