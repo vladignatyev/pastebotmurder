@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="d7a-S6-gff">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="24y-vE-Pj4">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
@@ -8,28 +8,30 @@
         <!--Navigation Controller-->
         <scene sceneID="Vqn-0h-KA2">
             <objects>
-                <navigationController storyboardIdentifier="main" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="24y-vE-Pj4" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="24y-vE-Pj4" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="phA-Ik-9ZL">
+                        <rect key="frame" x="0.0" y="-44" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.18823531270027161" green="0.52549022436141968" blue="0.90980398654937744" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="barTintColor" red="0.18823531269999999" green="0.52549022440000004" blue="0.90980398650000005" alpha="1" colorSpace="deviceRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="zji-Yj-eIJ" kind="relationship" relationship="rootViewController" id="Ky4-1d-gAI"/>
+                        <segue destination="d7a-S6-gff" kind="relationship" relationship="rootViewController" id="6D9-CB-mhf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9c1-fB-m8w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-922" y="-187"/>
+            <point key="canvasLocation" x="-2211" y="48"/>
         </scene>
         <!--Main View Controller - Bufs list-->
         <scene sceneID="HYK-6s-RxW">
             <objects>
-                <tableViewController id="zji-Yj-eIJ" customClass="SBMainViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zji-Yj-eIJ" customClass="SBMainViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="85" sectionHeaderHeight="22" sectionFooterHeight="22" id="Gfk-vK-Xha">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -201,30 +203,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="headerView" destination="YoM-VB-AaH" id="80h-Jt-5u0"/>
-                    </connections>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="siY-oG-iMw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="YoM-VB-AaH" userLabel="Header">
-                    <rect key="frame" x="0.0" y="400" width="320" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MY TASKS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eTF-Vf-me6">
-                            <rect key="frame" x="0.0" y="24" width="320" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                            <color key="textColor" red="0.40000003576278687" green="0.40000003576278687" blue="0.40000003576278687" alpha="1" colorSpace="deviceRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <view contentMode="scaleToFill" id="doY-t8-jxg">
-                            <rect key="frame" x="20" y="59" width="280" height="1"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.94117653369903564" green="0.94117653369903564" blue="0.94117653369903564" alpha="1" colorSpace="deviceRGB"/>
-                        </view>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                </view>
             </objects>
             <point key="canvasLocation" x="-354" y="-187"/>
         </scene>
@@ -253,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8HH-3l-ppo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="248" y="661"/>
+            <point key="canvasLocation" x="504" y="329"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="zQY-ca-Jtd">
@@ -324,7 +306,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wzv-6X-zRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="248" y="-91"/>
+            <point key="canvasLocation" x="492" y="-451"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="oAW-WV-YtO">
@@ -350,7 +332,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect to your Dropbox acount" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wqD-bW-oL8">
-                                <rect key="frame" x="73" y="59.000000000000007" width="175" height="156"/>
+                                <rect key="frame" x="73" y="59" width="175" height="156"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -358,14 +340,52 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="puR-vb-isE"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="loginButton" destination="2Gc-lb-BCg" id="3ci-3s-ba5"/>
+                        <segue destination="zji-Yj-eIJ" kind="push" identifier="mainScreen" id="MEq-ji-yMN"/>
+                        <segue destination="U2W-H1-bXD" kind="push" identifier="manualScreen" id="W0p-Zc-4Hs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCO-AE-OD9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-813" y="710"/>
+            <point key="canvasLocation" x="-1724" y="48"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="pDX-ND-wd4">
+            <objects>
+                <viewController id="U2W-H1-bXD" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Hg-Rs-B8w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HiP-RV-Q7A">
+                                <rect key="frame" x="103" y="395" width="114" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="AHUENNO">
+                                    <color key="titleColor" red="0.18823531269999999" green="0.52549022440000004" blue="0.90980398650000005" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="zji-Yj-eIJ" kind="push" identifier="mainScreen" id="luG-Q4-kbv"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bla bla bla Bla bla Bla bla bla Bla bla" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L4f-AC-f3B">
+                                <rect key="frame" x="104" y="133" width="113" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lbL-OT-tgC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9rP-vN-dXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1031" y="450"/>
         </scene>
     </scenes>
     <resources>
@@ -378,4 +398,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="luG-Q4-kbv"/>
+    </inferredMetricsTieBreakers>
 </document>

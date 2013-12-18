@@ -25,19 +25,9 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    UIViewController *first = nil;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
 
-    if ([DBAccountManager sharedManager].linkedAccount) {
-
-        first = [storyboard instantiateViewControllerWithIdentifier:@"main"];
-
-    } else {
-
-        first = [storyboard instantiateInitialViewController];
-    }
-
-    self.window.rootViewController = first;
+    self.window.rootViewController = [storyboard instantiateInitialViewController];
 
     [self.window makeKeyAndVisible];
 }

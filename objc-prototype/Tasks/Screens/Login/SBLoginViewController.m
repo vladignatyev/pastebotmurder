@@ -14,11 +14,16 @@
 
 - (void)viewDidLoad {
 
+    if([[DBAccountManager sharedManager] linkedAccount] && [[[DBAccountManager sharedManager] linkedAccount] isLinked]) {
+
+        [self showMainScreen];
+    }
+
     [[DBAccountManager sharedManager] addObserver:self block:^(DBAccount *account) {
 
         if(account && [account isLinked]) {
 
-            [self showMainScreen];
+            self.needShowNextScreen = YES;
         }
     }];
 }
@@ -28,6 +33,20 @@
     [super viewWillAppear:animated];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+
+    if(_needShowNextScreen) {
+
+        self.needShowNextScreen = NO;
+
+        [self showNextScreen];
+    }
 }
 
 // user event
@@ -40,17 +59,14 @@
 
 // system
 
+- (void)showNextScreen {
+
+    [self performSegueWithIdentifier:@"manualScreen" sender:self];
+}
+
 - (void)showMainScreen {
 
-    [self dismissViewControllerAnimated:NO completion:nil];
-
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
-
-    UIViewController *main = [storyboard instantiateViewControllerWithIdentifier:@"main"];
-
-    main.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-
-    [self presentViewController:main animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"mainScreen" sender:self];
 }
 
 @end

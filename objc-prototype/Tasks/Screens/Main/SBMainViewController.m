@@ -31,6 +31,8 @@
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
+    [self.navigationItem setHidesBackButton:YES];
+
     if (IS_iOS6) {
 
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBG.png"]
@@ -47,6 +49,12 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 
 // user events
@@ -55,7 +63,7 @@
 
     [self unlinkAccount];
 
-    [self openLoginScreen];
+    [self backToLoginScreen];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -279,10 +287,9 @@
 
 // system
 
-- (void)openLoginScreen {
+- (void)backToLoginScreen {
 
-    [self dismissViewControllerAnimated:YES completion:nil];
-
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)unlinkAccount {
