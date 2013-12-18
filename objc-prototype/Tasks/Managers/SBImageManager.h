@@ -9,11 +9,11 @@
 @interface SBImageManager : NSObject
 
 + (SBImageManager *)manager;
-
-- (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView;
-
-- (UIImage *)imageByName:(NSString *)name;
-
 - (void)deleteImageByName:(NSString *)name;
+
+#ifdef SHOTBUF_IOS
+- (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView;
+- (UIImage *)imageByName:(NSString *)name;
+#endif
 
 @end

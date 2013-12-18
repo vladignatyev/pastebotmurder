@@ -31,6 +31,8 @@
 		802C8FD3185F94C800BF8482 /* statusbaricon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */; };
 		808E6F551861F96B00123119 /* statusbaricon_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F531861F96B00123119 /* statusbaricon_black.png */; };
 		808E6F561861F96B00123119 /* statusbaricon_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F541861F96B00123119 /* statusbaricon_black@2x.png */; };
+		808E6F5C1862050300123119 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E6F5B1862050300123119 /* SBRecord.m */; };
+		808E6F5F1862065C00123119 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E6F5D1862065C00123119 /* SBImageManager.m */; };
 		8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 /* End PBXBuildFile section */
@@ -95,6 +97,10 @@
 		802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon@2x.png"; path = "Images/statusbaricon@2x.png"; sourceTree = "<group>"; };
 		808E6F531861F96B00123119 /* statusbaricon_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbaricon_black.png; path = Images/statusbaricon_black.png; sourceTree = "<group>"; };
 		808E6F541861F96B00123119 /* statusbaricon_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon_black@2x.png"; path = "Images/statusbaricon_black@2x.png"; sourceTree = "<group>"; };
+		808E6F5A1862050300123119 /* SBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBRecord.h; path = "../objc-prototype/Tasks/Model/SBRecord.h"; sourceTree = "<group>"; };
+		808E6F5B1862050300123119 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBRecord.m; path = "../objc-prototype/Tasks/Model/SBRecord.m"; sourceTree = "<group>"; };
+		808E6F5D1862065C00123119 /* SBImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBImageManager.m; path = "../objc-prototype/Tasks/Managers/SBImageManager.m"; sourceTree = "<group>"; };
+		808E6F5E1862065C00123119 /* SBImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBImageManager.h; path = "../objc-prototype/Tasks/Managers/SBImageManager.h"; sourceTree = "<group>"; };
 		809FEC60184FF5A00034B712 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,6 +128,7 @@
 		67C40D05181566AC005B06DA = {
 			isa = PBXGroup;
 			children = (
+				808E6F571862043F00123119 /* Shared Codebase */,
 				8026FACB1861238F0076F5CB /* Images.xcassets */,
 				802C8FC3185F942600BF8482 /* Images */,
 				801A1735185269620083A25D /* Utilities */,
@@ -233,6 +240,17 @@
 				802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		808E6F571862043F00123119 /* Shared Codebase */ = {
+			isa = PBXGroup;
+			children = (
+				808E6F5D1862065C00123119 /* SBImageManager.m */,
+				808E6F5E1862065C00123119 /* SBImageManager.h */,
+				808E6F5A1862050300123119 /* SBRecord.h */,
+				808E6F5B1862050300123119 /* SBRecord.m */,
+			);
+			name = "Shared Codebase";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,8 +367,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				808E6F5F1862065C00123119 /* SBImageManager.m in Sources */,
 				801A1731185262F50083A25D /* NSString+LinkDetection.m in Sources */,
 				678B6E051816359D00E3F0DA /* TaskCellView.m in Sources */,
+				808E6F5C1862050300123119 /* SBRecord.m in Sources */,
 				67C40D59181566EE005B06DA /* AppDelegate.m in Sources */,
 				67C40D52181566EE005B06DA /* main.m in Sources */,
 			);

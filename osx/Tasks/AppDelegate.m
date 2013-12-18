@@ -7,6 +7,8 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "NSString+LinkDetection.h"
+#import "SBRecord.h"
+#import "SBImageManager.h"
 
 #define APP_KEY     @"84zxlqvsmm2py5y"
 #define APP_SECRET  @"u5sva6uz22bvuyy"
@@ -208,7 +210,13 @@
     NSArray *records = [bufsTbl query:nil error:nil];
     
     for (DBRecord *record in records) {
-        [record deleteRecord];
+        SBRecord* sbRecord = [SBRecord recordByDBRecord:record];
+        if (sbRecord.isImage) {
+            NSString* imagePath = sbRecord.value;
+            SBImageManager* imageManager = [SBImageManager manager];
+            [imageManager deleteImageByName:imagePath];
+        }
+        [sbRecord deleteRecord];
         // TODO: если тип картинка - удалить и файлы из директории приложения
     }
 
