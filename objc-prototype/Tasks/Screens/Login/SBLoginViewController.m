@@ -42,7 +42,7 @@
 
 - (void)showMainScreen {
 
-    [self dismissModalViewControllerAnimated:NO];
+    [self dismissViewControllerAnimated:NO completion:nil];
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
 

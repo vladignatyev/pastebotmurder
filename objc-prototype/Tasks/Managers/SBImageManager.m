@@ -5,6 +5,7 @@
 
 #import <Dropbox/Dropbox.h>
 #import "SBImageManager.h"
+#import "SBImageCell.h"
 
 
 @implementation SBImageManager {
@@ -22,9 +23,9 @@
     return sharedInstance;
 }
 
-- (void)showImage:(NSString *)imageName inImageView:(UIImageView *)imageView {
+- (void)showImage:(NSString *)imageName inImageCell:(SBImageCell *)imageCell {
 
-    [self performSelectorInBackground:@selector(showImageInImageView:) withObject:@[imageView, imageName]];
+    [self performSelectorInBackground:@selector(showImageInImageCell:) withObject:@[imageCell, imageName]];
 }
 
 - (void)deleteImageByName:(NSString *)name {
@@ -59,9 +60,9 @@
     return result;
 }
 
-- (void)showImageInImageView:(NSArray *)arguments {
+- (void)showImageInImageCell:(NSArray *)arguments {
 
-    UIImageView *imageView = [arguments firstObject];
+    SBImageCell *imageCell = [arguments firstObject];
 
     NSString *imageName = [arguments lastObject];
 
@@ -79,7 +80,7 @@
 
             [NSThread sleepForTimeInterval:1];
 
-            [self showImageInImageView:arguments];
+            [self showImageInImageCell:arguments];
         }
 
     } else {
@@ -99,23 +100,23 @@
 
         [file close];
 
-        [self performSelectorOnMainThread:@selector(setImageInImageView:)
-                               withObject:@[image, imageView]
+        [self performSelectorOnMainThread:@selector(setImageInImageCell:)
+                               withObject:@[image, imageCell]
                             waitUntilDone:YES];
     }
 }
 
-- (void)setImageInImageView:(NSArray *)arguments {
+- (void)setImageInImageCell:(NSArray *)arguments {
 
     UIImage *image = [arguments firstObject];
 
-    UIImageView *imageView = [arguments lastObject];
+    SBImageCell *imageCell = [arguments lastObject];
 
-    imageView.image = image;
-    
-    
+    imageCell.mainImageView.image = image;
 
-    imageView.hidden = NO;
+    imageCell.mainImageView.hidden = NO;
+
+    [imageCell.activityIndicatorView stopAnimating];
 }
 
 @end

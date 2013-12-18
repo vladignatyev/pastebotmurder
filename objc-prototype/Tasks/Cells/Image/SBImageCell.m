@@ -29,7 +29,7 @@
 
     [_activityIndicatorView startAnimating];
 
-    [[SBImageManager manager] showImage:[record value] inImageView:_mainImageView];
+    [[SBImageManager manager] showImage:[record value] inImageCell:self];
 }
 
 @end
