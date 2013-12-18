@@ -8,6 +8,7 @@
 #import "SBImageManager.h"
 #import "SBLinkCell.h"
 #import "SBPlainTextViewController.h"
+#import "AppDelegate.h"
 
 @implementation SBMainViewController
 
@@ -21,9 +22,23 @@
 
     [super viewDidLoad];
 
+    [self setUpNavigationBar];
+
     [self setupTasks];
 }
 
+- (void)setUpNavigationBar {
+
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    if (IS_iOS6) {
+
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBG.png"]
+                                                      forBarMetrics:UIBarMetricsDefault];
+
+        [self.navigationController.navigationBar setShadowImage:nil];
+    }
+}
 
 - (void)viewWillAppear:(BOOL)animated {
 
@@ -159,6 +174,7 @@
 
     return 1;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 
     return [UIView new];
@@ -265,7 +281,7 @@
 
 - (void)openLoginScreen {
 
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 
 }
 

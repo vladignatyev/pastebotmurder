@@ -4,19 +4,31 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey: APP_KEY
-                                                              secret: APP_SECRET];
+    [self setUpAccountManager];
+
+    [self setUpStartScreen];
+
+
+    return YES;
+}
+
+- (void)setUpAccountManager {
+
+    DBAccountManager *mgr = [[DBAccountManager alloc] initWithAppKey:APP_KEY
+                                                              secret:APP_SECRET];
     [DBAccountManager setSharedManager:mgr];
+}
 
+- (void)setUpStartScreen {
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     UIViewController *first = nil;
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
 
-    if(mgr.linkedAccount) {
+    if ([DBAccountManager sharedManager].linkedAccount) {
 
         first = [storyboard instantiateViewControllerWithIdentifier:@"main"];
 
@@ -26,13 +38,8 @@
     }
 
     self.window.rootViewController = first;
-    self.window.backgroundColor = [UIColor whiteColor];
+
     [self.window makeKeyAndVisible];
-
-
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
-    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

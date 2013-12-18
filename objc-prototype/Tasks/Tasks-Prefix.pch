@@ -11,4 +11,6 @@
 #ifdef __OBJC__
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
+
+    #define IS_iOS6 ([[[UIDevice currentDevice] systemVersion] floatValue] < 7)
 #endif
