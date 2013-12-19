@@ -5,7 +5,9 @@
 
 #import <Dropbox/Dropbox.h>
 #import "SBImageManager.h"
-//#import "SBImageCell.h"
+#ifdef SHOTBUF_IOS
+#import "SBImageCell.h"
+#endif
 
 
 @implementation SBImageManager {
