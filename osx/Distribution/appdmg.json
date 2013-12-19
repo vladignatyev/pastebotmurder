@@ -1,0 +1,11 @@
+{
+  "title": "ShotBuf",
+  "app": "ShotBuf.app",
+  "background": "distributive_bg.png",
+  "icon": "distributive.icns",
+  "icons": {
+    "size": 128,
+    "app": [80, 145],
+    "alias": [384, 145]
+  }
+}
