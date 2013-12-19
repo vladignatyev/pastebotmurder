@@ -65,11 +65,7 @@
 {
     float imgWidth = _image.size.width;
     float imgHeight = _image.size.height;
-    float viewWidth = self.bounds.size.width - 2*IMAGE_BOUNDRY_SPACE;
-    float viewHeight = self.bounds.size.height - 2*IMAGE_BOUNDRY_SPACE;
     
-    float widthRatio = imgWidth / viewWidth;
-    float heightRatio = imgHeight / viewHeight;
     _scalingFactor = 1;
     
     _imageView.bounds = CGRectMake(0, 0, imgWidth / _scalingFactor, imgHeight/_scalingFactor);
