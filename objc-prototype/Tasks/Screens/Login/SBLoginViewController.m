@@ -56,6 +56,9 @@
     [[DBAccountManager sharedManager] linkFromController:self];
 }
 
+
+// Orientation
+
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
 }
@@ -70,6 +73,8 @@
 - (BOOL)shouldAutorotate{
     return NO;
 }
+
+
 // system
 
 - (void)showNextScreen {

@@ -59,13 +59,6 @@
 
 // user events
 
-- (IBAction)didPressUnlink {
-
-    [self unlinkAccount];
-
-    [self backToLoginScreen];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
@@ -170,12 +163,18 @@
 
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
+    UITableViewCell *cell = nil;
+
     if ([record isImage]) {
 
-        return [SBImageCell defaultHeight];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
+
+    } else {
+
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BaseCell"];
     }
 
-    return [SBBaseCell defaultHeight];
+    return cell.frame.size.height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -286,20 +285,6 @@
 
 
 // system
-
-- (void)backToLoginScreen {
-
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-- (void)unlinkAccount {
-
-    [[[DBAccountManager sharedManager] linkedAccount] unlink];
-
-    _store = nil;
-    _records = nil;
-    [DBFilesystem setSharedFilesystem:nil];
-}
 
 - (DBAccount *)account {
     return [DBAccountManager sharedManager].linkedAccount;

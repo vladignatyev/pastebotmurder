@@ -11,10 +11,6 @@
 
 }
 
-+ (float)defaultHeight {
-
-    return 85;
-}
 
 - (NSString *)relativeDateString: (NSDate*) date {
 
