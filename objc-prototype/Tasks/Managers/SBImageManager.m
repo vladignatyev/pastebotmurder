@@ -5,7 +5,7 @@
 
 #import <Dropbox/Dropbox.h>
 #import "SBImageManager.h"
-#import "SBImageCell.h"
+//#import "SBImageCell.h"
 
 
 @implementation SBImageManager {
