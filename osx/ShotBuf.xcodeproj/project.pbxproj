@@ -29,6 +29,7 @@
 		802C8FD1185F94C800BF8482 /* statusbaricon_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCD185F94C800BF8482 /* statusbaricon_invert.png */; };
 		802C8FD2185F94C800BF8482 /* statusbaricon_invert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCE185F94C800BF8482 /* statusbaricon_invert@2x.png */; };
 		802C8FD3185F94C800BF8482 /* statusbaricon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */; };
+		807073841863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist in Resources */ = {isa = PBXBuildFile; fileRef = 807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */; };
 		808E6F551861F96B00123119 /* statusbaricon_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F531861F96B00123119 /* statusbaricon_black.png */; };
 		808E6F561861F96B00123119 /* statusbaricon_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F541861F96B00123119 /* statusbaricon_black@2x.png */; };
 		808E6F5C1862050300123119 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E6F5B1862050300123119 /* SBRecord.m */; };
@@ -95,6 +96,7 @@
 		802C8FCD185F94C800BF8482 /* statusbaricon_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbaricon_invert.png; path = Images/statusbaricon_invert.png; sourceTree = "<group>"; };
 		802C8FCE185F94C800BF8482 /* statusbaricon_invert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon_invert@2x.png"; path = "Images/statusbaricon_invert@2x.png"; sourceTree = "<group>"; };
 		802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon@2x.png"; path = "Images/statusbaricon@2x.png"; sourceTree = "<group>"; };
+		807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.shotbuf.ShotBuf.plist; sourceTree = "<group>"; };
 		808E6F531861F96B00123119 /* statusbaricon_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbaricon_black.png; path = Images/statusbaricon_black.png; sourceTree = "<group>"; };
 		808E6F541861F96B00123119 /* statusbaricon_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon_black@2x.png"; path = "Images/statusbaricon_black@2x.png"; sourceTree = "<group>"; };
 		808E6F5A1862050300123119 /* SBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBRecord.h; path = "../objc-prototype/Tasks/Model/SBRecord.h"; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		67C40D05181566AC005B06DA = {
 			isa = PBXGroup;
 			children = (
+				807073821863CA1D00F9ABE7 /* User Autorun */,
 				808E6F571862043F00123119 /* Shared Codebase */,
 				8026FACB1861238F0076F5CB /* Images.xcassets */,
 				802C8FC3185F942600BF8482 /* Images */,
@@ -242,6 +245,14 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		807073821863CA1D00F9ABE7 /* User Autorun */ = {
+			isa = PBXGroup;
+			children = (
+				807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */,
+			);
+			path = "User Autorun";
+			sourceTree = "<group>";
+		};
 		808E6F571862043F00123119 /* Shared Codebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +350,7 @@
 				8026FAD41861252F0076F5CB /* 128x128.png in Resources */,
 				802C8FD3185F94C800BF8482 /* statusbaricon@2x.png in Resources */,
 				808E6F561861F96B00123119 /* statusbaricon_black@2x.png in Resources */,
+				807073841863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist in Resources */,
 				8026FAD8186125640076F5CB /* 256x256.png in Resources */,
 				8026FACF186124C30076F5CB /* 16x16.png in Resources */,
 				8026FAD61861252F0076F5CB /* welcome.png in Resources */,

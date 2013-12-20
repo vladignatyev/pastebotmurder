@@ -14,7 +14,7 @@
 #define APP_SECRET  @"u5sva6uz22bvuyy"
 #define BUFS_TABLE @"bufs_values"
 
-@interface AppDelegate () <NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate>
+@interface AppDelegate ()
 {
 
    NSStatusItem *statusItem;
@@ -233,9 +233,27 @@
 
 #pragma mark - lifecycle
 
+//void MyLog(NSString* formattedString)
+//{
+//    NSFileHandle *myHandle = [NSFileHandle fileHandleForWritingAtPath:@"/tmp/shotbuflog.txt"];
+//    [myHandle seekToEndOfFile];
+//    [myHandle writeData:[formattedString dataUsingEncoding:NSUTF8StringEncoding]];
+//}
+
+- (void)checkAndSetupRunAtStartup {
+    NSString* plistPath = [@"~/Library/LaunchAgents/com.shotbuf.ShotBuf.plist" stringByExpandingTildeInPath];
+    bool plistExist = [[NSFileManager defaultManager] fileExistsAtPath:plistPath];
+    if (plistExist) return;
+    
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *pathToSourcePlist = [bundle pathForResource:@"com.shotbuf.ShotBuf" ofType:@"plist"];
+    NSFileManager *manager = [[NSFileManager alloc] init];
+    [manager copyItemAtPath:pathToSourcePlist toPath:plistPath error:nil];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [self checkAndSetupRunAtStartup];
     self.justStarted = YES;
-    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
     [self setupDroboxSharedManager];
     [self passWelcomeScenario];
 }
@@ -384,6 +402,7 @@
 }
 
 - (void) awakeFromNib {
+    [NSApp setActivationPolicy:NSApplicationActivationPolicyAccessory];
     [self setupStatusBarMenu];
 }
 
