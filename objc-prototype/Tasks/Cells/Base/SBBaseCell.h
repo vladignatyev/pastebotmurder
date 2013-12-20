@@ -10,8 +10,6 @@
 
 @interface SBBaseCell : UITableViewCell
 
-+ (float)defaultHeight;
-
 @property (nonatomic, strong) IBOutlet UILabel *mainLabel;
 
 @property (nonatomic, strong) IBOutlet UIImageView *iconImageView;

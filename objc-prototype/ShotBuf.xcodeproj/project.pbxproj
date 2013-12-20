@@ -14,8 +14,11 @@
 		677DB61FD1D5AA5E78EC0098 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0FD214BD497FCE1164D /* SBImageManager.m */; };
 		677DB77009BD2C905C606083 /* SBLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */; };
 		677DB7DBAC5475214B0F5B91 /* forIdiots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB1401EAEE3E857CF370B /* forIdiots@2x.png */; };
+		677DB880FF8D589A443A027E /* SBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB64CC001D8CBB4BDEC92 /* SBNavigationController.m */; };
 		677DB8DD3F111FBA56D57820 /* linkIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB4E748C094B83AB8370F /* linkIcon@2x.png */; };
 		677DB8EDA8E6CD40C4376824 /* loginButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB546477917E4DE840DC5 /* loginButton@2x.png */; };
+		677DB8F2215CC890E10BFC1E /* SBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD8A5B06C8526930D932 /* SBSettingsViewController.m */; };
+		677DBBD933FCE2EEC12F8C2F /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB2F804B7B08746FDD22E /* settingsIcon@2x.png */; };
 		677DBBDC492D469E1D3691B1 /* SBMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBE36032B51769487632 /* SBMainViewController.m */; };
 		677DBBE9F3445FB5E9D7CA37 /* SBImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBD1FBDC290FB72787B3 /* SBImageViewController.m */; };
 		677DBD3CB8CE8B6D28F0464B /* textIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB18E24FF4C8C6420C5C1 /* textIcon@2x.png */; };
@@ -67,9 +70,12 @@
 		677DB1401EAEE3E857CF370B /* forIdiots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forIdiots@2x.png"; sourceTree = "<group>"; };
 		677DB18E24FF4C8C6420C5C1 /* textIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textIcon@2x.png"; sourceTree = "<group>"; };
 		677DB2636E7213F370D8408F /* mailIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mailIcon@2x.png"; sourceTree = "<group>"; };
+		677DB2F804B7B08746FDD22E /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
 		677DB320D03685CEE641C791 /* SBImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageCell.h; sourceTree = "<group>"; };
 		677DB4E748C094B83AB8370F /* linkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "linkIcon@2x.png"; sourceTree = "<group>"; };
+		677DB52B49E1710B1F2E5014 /* SBNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNavigationController.h; sourceTree = "<group>"; };
 		677DB546477917E4DE840DC5 /* loginButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginButton@2x.png"; sourceTree = "<group>"; };
+		677DB64CC001D8CBB4BDEC92 /* SBNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNavigationController.m; sourceTree = "<group>"; };
 		677DB8FF779C5FC74D11B427 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecord.m; sourceTree = "<group>"; };
 		677DB941453ADE1FF8FDD483 /* SBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoginViewController.m; sourceTree = "<group>"; };
 		677DBA29FBA01048D7A8D481 /* SBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBRecord.h; sourceTree = "<group>"; };
@@ -80,7 +86,9 @@
 		677DBBE36032B51769487632 /* SBMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMainViewController.m; sourceTree = "<group>"; };
 		677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLinkCell.m; sourceTree = "<group>"; };
 		677DBD5DB68ABC06D78316D6 /* SBBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBaseCell.h; sourceTree = "<group>"; };
+		677DBD8A5B06C8526930D932 /* SBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSettingsViewController.m; sourceTree = "<group>"; };
 		677DBE4C551EBED69AA0BEC6 /* SBLinkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBLinkCell.h; sourceTree = "<group>"; };
+		677DBE630C6455ECF7A1EBB8 /* SBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSettingsViewController.h; sourceTree = "<group>"; };
 		677DBE862FA038DD3C72C6C8 /* navBarBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBarBG.png; sourceTree = "<group>"; };
 		677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageIcon@2x.png"; sourceTree = "<group>"; };
 		800D920C185FCF76003A09C6 /* NLImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLImageViewer.h; sourceTree = "<group>"; };
@@ -147,6 +155,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		677DB0885971B0D42AA45AFF /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				677DB64CC001D8CBB4BDEC92 /* SBNavigationController.m */,
+				677DB52B49E1710B1F2E5014 /* SBNavigationController.h */,
+			);
+			path = NavigationController;
+			sourceTree = "<group>";
+		};
 		677DB130D9E03C55DE828DDE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +173,8 @@
 				80BFCCFC1858B86E009A78B9 /* SBPlainTextViewController.m */,
 				677DB542CAE6B16A37EEC77B /* Main */,
 				677DB9C214FE0A4119624C26 /* Login */,
+				677DB0885971B0D42AA45AFF /* NavigationController */,
+				677DB2DEF50DD3AE7E11F207 /* Settings */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -171,6 +190,15 @@
 			path = CellIcons;
 			sourceTree = "<group>";
 		};
+		677DB2DEF50DD3AE7E11F207 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				677DBD8A5B06C8526930D932 /* SBSettingsViewController.m */,
+				677DBE630C6455ECF7A1EBB8 /* SBSettingsViewController.h */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		677DB31BAFB524FE2E3862FF /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +206,7 @@
 				677DB546477917E4DE840DC5 /* loginButton@2x.png */,
 				677DB1401EAEE3E857CF370B /* forIdiots@2x.png */,
 				677DBE862FA038DD3C72C6C8 /* navBarBG.png */,
+				677DB2F804B7B08746FDD22E /* settingsIcon@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -433,6 +462,7 @@
 				677DB8EDA8E6CD40C4376824 /* loginButton@2x.png in Resources */,
 				677DB7DBAC5475214B0F5B91 /* forIdiots@2x.png in Resources */,
 				677DB4D3EBCEC61211A9491C /* navBarBG.png in Resources */,
+				677DBBD933FCE2EEC12F8C2F /* settingsIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +486,8 @@
 				677DB77009BD2C905C606083 /* SBLinkCell.m in Sources */,
 				677DBBDC492D469E1D3691B1 /* SBMainViewController.m in Sources */,
 				677DBE56205E7CF3CA5A9160 /* SBLoginViewController.m in Sources */,
+				677DB880FF8D589A443A027E /* SBNavigationController.m in Sources */,
+				677DB8F2215CC890E10BFC1E /* SBSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

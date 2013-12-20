@@ -11,13 +11,9 @@
 
 }
 
-+ (float)defaultHeight {
 
-    return 85;
-}
+- (NSString *)relativeDateString: (NSDate*) date {
 
-- (NSString *)relativeDateString: (NSDate*) date
-{
     const int SECOND = 1;
     const int MINUTE = 60 * SECOND;
     const int HOUR = 60 * MINUTE;
@@ -73,27 +69,6 @@
     _mainLabel.text = [record value];
     
     _dateLabel.text = [self relativeDateString:[record created]];
-
-    if ([record isPlain]) {
-
-        _iconImageView.image = [UIImage imageNamed:@"textIcon.png"];
-
-    } else if ([record isLink]) {
-
-        _iconImageView.image = [UIImage imageNamed:@"linkIcon.png"];
-
-    } else if ([record isImage]) {
-
-        _iconImageView.image = [UIImage imageNamed:@"imageIcon.png"];
-
-    } else if ([record isMail]) {
-
-        _iconImageView.image = [UIImage imageNamed:@"mailIcon.png"];
-
-    } else {
-
-        _iconImageView.image = nil;
-    }
 }
 
 @end
