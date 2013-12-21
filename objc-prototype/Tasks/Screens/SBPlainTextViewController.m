@@ -29,6 +29,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
+    if(IS_iOS6) {
+
+        return;
+    }
+
     BOOL statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
 
     BOOL needStatusBar = (scrollView.contentInset.top + scrollView.contentOffset.y) <= 0;

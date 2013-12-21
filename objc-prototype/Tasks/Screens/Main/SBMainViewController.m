@@ -32,14 +32,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     [self.navigationItem setHidesBackButton:YES];
-
-    if (IS_iOS6) {
-
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBG.png"]
-                                                      forBarMetrics:UIBarMetricsDefault];
-
-        [self.navigationController.navigationBar setShadowImage:nil];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
