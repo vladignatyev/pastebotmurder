@@ -23,7 +23,7 @@
 
         if(account && [account isLinked]) {
 
-            self.needShowNextScreen = YES;
+            [self showManualScreen];
         }
     }];
 }
@@ -35,18 +35,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-
-    [super viewDidAppear:animated];
-
-    if(_needShowNextScreen) {
-
-        self.needShowNextScreen = NO;
-
-        [self showNextScreen];
-    }
 }
 
 // user event
@@ -77,7 +65,7 @@
 
 // system
 
-- (void)showNextScreen {
+- (void)showManualScreen {
 
     [self performSegueWithIdentifier:@"manualScreen" sender:self];
 }

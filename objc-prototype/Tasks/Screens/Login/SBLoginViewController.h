@@ -10,8 +10,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
-@property (nonatomic) BOOL needShowNextScreen;
-
 - (IBAction)loginButtonTapped:(UIButton *)sender;
 
 @end
