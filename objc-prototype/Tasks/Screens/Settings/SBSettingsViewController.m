@@ -11,6 +11,13 @@
 }
 
 
+- (void)viewDidLoad {
+
+    [super viewDidLoad];
+
+    _accountLabel.text = [DBAccountManager sharedManager].linkedAccount.info.displayName;
+}
+
 // user events
 
 - (IBAction)didPressUnlink:(id)sender {
@@ -20,9 +27,19 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+- (IBAction)didTapClearDataButton:(id)sender {
+
+    [[[UIAlertView alloc] initWithTitle:@"Clear data"
+                               message:@"Are you sure?"
+                              delegate:self
+                     cancelButtonTitle:@"No"
+                     otherButtonTitles:nil] show];
+
+}
 
 
 // Orientation
+
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     return UIInterfaceOrientationPortrait;
@@ -38,5 +55,6 @@
 - (BOOL)shouldAutorotate{
     return NO;
 }
+
 
 @end

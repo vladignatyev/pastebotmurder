@@ -29,16 +29,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
-    if(IS_iOS6) {
-
-        return;
-    }
-
     BOOL statusBarHidden = [[UIApplication sharedApplication] isStatusBarHidden];
 
     BOOL needStatusBar = (scrollView.contentInset.top + scrollView.contentOffset.y) <= 0;
 
-    if(statusBarHidden == needStatusBar) {
+    if(statusBarHidden == needStatusBar && !IS_iOS6) {
 
         [[UIApplication sharedApplication] setStatusBarHidden:!needStatusBar withAnimation:UIStatusBarAnimationSlide];
     }

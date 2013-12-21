@@ -23,6 +23,9 @@
 
         self.navigationBar.tintColor = [UIColor colorWithRed:0 green:126/256.f blue:229/256.f alpha:1];
 
+        [[UIBarButtonItem appearance] setBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
+        //[[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage alloc] init] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     }
 
 }

@@ -7,6 +7,9 @@
 
 @interface SBSettingsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *accountLabel;
+
 - (IBAction)didPressUnlink:(id)sender;
+- (IBAction)didTapClearDataButton:(id)sender;
 
 @end
