@@ -53,7 +53,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <inset key="insetFor6xAndEarlier" minX="-1" minY="-1" maxX="2" maxY="2"/>
                                         </imageView>
                                         <view alpha="0.84999999999999987" contentMode="scaleToFill" id="ble-fe-KRK">
                                             <rect key="frame" x="0.0" y="136" width="320" height="34"/>
@@ -467,7 +466,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9rP-vN-dXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1031" y="450"/>
+            <point key="canvasLocation" x="-1030" y="430"/>
         </scene>
     </scenes>
     <resources>
