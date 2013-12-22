@@ -43,11 +43,13 @@
 
         [_activityIndicator stopAnimating];
 
+        /*
         CGSize screenSize = [self currentViewSize];
 
         BOOL imageMoreThenView = (image.size.width > screenSize.width || image.size.height > screenSize.height);
 
         _imageView.contentMode = (_imageFitMode && imageMoreThenView ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter);
+        */
 
         _imageView.image = image;
 

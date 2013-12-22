@@ -12,6 +12,7 @@
 @implementation SBPlainTextViewController
 
 - (void)viewDidLoad {
+
     [super viewDidLoad];
 
     self.textView.text = self.textToPresent;
