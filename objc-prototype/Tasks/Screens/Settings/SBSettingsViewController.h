@@ -5,7 +5,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface SBSettingsViewController : UIViewController
+@interface SBSettingsViewController : UIViewController <UIAlertViewDelegate>
+
+@property(nonatomic, strong) DBDatastore *store;
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 

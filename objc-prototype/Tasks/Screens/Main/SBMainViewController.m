@@ -9,6 +9,7 @@
 #import "SBLinkCell.h"
 #import "SBPlainTextViewController.h"
 #import "AppDelegate.h"
+#import "SBSettingsViewController.h"
 
 @implementation SBMainViewController
 
@@ -97,6 +98,12 @@
         SBPlainTextViewController *plainTextViewController = (SBPlainTextViewController *) segue.destinationViewController;
 
         plainTextViewController.textToPresent = value;
+
+    } else if([segue.destinationViewController isKindOfClass:[SBSettingsViewController class]]) {
+
+        SBSettingsViewController *plainTextViewController = (SBSettingsViewController *) segue.destinationViewController;
+
+        plainTextViewController.store = self.store;
     }
 }
 
