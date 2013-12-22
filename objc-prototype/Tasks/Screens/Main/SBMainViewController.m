@@ -41,7 +41,7 @@
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 
-    if(IS_iOS6) {
+    if (IS_iOS6) {
 
         CGRect frame = self.navigationController.navigationBar.frame;
         frame.origin.y = 20;
@@ -60,6 +60,11 @@
 // user events
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if ([self isNeedLoadingCell] || [self isEmpty]) {
+
+        return;
+    }
 
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
@@ -80,30 +85,31 @@
     }
 
     [record deleteRecord];
-    [_records removeObjectAtIndex:[indexPath row]];
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 
-    NSIndexPath *path = [self.tableView indexPathForSelectedRow];
-    SBRecord *record = [SBRecord recordByDBRecord:_records[[path row]]];
-    NSString *value = [record value];
-
-    if ([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
-        SBImageViewController *imageViewController = (SBImageViewController *) segue.destinationViewController;
-
-        imageViewController.imageName = value;
-    } else if ([segue.destinationViewController isKindOfClass:[SBPlainTextViewController class]]) {
-        SBPlainTextViewController *plainTextViewController = (SBPlainTextViewController *) segue.destinationViewController;
-
-        plainTextViewController.textToPresent = value;
-
-    } else if([segue.destinationViewController isKindOfClass:[SBSettingsViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[SBSettingsViewController class]]) {
 
         SBSettingsViewController *plainTextViewController = (SBSettingsViewController *) segue.destinationViewController;
 
         plainTextViewController.store = self.store;
+
+    } else {
+
+        NSIndexPath *path = [self.tableView indexPathForSelectedRow];
+        SBRecord *record = [SBRecord recordByDBRecord:_records[[path row]]];
+        NSString *value = [record value];
+
+        if ([segue.destinationViewController isKindOfClass:[SBImageViewController class]]) {
+            SBImageViewController *imageViewController = (SBImageViewController *) segue.destinationViewController;
+
+            imageViewController.imageName = value;
+        } else if ([segue.destinationViewController isKindOfClass:[SBPlainTextViewController class]]) {
+            SBPlainTextViewController *plainTextViewController = (SBPlainTextViewController *) segue.destinationViewController;
+
+            plainTextViewController.textToPresent = value;
+        }
     }
 }
 
@@ -118,10 +124,25 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
+    if ([self isNeedLoadingCell] || [self isEmpty]) {
+
+        return 1;
+    }
+
     return [_records count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    if ([self isNeedLoadingCell]) {
+
+        return [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
+    }
+
+    if ([self isEmpty]) {
+
+        return [tableView dequeueReusableCellWithIdentifier:@"EmptyCell"];
+    }
 
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
@@ -153,31 +174,38 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    if ([self isNeedLoadingCell] || [self isEmpty]) {
+
+        return NO;
+    }
+
     return YES;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-
-    /*
-     метод хреновый потому что каждая ячейка прогружается по два раза. не хорошо
-    UITableViewCell *cell = [self tableView:tableView
-                      cellForRowAtIndexPath:indexPath];
-    return cell.frame.size.height;
-    */
-
-
-    SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
-
     UITableViewCell *cell = nil;
 
-    if ([record isImage]) {
+    if ([self isNeedLoadingCell]) {
 
-        cell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
+
+    } else if ([self isEmpty]) {
+
+        cell = [tableView dequeueReusableCellWithIdentifier:@"EmptyCell"];
 
     } else {
 
-        cell = [tableView dequeueReusableCellWithIdentifier:@"BaseCell"];
+        SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
+
+        if ([record isImage]) {
+
+            cell = [tableView dequeueReusableCellWithIdentifier:@"ImageCell"];
+
+        } else {
+
+            cell = [tableView dequeueReusableCellWithIdentifier:@"BaseCell"];
+        }
     }
 
     return cell.frame.size.height;
@@ -206,10 +234,31 @@
         __weak SBMainViewController *slf = self;
 
         [self.store addObserver:self block:^{
+
+            if(!slf.isConnected) {
+
+                slf.isConnected = YES;
+
+                slf.timerForFirstUpdate = [NSTimer scheduledTimerWithTimeInterval:1
+                                                                           target:slf.tableView
+                                                                         selector:@selector(reloadData)
+                                                                         userInfo:nil
+                                                                          repeats:NO];
+
+            }
+
             if (slf.store.status & (DBDatastoreIncoming | DBDatastoreOutgoing)) {
+
+                [slf.timerForFirstUpdate invalidate];
+
                 [slf syncTasks];
+
+            } else {
+
+                //[slf.tableView reloadData];
             }
         }];
+
 
         self.records = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
 
@@ -242,6 +291,8 @@
 
 - (void)update:(NSDictionary *)changedDict {
 
+    BOOL isBeforeEmpty = [self isEmpty];
+
     NSMutableArray *deleted = [NSMutableArray array];
     for (int i = [_records count] - 1; i >= 0; i--) {
         DBRecord *record = _records[i];
@@ -251,7 +302,20 @@
         }
     }
 
-    [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
+    if ([deleted count] > 0) {
+
+        if ([self isEmpty]) {
+
+            isBeforeEmpty = YES;
+
+            [self.tableView reloadData];
+
+        } else {
+
+            [self.tableView deleteRowsAtIndexPaths:deleted withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+
 
     NSMutableArray *changed = [NSMutableArray arrayWithArray:[changedDict[BUFS_TABLE] allObjects]];
 
@@ -269,7 +333,11 @@
             }
         }
     }
-    [self.tableView reloadRowsAtIndexPaths:updates withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    if ([updates count] > 0) {
+
+        [self.tableView reloadRowsAtIndexPaths:updates withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 
 
     [_records addObjectsFromArray:changed];
@@ -284,13 +352,34 @@
         int idx = [_records indexOfObject:record];
         [inserts addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
     }
-    [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    if ([inserts count]) {
+
+        if (isBeforeEmpty) {
+
+            [self.tableView reloadData];
+
+        } else {
+
+            [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
 }
 
 
 
 
 // system
+
+- (BOOL)isNeedLoadingCell {
+
+    return !_isConnected && [self isEmpty];
+}
+
+- (BOOL)isEmpty {
+
+    return [_records count] == 0;
+}
 
 - (DBAccount *)account {
     return [DBAccountManager sharedManager].linkedAccount;

@@ -47,8 +47,6 @@
         DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
         NSArray *records = [bufsTbl query:nil error:nil];
 
-        NSLog(@"%@", records);
-
         for (DBRecord *record in records) {
             SBRecord *sbRecord = [SBRecord recordByDBRecord:record];
             if (sbRecord.isImage) {
@@ -58,6 +56,8 @@
             }
             [sbRecord deleteRecord];
         }
+
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
