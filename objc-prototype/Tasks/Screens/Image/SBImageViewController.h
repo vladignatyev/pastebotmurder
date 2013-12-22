@@ -10,13 +10,12 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIView *menuView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
 @property (nonatomic, strong) NSString *imageName;
-
 @property (nonatomic) BOOL imageFitMode;
+@property (nonatomic, strong) NSTimer *timerForNavBar;
 
-- (IBAction)closeButtonPress:(id)sender;
 - (IBAction)changeMode:(UISwitch *)sender;
 
 @end

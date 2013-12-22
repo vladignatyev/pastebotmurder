@@ -62,6 +62,8 @@
 
     [super viewDidAppear:animated];
 
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 }
 
@@ -74,11 +76,6 @@
     return _imageView;
 }
 
-- (IBAction)closeButtonPress:(id)sender {
-
-    [self dismissModalViewControllerAnimated:YES];
-}
-
 - (IBAction)changeMode:(UISwitch *)sender {
 
     _imageFitMode = [sender isOn];
@@ -88,16 +85,18 @@
 
 - (void)tap {
 
-    [UIView animateWithDuration:0.5
-                     animations:^() {
+    self.timerForNavBar = [NSTimer scheduledTimerWithTimeInterval:0.3
+                                                           target:self
+                                                         selector:@selector(toggleNavBar)
+                                                         userInfo:nil
+                                                          repeats:NO];
 
-                         _menuView.alpha = !_menuView.alpha;
-                     }];
 }
 
 - (void)doubleTap {
 
-    _menuView.alpha = !_menuView.alpha;
+    [_timerForNavBar invalidate];
+
     [_scrollView setZoomScale:_scrollView.zoomScale * 1.5 animated:YES];
 }
 
@@ -120,6 +119,11 @@
 }
 
 // system
+
+- (void)toggleNavBar {
+
+    [self.navigationController setNavigationBarHidden:!self.navigationController.isNavigationBarHidden animated:YES];
+}
 
 - (CGSize)currentViewSize {
 

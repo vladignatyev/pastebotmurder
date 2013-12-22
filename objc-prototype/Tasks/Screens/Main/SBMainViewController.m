@@ -39,6 +39,13 @@
     [super viewWillAppear:animated];
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+
+    if(IS_iOS6) {
+
+        CGRect frame = self.navigationController.navigationBar.frame;
+        frame.origin.y = 20;
+        self.navigationController.navigationBar.frame = frame;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
