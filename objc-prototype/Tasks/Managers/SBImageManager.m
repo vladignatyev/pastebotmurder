@@ -56,7 +56,7 @@
 
         if (file.status.cached) {
 
-            result = [UIImage imageWithData:[file readData:nil]];
+            result = [UIImage imageWithData:[file readData:nil] scale:[UIScreen mainScreen].scale];
         }
     }
 
@@ -90,7 +90,7 @@
 
     } else {
 
-        UIImage *image = [UIImage imageWithData:[file readData:nil]];
+        UIImage *image = [UIImage imageWithData:[file readData:nil] scale:[UIScreen mainScreen].scale];
 
         while (image == nil) {
 
