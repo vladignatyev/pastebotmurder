@@ -43,15 +43,31 @@
 
         [_activityIndicator stopAnimating];
 
-        /*
+
         CGSize screenSize = [self currentViewSize];
 
         BOOL imageMoreThenView = (image.size.width > screenSize.width || image.size.height > screenSize.height);
 
-        _imageView.contentMode = (_imageFitMode && imageMoreThenView ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter);
-        */
+        _imageView.contentMode = (imageMoreThenView ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter);
+
+        if (imageMoreThenView) {
+
+            float widthScale = image.size.width / screenSize.width;
+
+            float heightScale = image.size.height / screenSize.height;
+
+            [_scrollView setZoomScale:(widthScale > heightScale ? widthScale : heightScale)];
+        }
 
         _imageView.image = image;
+
+        /*
+        NSLog(@"%@", @[[NSValue valueWithUIEdgeInsets:_scrollView.contentInset],
+                [NSValue valueWithUIEdgeInsets:_scrollView.scrollIndicatorInsets],
+                [NSValue valueWithCGSize:_scrollView.contentSize]]);
+
+        _scrollView.contentSize = CGSizeMake(320, 568);
+        */
 
     } else {
 
@@ -73,16 +89,16 @@
 
 // user events
 
+/*
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    //[scrollView setContentOffset: CGPointMake(10, scrollView.contentOffset.y)];
+}
+*/
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 
     return _imageView;
-}
-
-- (IBAction)changeMode:(UISwitch *)sender {
-
-    _imageFitMode = [sender isOn];
-
-    [self setUpImage];
 }
 
 - (void)tap {

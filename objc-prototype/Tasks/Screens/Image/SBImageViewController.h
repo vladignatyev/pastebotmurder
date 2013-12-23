@@ -13,9 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, strong) NSString *imageName;
-@property (nonatomic) BOOL imageFitMode;
 @property (nonatomic, strong) NSTimer *timerForNavBar;
-
-- (IBAction)changeMode:(UISwitch *)sender;
 
 @end
