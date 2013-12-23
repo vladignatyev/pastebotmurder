@@ -81,37 +81,46 @@
             DBError *error = nil;
 
             DBPath *path = [[DBPath root] childPath:tmpFileName];
+            
+            
 
             if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
 
-                // Report error if path look up failed for some other reason than NOT FOUND
-                if ([error code] != DBErrorParamsNotFound) {
-                    NSLog(@"Error");
+                DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
+                
+                DBRecord *buf = [tasksTbl insert:@{@"value" : tmpFileName,
+                                                   @"type" : @"image",
+                                                   @"created" : [NSDate date]}];
+                
+                DBError *error = nil;
+                [self.store sync:&error];
+                if (error) {
+                    NSLog(@"Error while syncing %@", error);
                 }
+                
+                error = nil;
 
+
+                // Report error if path look up failed for some other reason than NOT FOUND
+//                if ([error code] != DBErrorParamsNotFound) {
+//                    NSLog(@"Error if path look up failed for some other reason than NOT FOUND %@", error);
+//                }
+                
                 // Create a new test file.
                 DBFile *file = [[DBFilesystem sharedFilesystem] createFile:path error:&error];
                 if (!file) {
-                    NSLog(@"Error");
+                    NSLog(@"Error while creating new test file %@", error);
                 }
-
+                
                 // Write to the new test file.
                 if (![file writeData:data error:&error]) {
-                    NSLog(@"Error");
+                    NSLog(@"Error while writing data into test file %@", error);
                 }
-
-                [file close];
-
-                DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-
-                DBRecord *buf = [tasksTbl insert:@{@"value" : tmpFileName,
-                        @"type" : @"image",
-                        @"created" : [NSDate date]}];
                 
-
-
+                [file close];
+                
             } else {
-                NSLog(@"Error");
+                NSLog(@"Error %@", error);
             }
 
         } else if ([obj isKindOfClass:[NSString class]]) {
@@ -156,16 +165,24 @@
                                                    NSString *title = [responseText substringWithRange:[result rangeAtIndex:1]];
 
                                                    buf[@"title"] = title;
+                                                   
+                                                   DBError *error = nil;
+                                                   [self.store sync:&error];
+                                                   if (error) {
+                                                       NSLog(@"Error while syncing after title preloading%@", error);
+                                                   }
+
                                                }
                                            }
                                        }];
             }
             
-        }
-        DBError *error = nil;
-        [self.store sync:&error];
-        if (error) {
-            NSLog(@"Error while syncing %@", error);
+            DBError *error = nil;
+            [self.store sync:&error];
+            if (error) {
+                NSLog(@"Error while syncing %@", error);
+            }
+
         }
     }
 }
