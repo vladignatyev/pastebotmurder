@@ -280,8 +280,10 @@
 }
 
 - (void)presentWelcomeWindow {
+    [self.unlinkDropboxItem setEnabled:NO];
     [self.welcomeWindow makeKeyAndOrderFront:self];
-    [NSApp activateWithOptions:NSApplicationActivateAllWindows];
+//    [NSApp activateWithOptions:NSApplicationActivateAllWindows];
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
 - (void)closeWelcomeWindow {
@@ -351,6 +353,7 @@
     [[DBAccountManager sharedManager]
      linkFromWindow:self.welcomeWindow withCompletionBlock:^(DBAccount *account){
          [weakSelf setupShotbuf];
+         [self.unlinkDropboxItem setEnabled:YES];
      }];
 }
 

@@ -110,7 +110,7 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <menu id="hLk-zd-nP5">
+        <menu autoenablesItems="NO" id="hLk-zd-nP5">
             <items>
                 <menuItem title="Disable ShotBuf" id="Ogh-A2-vY8">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -139,6 +139,9 @@
                     </connections>
                 </menuItem>
             </items>
+            <connections>
+                <outlet property="delegate" destination="494" id="ZaH-G8-zfw"/>
+            </connections>
         </menu>
     </objects>
     <resources>
