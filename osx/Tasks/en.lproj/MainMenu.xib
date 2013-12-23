@@ -110,11 +110,6 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
-        <customObject id="HFc-xJ-yC4" customClass="MenuDelegate">
-            <connections>
-                <outlet property="menu" destination="hLk-zd-nP5" id="ERR-Xl-IEO"/>
-            </connections>
-        </customObject>
         <menu id="hLk-zd-nP5">
             <items>
                 <menuItem title="Disable ShotBuf" id="Ogh-A2-vY8">
@@ -144,9 +139,6 @@
                     </connections>
                 </menuItem>
             </items>
-            <connections>
-                <outlet property="delegate" destination="HFc-xJ-yC4" id="J2H-MY-AjO"/>
-            </connections>
         </menu>
     </objects>
     <resources>

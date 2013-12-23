@@ -24,7 +24,6 @@
 @property(nonatomic, readonly) DBAccount *account;
 
 @property(nonatomic, retain) DBDatastore *store;
-@property(nonatomic, retain) NSMutableArray *tasks;
 @property(nonatomic, retain) NSTimer *clipboardTimer;
 
 @property(nonatomic, retain) NSData *oldObject;
@@ -108,7 +107,7 @@
                 DBRecord *buf = [tasksTbl insert:@{@"value" : tmpFileName,
                         @"type" : @"image",
                         @"created" : [NSDate date]}];
-                [_tasks addObject:buf];
+
 
             } else {
                 NSLog(@"Error");
@@ -133,8 +132,6 @@
             __strong DBRecord *buf = [tasksTbl insert:@{@"value" : string,
                     @"type" : stringType,
                     @"created" : [NSDate date]}];
-
-            [_tasks addObject:buf];
 
 
             if ([string isWebURL]) {
@@ -161,6 +158,12 @@
                                                }
                                            }
                                        }];
+            }
+            
+            DBError *error = nil;
+            [self.store sync:&error];
+            if (error) {
+                NSLog(@"Error while syncing %@", error);
             }
             
         }
@@ -292,7 +295,6 @@
     [self.enableShotBufItem setEnabled:NO];
     [self.accountManager removeObserver:self];
     _store = nil;
-    _tasks = nil;
 }
 
 - (void)setupShotbuf {
@@ -305,8 +307,6 @@
         [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
         [self.accountManager removeObserver:self];
     }];
-    
-    _tasks = [NSMutableArray alloc];
 
     [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
     [self closeWelcomeWindow];
@@ -368,8 +368,12 @@
 }
 
 - (DBDatastore *)store {
+    NSError * error = nil;
     if (!_store && self.account) {
-        _store = [DBDatastore openDefaultStoreForAccount:self.account error:nil];
+        _store = [DBDatastore openDefaultStoreForAccount:self.account error:&error];
+        if (error) {
+            NSLog(@"Datastore error %@", [error localizedDescription]);
+        }
     }
     return _store;
 }
