@@ -107,6 +107,7 @@
                 DBRecord *buf = [tasksTbl insert:@{@"value" : tmpFileName,
                         @"type" : @"image",
                         @"created" : [NSDate date]}];
+                
 
 
             } else {
@@ -160,12 +161,11 @@
                                        }];
             }
             
-            DBError *error = nil;
-            [self.store sync:&error];
-            if (error) {
-                NSLog(@"Error while syncing %@", error);
-            }
-            
+        }
+        DBError *error = nil;
+        [self.store sync:&error];
+        if (error) {
+            NSLog(@"Error while syncing %@", error);
         }
     }
 }
