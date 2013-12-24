@@ -56,15 +56,15 @@
 		</dict>
 		<key>Resources/statusbaricon.tiff</key>
 		<data>
-		g0lk8ZC4n0SENl2vfUtE2SkQbiw=
+		bBCABC1e29Kz9TVGhqHPvZ+ubO8=
 		</data>
 		<key>Resources/statusbaricon_black.tiff</key>
 		<data>
-		p9Zk9ux6X7jVj6yJHbI9aaDd2Go=
+		2cBLPa7FrtXBTHvt2D5jFfIpJ5U=
 		</data>
 		<key>Resources/statusbaricon_invert.tiff</key>
 		<data>
-		EPdtzZ0BYoaFt/fp+fwIhP7fNKw=
+		RHlXy94bI2f4fRfPcoLBCzgBVow=
 		</data>
 		<key>Resources/welcome.png</key>
 		<data>
@@ -77,7 +77,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			0V7O0iZd+i6eonNenDY16V0Qybg=
+			nxaMHV5bm4AMvqzsgw/Qn1XTg60=
 			</data>
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "com.dropbox.Dropbox" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "9MBK7F2A62")</string>
@@ -134,15 +134,15 @@
 		</dict>
 		<key>Resources/statusbaricon.tiff</key>
 		<data>
-		g0lk8ZC4n0SENl2vfUtE2SkQbiw=
+		bBCABC1e29Kz9TVGhqHPvZ+ubO8=
 		</data>
 		<key>Resources/statusbaricon_black.tiff</key>
 		<data>
-		p9Zk9ux6X7jVj6yJHbI9aaDd2Go=
+		2cBLPa7FrtXBTHvt2D5jFfIpJ5U=
 		</data>
 		<key>Resources/statusbaricon_invert.tiff</key>
 		<data>
-		EPdtzZ0BYoaFt/fp+fwIhP7fNKw=
+		RHlXy94bI2f4fRfPcoLBCzgBVow=
 		</data>
 		<key>Resources/welcome.png</key>
 		<data>

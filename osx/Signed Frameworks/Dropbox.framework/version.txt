@@ -1,2 +1,2 @@
 Dropbox Sync/Datastore API for OS X
-2.1.0-b3
+2.1.0-b4
