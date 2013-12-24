@@ -86,11 +86,6 @@
 
             NSString *tmpFileName = [self getFileTmpName];
             
-            DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-            
-            [tasksTbl insert:@{@"value" : tmpFileName,
-                               @"type" : @"image",
-                               @"created" : [NSDate date]}];
             
             
 //            [data writeToFile:[@"/tmp/" stringByAppendingString:tmpFileName]
@@ -119,16 +114,18 @@
             
             [file close];
             
+            DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
+            
+            [tasksTbl insert:@{@"value" : tmpFileName,
+                               @"type" : @"image",
+                               @"created" : [NSDate date]}];
+
             error = nil;
             NSDictionary *dictionary = [self.store sync:&error]; //
             NSLog(@"dictionary %@", dictionary);
             if (error) {
                 NSLog(@"Error while syncing %@", error);
             }
-//                
-//            } else {
-//                NSLog(@"Error %@", error);
-//            }
 
         } else if ([obj isKindOfClass:[NSString class]]) {
 
