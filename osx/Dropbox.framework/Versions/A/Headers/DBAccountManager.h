@@ -44,7 +44,7 @@ typedef void (^DBLinkCompletionBlock)(DBAccount *account);
 /** @name Linking new accounts (iOS) */
 
 /** (iOS only) This method begins the process for linking new accounts.
- 
+
  @param rootController the topmost view controller in your controller hierarchy.
  */
 - (void)linkFromController:(UIViewController *)rootController;

@@ -38,6 +38,31 @@
 
 //todo: делегировать другому классу, инстанс которого создавать при старте прилаги
 
+- (NSString*) getFileTmpName {
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:[[NSDate alloc] init]
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterMediumStyle];
+    
+    NSString *shotAt = @"Shot at ";
+    return [[shotAt stringByAppendingString:dateString] stringByAppendingString:@".png"];
+    
+}
+
+- (NSData*) getDataFromImage:(NSImage*)image {
+    NSBitmapImageRep *imgRep = [[image representations] objectAtIndex:0];
+    NSData *data = [imgRep representationUsingType:NSPNGFileType properties:nil];
+    return data;
+}
+
+- (DBFilesystem*) fileSystem {
+    DBFilesystem* filesystem = [DBFilesystem sharedFilesystem];
+    if (!filesystem) {
+        filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
+        [DBFilesystem setSharedFilesystem:filesystem];
+    }
+    return filesystem;
+}
+
 - (void)timerHandler {
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *classes = [[NSArray alloc]
@@ -56,72 +81,54 @@
         }
 
         if ([obj isKindOfClass:[NSImage class]]) {
+            
+            NSData *data = [self getDataFromImage:(NSImage *) obj];
 
-            NSImage *img = (NSImage *) obj;
+            NSString *tmpFileName = [self getFileTmpName];
+            
+            DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
+            
+            [tasksTbl insert:@{@"value" : tmpFileName,
+                               @"type" : @"image",
+                               @"created" : [NSDate date]}];
+            
+            
+//            [data writeToFile:[@"/tmp/" stringByAppendingString:tmpFileName]
+//                   atomically:NO];
 
-            NSBitmapImageRep *imgRep = [[img representations] objectAtIndex:0];
-            NSData *data = [imgRep representationUsingType:NSPNGFileType properties:nil];
-
-            NSString *dateString = [NSDateFormatter localizedStringFromDate:[[NSDate alloc] init]
-                                                                  dateStyle:NSDateFormatterShortStyle
-                                                                  timeStyle:NSDateFormatterMediumStyle];
-
-            NSString *shotAt = @"Shot at ";
-            NSString *tmpFileName = [[shotAt stringByAppendingString:dateString] stringByAppendingString:@".png"];
-
-            NSString *tmpFilepath = @"/tmp/";
-            [data writeToFile:[tmpFilepath stringByAppendingString:tmpFileName]
-                   atomically:NO];
-
-            DBFilesystem *filesystem = [DBFilesystem sharedFilesystem];
-            if (!filesystem) {
-                filesystem = [[DBFilesystem alloc] initWithAccount:self.account];
-                [DBFilesystem setSharedFilesystem:filesystem];
-            }
-            DBError *error = nil;
-
+            DBFilesystem *filesystem = [self fileSystem];
             DBPath *path = [[DBPath root] childPath:tmpFileName];
-            
-            
 
-            if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
-
-                DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-                
-                DBRecord *buf = [tasksTbl insert:@{@"value" : tmpFileName,
-                                                   @"type" : @"image",
-                                                   @"created" : [NSDate date]}];
-                
-                DBError *error = nil;
-                [self.store sync:&error];
-                if (error) {
-                    NSLog(@"Error while syncing %@", error);
-                }
-                
-                error = nil;
-
-
+            DBError *error = nil;
+//            if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
                 // Report error if path look up failed for some other reason than NOT FOUND
 //                if ([error code] != DBErrorParamsNotFound) {
 //                    NSLog(@"Error if path look up failed for some other reason than NOT FOUND %@", error);
 //                }
-                
-                // Create a new test file.
-                DBFile *file = [[DBFilesystem sharedFilesystem] createFile:path error:&error];
-                if (!file) {
-                    NSLog(@"Error while creating new test file %@", error);
-                }
-                
-                // Write to the new test file.
-                if (![file writeData:data error:&error]) {
-                    NSLog(@"Error while writing data into test file %@", error);
-                }
-                
-                [file close];
-                
-            } else {
-                NSLog(@"Error %@", error);
+            
+            // Create a new file.
+            DBFile *file = [filesystem createFile:path error:&error];
+            if (!file) {
+                NSLog(@"Error while creating new test file %@", error);
             }
+            
+            // Write to the new test file.
+            if (![file writeData:data error:&error]) {
+                NSLog(@"Error while writing data into test file %@", error);
+            }
+            
+            [file close];
+            
+            error = nil;
+            NSDictionary *dictionary = [self.store sync:&error]; //
+            NSLog(@"dictionary %@", dictionary);
+            if (error) {
+                NSLog(@"Error while syncing %@", error);
+            }
+//                
+//            } else {
+//                NSLog(@"Error %@", error);
+//            }
 
         } else if ([obj isKindOfClass:[NSString class]]) {
 
@@ -178,7 +185,8 @@
             }
             
             DBError *error = nil;
-            [self.store sync:&error];
+            NSDictionary* dictionary =[self.store sync:&error];
+            NSLog(@"dictionary %@", dictionary);
             if (error) {
                 NSLog(@"Error while syncing %@", error);
             }
@@ -326,6 +334,9 @@
         [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
         [self.accountManager removeObserver:self];
     }];
+    
+    [self.store addObserver:self block:^(){
+    }];
 
     [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
     [self closeWelcomeWindow];
@@ -350,6 +361,15 @@
                                                       repeats:YES];
     [self setNormalStatusIcon];
     self.shotBufEnabled = YES;
+    
+    [[DBFilesystem sharedFilesystem] addObserver:self block:^(){
+        DBError *error = nil;
+        [self.store sync:&error];
+        if (error) {
+            NSLog(@"Error while syncing after title preloading%@", error);
+        }
+
+    }];
 }
 
 - (void)disableShotBuf {
