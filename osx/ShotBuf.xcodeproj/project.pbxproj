@@ -29,6 +29,9 @@
 		802C8FD1185F94C800BF8482 /* statusbaricon_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCD185F94C800BF8482 /* statusbaricon_invert.png */; };
 		802C8FD2185F94C800BF8482 /* statusbaricon_invert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCE185F94C800BF8482 /* statusbaricon_invert@2x.png */; };
 		802C8FD3185F94C800BF8482 /* statusbaricon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */; };
+		80389566186A485C000966EB /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80389565186A485C000966EB /* Sparkle.framework */; };
+		80389567186A4888000966EB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 80389565186A485C000966EB /* Sparkle.framework */; };
+		8038956C186A7369000966EB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8038956B186A7369000966EB /* dsa_pub.pem */; };
 		807073841863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist in Resources */ = {isa = PBXBuildFile; fileRef = 807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */; };
 		808E6F551861F96B00123119 /* statusbaricon_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F531861F96B00123119 /* statusbaricon_black.png */; };
 		808E6F561861F96B00123119 /* statusbaricon_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F541861F96B00123119 /* statusbaricon_black@2x.png */; };
@@ -55,6 +58,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				80389567186A4888000966EB /* Sparkle.framework in CopyFiles */,
 				8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +100,8 @@
 		802C8FCD185F94C800BF8482 /* statusbaricon_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbaricon_invert.png; path = Images/statusbaricon_invert.png; sourceTree = "<group>"; };
 		802C8FCE185F94C800BF8482 /* statusbaricon_invert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon_invert@2x.png"; path = "Images/statusbaricon_invert@2x.png"; sourceTree = "<group>"; };
 		802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon@2x.png"; path = "Images/statusbaricon@2x.png"; sourceTree = "<group>"; };
+		80389565186A485C000966EB /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		8038956B186A7369000966EB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Distribution/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
 		807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.shotbuf.ShotBuf.plist; sourceTree = "<group>"; };
 		808E6F531861F96B00123119 /* statusbaricon_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbaricon_black.png; path = Images/statusbaricon_black.png; sourceTree = "<group>"; };
 		808E6F541861F96B00123119 /* statusbaricon_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon_black@2x.png"; path = "Images/statusbaricon_black@2x.png"; sourceTree = "<group>"; };
@@ -112,6 +118,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */,
+				80389566186A485C000966EB /* Sparkle.framework in Frameworks */,
 				67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,6 +137,7 @@
 		67C40D05181566AC005B06DA = {
 			isa = PBXGroup;
 			children = (
+				80389568186A4D6E000966EB /* Resources */,
 				807073821863CA1D00F9ABE7 /* User Autorun */,
 				808E6F571862043F00123119 /* Shared Codebase */,
 				8026FACB1861238F0076F5CB /* Images.xcassets */,
@@ -154,6 +162,7 @@
 		67C40D10181566AC005B06DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				80389565186A485C000966EB /* Sparkle.framework */,
 				809FEC60184FF5A00034B712 /* Dropbox.framework */,
 				67C40D11181566AC005B06DA /* Cocoa.framework */,
 				67C40D30181566AC005B06DA /* XCTest.framework */,
@@ -243,6 +252,14 @@
 				802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		80389568186A4D6E000966EB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8038956B186A7369000966EB /* dsa_pub.pem */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		807073821863CA1D00F9ABE7 /* User Autorun */ = {
@@ -357,6 +374,7 @@
 				8026FACC1861238F0076F5CB /* Images.xcassets in Resources */,
 				802C8FD2185F94C800BF8482 /* statusbaricon_invert@2x.png in Resources */,
 				67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */,
+				8038956C186A7369000966EB /* dsa_pub.pem in Resources */,
 				8026FADA186129B10076F5CB /* 64x64.png in Resources */,
 				678B6DFF181608AE00E3F0DA /* MainMenu.xib in Resources */,
 				802C8FD0185F94C800BF8482 /* statusbaricon.png in Resources */,
@@ -514,6 +532,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					/Users/ignatev/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
@@ -539,6 +558,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					/Users/ignatev/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";

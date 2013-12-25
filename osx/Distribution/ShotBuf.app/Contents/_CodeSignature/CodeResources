@@ -36,6 +36,10 @@
 		<data>
 		2nQn0d+4Q8biwTtTBdyL1NQiiCU=
 		</data>
+		<key>Resources/dsa_pub.pem</key>
+		<data>
+		fBSWoB9tvH4JHaFMly2oB/eTN6A=
+		</data>
 		<key>Resources/en.lproj/InfoPlist.strings</key>
 		<dict>
 			<key>hash</key>
@@ -49,22 +53,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SFSO7hkhwpByHst7pN8j6U5FZus=
+			uSxQSfzc3v0XD/gSHUFLMKJ1/b8=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
 		<key>Resources/statusbaricon.tiff</key>
 		<data>
-		g0lk8ZC4n0SENl2vfUtE2SkQbiw=
+		bBCABC1e29Kz9TVGhqHPvZ+ubO8=
 		</data>
 		<key>Resources/statusbaricon_black.tiff</key>
 		<data>
-		p9Zk9ux6X7jVj6yJHbI9aaDd2Go=
+		2cBLPa7FrtXBTHvt2D5jFfIpJ5U=
 		</data>
 		<key>Resources/statusbaricon_invert.tiff</key>
 		<data>
-		EPdtzZ0BYoaFt/fp+fwIhP7fNKw=
+		RHlXy94bI2f4fRfPcoLBCzgBVow=
 		</data>
 		<key>Resources/welcome.png</key>
 		<data>
@@ -77,10 +81,19 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			0V7O0iZd+i6eonNenDY16V0Qybg=
+			nxaMHV5bm4AMvqzsgw/Qn1XTg60=
 			</data>
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "com.dropbox.Dropbox" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "9MBK7F2A62")</string>
+		</dict>
+		<key>Frameworks/Sparkle.framework</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			nNsJBHKHQcUwfOvz6mJ8B5l7V10=
+			</data>
+			<key>requirement</key>
+			<string>anchor apple generic and identifier "org.andymatuschak.Sparkle" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "9MBK7F2A62")</string>
 		</dict>
 		<key>Resources/128x128.png</key>
 		<data>
@@ -114,6 +127,10 @@
 		<data>
 		2nQn0d+4Q8biwTtTBdyL1NQiiCU=
 		</data>
+		<key>Resources/dsa_pub.pem</key>
+		<data>
+		fBSWoB9tvH4JHaFMly2oB/eTN6A=
+		</data>
 		<key>Resources/en.lproj/InfoPlist.strings</key>
 		<dict>
 			<key>hash</key>
@@ -127,22 +144,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SFSO7hkhwpByHst7pN8j6U5FZus=
+			uSxQSfzc3v0XD/gSHUFLMKJ1/b8=
 			</data>
 			<key>optional</key>
 			<true/>
 		</dict>
 		<key>Resources/statusbaricon.tiff</key>
 		<data>
-		g0lk8ZC4n0SENl2vfUtE2SkQbiw=
+		bBCABC1e29Kz9TVGhqHPvZ+ubO8=
 		</data>
 		<key>Resources/statusbaricon_black.tiff</key>
 		<data>
-		p9Zk9ux6X7jVj6yJHbI9aaDd2Go=
+		2cBLPa7FrtXBTHvt2D5jFfIpJ5U=
 		</data>
 		<key>Resources/statusbaricon_invert.tiff</key>
 		<data>
-		EPdtzZ0BYoaFt/fp+fwIhP7fNKw=
+		RHlXy94bI2f4fRfPcoLBCzgBVow=
 		</data>
 		<key>Resources/welcome.png</key>
 		<data>
