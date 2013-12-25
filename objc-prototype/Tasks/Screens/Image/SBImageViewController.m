@@ -44,11 +44,13 @@
         [_activityIndicator stopAnimating];
 
 
-        CGSize screenSize = [self currentViewSize];
+        CGSize screenSize = [self viewSize];
 
         BOOL imageMoreThenView = (image.size.width > screenSize.width || image.size.height > screenSize.height);
 
         _imageView.contentMode = (imageMoreThenView ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter);
+
+        _imageScale = 1;
 
         if (imageMoreThenView) {
 
@@ -56,18 +58,13 @@
 
             float heightScale = image.size.height / screenSize.height;
 
-            [_scrollView setZoomScale:(widthScale > heightScale ? widthScale : heightScale)];
+            _imageScale = (widthScale > heightScale ? widthScale : heightScale);
+
+            [_scrollView setZoomScale:_imageScale];
         }
 
         _imageView.image = image;
 
-        /*
-        NSLog(@"%@", @[[NSValue valueWithUIEdgeInsets:_scrollView.contentInset],
-                [NSValue valueWithUIEdgeInsets:_scrollView.scrollIndicatorInsets],
-                [NSValue valueWithCGSize:_scrollView.contentSize]]);
-
-        _scrollView.contentSize = CGSizeMake(320, 568);
-        */
 
     } else {
 
@@ -83,18 +80,79 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+
+    _needProssingScroll = YES;
 }
 
 
 
 // user events
 
-/*
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
-    //[scrollView setContentOffset: CGPointMake(10, scrollView.contentOffset.y)];
+    if (!_needProssingScroll) {
+
+        return;
+    }
+
+    CGSize imageSize = [self currentImageSize];
+
+    CGSize viewSize = [self viewSize];
+
+    if (imageSize.width >= viewSize.width && imageSize.width <= imageSize.height) {
+
+        CGSize startImageSize = [self startImageSize];
+
+        float scale = _scrollView.zoomScale;
+
+        CGPoint contentOffset = CGPointMake(_scrollView.contentOffset.x / scale, _scrollView.contentOffset.y / scale);
+
+        float imageWidthPadding = (viewSize.width - startImageSize.width) / 2;
+
+        if (imageWidthPadding > contentOffset.x) {
+
+            [_scrollView setContentOffset:CGPointMake(imageWidthPadding * scale, _scrollView.contentOffset.y)];
+
+        } else {
+
+            CGSize currentViewScaleSize = CGSizeMake(viewSize.width / scale, viewSize.height / scale);
+
+            float rightPadding = viewSize.width - imageWidthPadding;
+
+            if (contentOffset.x + currentViewScaleSize.width > rightPadding) {
+
+                [_scrollView setContentOffset:CGPointMake((rightPadding - currentViewScaleSize.width) * scale, _scrollView.contentOffset.y)];
+            }
+        }
+
+    } else if (imageSize.height >= viewSize.height && imageSize.height <= imageSize.width) {
+
+        CGSize startImageSize = [self startImageSize];
+
+        float scale = _scrollView.zoomScale;
+
+        CGPoint contentOffset = CGPointMake(_scrollView.contentOffset.x / scale, _scrollView.contentOffset.y / scale);
+
+        float imageHeightPadding = (viewSize.height - startImageSize.height) / 2;
+
+        if (imageHeightPadding > contentOffset.y) {
+
+            [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x, imageHeightPadding * scale)];
+
+        } else {
+
+            CGSize currentViewScaleSize = CGSizeMake(viewSize.width / scale, viewSize.height / scale);
+
+            float bottomPadding = viewSize.height - imageHeightPadding;
+
+            if (contentOffset.y + currentViewScaleSize.height > bottomPadding) {
+
+                [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x, (bottomPadding - currentViewScaleSize.height) * scale)];
+            }
+        }
+    }
+
 }
-*/
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
 
@@ -138,12 +196,22 @@
 
 // system
 
+- (CGSize)currentImageSize {
+
+    return CGSizeMake(_imageView.image.size.width * _scrollView.zoomScale / _imageScale, _imageView.image.size.height * _scrollView.zoomScale / _imageScale);
+}
+
+- (CGSize)startImageSize {
+
+    return CGSizeMake(_imageView.image.size.width / _imageScale, _imageView.image.size.height / _imageScale);
+}
+
 - (void)toggleNavBar {
 
     [self.navigationController setNavigationBarHidden:!self.navigationController.isNavigationBarHidden animated:YES];
 }
 
-- (CGSize)currentViewSize {
+- (CGSize)viewSize {
 
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
