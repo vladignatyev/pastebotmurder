@@ -110,6 +110,7 @@
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>
+        <customObject id="SgN-EE-nmq" customClass="SUUpdater"/>
         <menu autoenablesItems="NO" id="hLk-zd-nP5">
             <items>
                 <menuItem title="Disable ShotBuf" id="Ogh-A2-vY8">
@@ -132,6 +133,16 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xZA-Qh-kf5"/>
+                <menuItem title="Check for updates..." id="3Sy-Vc-wkw">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <binding destination="SgN-EE-nmq" name="target" keyPath="self" id="ZzD-W3-dyT">
+                            <dictionary key="options">
+                                <string key="NSSelectorName">checkForUpdates:</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </menuItem>
                 <menuItem title="Quit ShotBuf" id="30j-cI-6rI">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
