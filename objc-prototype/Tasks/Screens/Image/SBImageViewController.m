@@ -82,6 +82,8 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
 
     _needProssingScroll = YES;
+
+    [self setContentOffsetLeftTop];
 }
 
 
@@ -89,6 +91,8 @@
 // user events
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    //return;
 
     if (!_needProssingScroll) {
 
@@ -98,6 +102,8 @@
     CGSize imageSize = [self currentImageSize];
 
     CGSize viewSize = [self viewSize];
+
+    //NSLog(@"%@", [NSValue valueWithCGSize:viewSize]);
 
     if (imageSize.width >= viewSize.width && imageSize.width <= imageSize.height) {
 
@@ -196,6 +202,32 @@
 
 // system
 
+- (void)setContentOffsetLeftTop {
+
+    CGSize viewSize = [self viewSize];
+
+    CGSize startImageSize = [self startImageSize];
+
+    CGSize imageSize = [self currentImageSize];
+
+    float scale = _scrollView.zoomScale;
+
+    if (imageSize.height > viewSize.height) {
+
+        float imageHeightPadding = (viewSize.height - startImageSize.height) / 2;
+
+        [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x, imageHeightPadding * scale)];
+    }
+
+    if (imageSize.width > viewSize.width) {
+
+        float imageWidthPadding = (viewSize.width - startImageSize.width) / 2;
+
+        [_scrollView setContentOffset:CGPointMake(imageWidthPadding * scale, _scrollView.contentOffset.y)];
+
+    }
+}
+
 - (CGSize)currentImageSize {
 
     return CGSizeMake(_imageView.image.size.width * _scrollView.zoomScale / _imageScale, _imageView.image.size.height * _scrollView.zoomScale / _imageScale);
@@ -212,6 +244,8 @@
 }
 
 - (CGSize)viewSize {
+
+    return self.view.frame.size;
 
     float width = self.view.frame.size.width;
     float height = self.view.frame.size.height;
