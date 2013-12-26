@@ -48,63 +48,13 @@
 
         [_activityIndicator stopAnimating];
 
-        /*
-
-        CGSize screenSize = [self viewSize];
-
-        BOOL imageMoreThenView = (image.size.width > screenSize.width || image.size.height > screenSize.height);
-
-        _imageView.contentMode = (imageMoreThenView ? UIViewContentModeScaleAspectFit : UIViewContentModeCenter);
-
-        _imageScale = 1;
-
-        if (imageMoreThenView) {
-
-            float widthScale = image.size.width / screenSize.width;
-
-            float heightScale = image.size.height / screenSize.height;
-
-            _imageScale = (widthScale > heightScale ? widthScale : heightScale);
-
-            [_scrollView setZoomScale:_imageScale];
-
-            _imageView.image = image;
-        }
-
-        */
-
-        /*
-
-        BOOL imageMoreThenView = (image.size.width >= screenSize.height || image.size.height >= screenSize.height);
-
-        imageMoreThenView = YES;
-
-        if(imageMoreThenView) {
-
-            CGRect frameForImageView = CGRectMake(0, 0, image.size.width, image.size.height);
-
-            _imageView.frame = frameForImageView;
-
-            _imageView.contentMode = UIViewContentModeCenter;
-
-            _imageView.image = image;
-
-            [_scrollView setZoomScale:1];
-
-        } else {
-
-            _imageView.contentMode = UIViewContentModeScaleAspectFit;
-
-            _imageView.image = image;
-
-            [_scrollView setZoomScale:1];
-        }
-
-        */
-
         CGRect frameForImageView = CGRectMake(0, 0, image.size.width, image.size.height);
 
         _imageView.frame = frameForImageView;
+
+        _imageView.autoresizesSubviews = NO;
+
+        _imageView.autoresizingMask = UIViewAutoresizingNone;
 
         _imageView.contentMode = UIViewContentModeCenter;
 
@@ -112,7 +62,7 @@
 
         [_scrollView setZoomScale:1];
 
-        [self calculateImageViewPoint];
+        [self calculateImageViewFrame];
 
     } else {
 
@@ -136,7 +86,7 @@
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
 
-    [self calculateImageViewPoint];
+    [self calculateImageViewFrame];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -183,9 +133,16 @@
     [self setUpImage];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+
+    [_scrollView sizeToFit];
+
+    [self setUpImage];
+}
+
 // system
 
-- (void)calculateImageViewPoint {
+- (void)calculateImageViewFrame {
 
     CGSize currentImageSize = [self currentImageSize];
     CGSize viewSize = [self viewSize];
@@ -211,8 +168,6 @@
     }
 
     _imageView.frame = frame;
-
-    //NSLog(@"%f %f %@", viewSize.width, currentImageSize.width, [NSValue valueWithCGRect:frame]);
 }
 
 - (CGSize)currentImageSize {
@@ -227,19 +182,20 @@
 
 - (CGSize)viewSize {
 
-    return self.view.frame.size;
+    //return _scrollView.frame.size;
 
-    float width = self.view.frame.size.width;
-    float height = self.view.frame.size.height;
+    float width = _scrollView.frame.size.width;
+    float height = _scrollView.frame.size.height;
 
     if (self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft || self.interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
 
-        return CGSizeMake(height, width);
+        if (width < height) {
 
-    } else {
-
-        return CGSizeMake(width, height);
+            return CGSizeMake(height, width);
+        }
     }
+
+    return CGSizeMake(width, height);
 }
 
 
