@@ -15,9 +15,4 @@
 @property (nonatomic, strong) NSString *imageName;
 @property (nonatomic, strong) NSTimer *timerForNavBar;
 
-
-@property (nonatomic) float imageScale;
-
-@property (nonatomic) BOOL needProssingScroll;
-
 @end
