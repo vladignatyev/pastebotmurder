@@ -6,6 +6,7 @@
 #import <Dropbox/Dropbox.h>
 #import "SBLoginViewController.h"
 #import "AppDelegate.h"
+#import "Mixpanel.h"
 
 
 @implementation SBLoginViewController {
@@ -35,6 +36,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+    [[Mixpanel sharedInstance] track:@"open login screen"];
 }
 
 // user event

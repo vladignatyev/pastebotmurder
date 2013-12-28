@@ -6,6 +6,7 @@
 #import <Dropbox/Dropbox.h>
 #import "SBImageViewController.h"
 #import "SBImageManager.h"
+#import "Mixpanel.h"
 
 
 @implementation SBImageViewController {
@@ -19,6 +20,8 @@
     [self setUpTouch];
 
     [self setUpImage];
+
+    [[Mixpanel sharedInstance] track:@"open" properties:@{@"type":@"image"}];
 }
 
 - (void)setUpTouch {

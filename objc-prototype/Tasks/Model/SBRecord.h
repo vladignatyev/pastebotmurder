@@ -29,4 +29,6 @@
 
 - (void)deleteRecord;
 
+-(NSString *)typeToString;
+
 @end

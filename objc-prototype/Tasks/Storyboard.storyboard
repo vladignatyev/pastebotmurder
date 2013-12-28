@@ -468,7 +468,10 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L4f-AC-f3B">
                                 <rect key="frame" x="22" y="141" width="275" height="146"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <string key="text">One more easy steprequiredInstall desktop application by following this link in your desktop browser:</string>
+                                <string key="text">One more easy step
+required
+
+Install desktop application by following this link in your desktop browser:</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>

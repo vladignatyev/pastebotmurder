@@ -10,6 +10,7 @@
 #import "SBPlainTextViewController.h"
 #import "AppDelegate.h"
 #import "SBSettingsViewController.h"
+#import "Mixpanel.h"
 
 @implementation SBMainViewController
 
@@ -54,6 +55,8 @@
     [super viewDidAppear:animated];
 
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+
+    [[Mixpanel sharedInstance] track:@"open main screen"];
 }
 
 
@@ -69,15 +72,24 @@
     SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
 
     if ([record isLink]) {
+
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[record value]]];
+
+        [[Mixpanel sharedInstance] track:@"open" properties:@{@"type" : @"link"}];
+
     } else if ([record isMail]) {
+
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"mailto:%@", [record value]]]];
+
+        [[Mixpanel sharedInstance] track:@"open" properties:@{@"type" : @"mail"}];
     }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    SBRecord *record = [SBRecord recordByDBRecord:_records[[indexPath row]]];
+    DBRecord *dbRecord = _records[[indexPath row]];
+
+    SBRecord *record = [SBRecord recordByDBRecord:dbRecord];
 
     if ([record isImage]) {
 
@@ -85,6 +97,8 @@
     }
 
     [record deleteRecord];
+
+    [self logDeleteRecord:dbRecord];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -235,7 +249,7 @@
 
         [self.store addObserver:self block:^{
 
-            if(!slf.isConnected) {
+            if (!slf.isConnected) {
 
                 slf.isConnected = YES;
 
@@ -349,8 +363,12 @@
     NSMutableArray *inserts = [NSMutableArray array];
 
     for (DBRecord *record in changed) {
+
         int idx = [_records indexOfObject:record];
+
         [inserts addObject:[NSIndexPath indexPathForRow:idx inSection:0]];
+
+        [self logInsertRecord:record];
     }
 
     if ([inserts count]) {
@@ -370,6 +388,20 @@
 
 
 // system
+
+- (void)logInsertRecord:(DBRecord *)record {
+
+    SBRecord *_record = [SBRecord recordByDBRecord:record];
+
+    [[Mixpanel sharedInstance] track:@"insert" properties:@{@"type" : [_record typeToString]}];
+}
+
+- (void)logDeleteRecord:(DBRecord *)record {
+
+    SBRecord *_record = [SBRecord recordByDBRecord:record];
+
+    [[Mixpanel sharedInstance] track:@"delete" properties:@{@"type" : [_record typeToString]}];
+}
 
 - (BOOL)isNeedLoadingCell {
 

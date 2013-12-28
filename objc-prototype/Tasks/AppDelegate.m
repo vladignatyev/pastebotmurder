@@ -1,10 +1,15 @@
 #import "AppDelegate.h"
 #import <Dropbox/Dropbox.h>
 #import "AppKeys.h"
+#import "Mixpanel.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [Mixpanel sharedInstanceWithToken:MIXPANEL_KEY];
+
+    [[Mixpanel sharedInstance] track:@"start app"];
 
     [self setUpAccountManager];
 

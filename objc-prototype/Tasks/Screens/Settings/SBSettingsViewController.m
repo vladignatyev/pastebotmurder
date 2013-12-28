@@ -7,6 +7,7 @@
 #import "SBRecord.h"
 #import "SBImageManager.h"
 #import "AppKeys.h"
+#import "Mixpanel.h"
 
 
 @implementation SBSettingsViewController {
@@ -19,6 +20,8 @@
     [super viewDidLoad];
 
     _accountLabel.text = [DBAccountManager sharedManager].linkedAccount.info.displayName;
+
+    [[Mixpanel sharedInstance] track:@"open settings screen"];
 }
 
 // user events
@@ -28,6 +31,8 @@
     [[[DBAccountManager sharedManager] linkedAccount] unlink];
 
     [self.navigationController popToRootViewControllerAnimated:YES];
+
+    [[Mixpanel sharedInstance] track:@"unlink account"];
 }
 
 - (IBAction)didTapClearDataButton:(id)sender {
@@ -58,6 +63,8 @@
         }
 
         [self.navigationController popViewControllerAnimated:YES];
+
+        [[Mixpanel sharedInstance] track:@"clear all data"];
     }
 }
 

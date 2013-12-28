@@ -7,6 +7,7 @@
 //
 
 #import "SBPlainTextViewController.h"
+#import "Mixpanel.h"
 
 
 @implementation SBPlainTextViewController
@@ -16,6 +17,8 @@
     [super viewDidLoad];
 
     self.textView.text = self.textToPresent;
+
+    [[Mixpanel sharedInstance] track:@"open" properties:@{@"type":@"text"}];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

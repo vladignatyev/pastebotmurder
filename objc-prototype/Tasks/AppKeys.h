@@ -13,5 +13,6 @@
 NSString const* APP_KEY;
 NSString const* APP_SECRET;
 NSString const* BUFS_TABLE;
+NSString const* MIXPANEL_KEY;
 
 #endif

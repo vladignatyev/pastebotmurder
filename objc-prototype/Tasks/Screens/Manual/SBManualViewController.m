@@ -3,12 +3,21 @@
 //
 
 #import "SBManualViewController.h"
+#import "Mixpanel.h"
 
 
 @implementation SBManualViewController {
 
 }
 
+
+- (void)viewDidAppear:(BOOL)animated {
+
+    [super viewDidAppear:animated];
+
+    [[Mixpanel sharedInstance] track:@"open manual screen"];
+
+}
 
 // Orientation
 

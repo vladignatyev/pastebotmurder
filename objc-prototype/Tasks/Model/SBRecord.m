@@ -72,4 +72,24 @@
     [_record deleteRecord];
 }
 
+- (NSString *)typeToString {
+
+    if ([self isImage]) {
+
+        return @"image";
+
+    } else if ([self isLink]) {
+
+        return @"link";
+
+    } else if ([self isMail]) {
+
+        return @"mail";
+
+    } else {
+
+        return @"text";
+    }
+}
+
 @end
