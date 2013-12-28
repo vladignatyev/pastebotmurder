@@ -12,6 +12,7 @@
 		152679CD186EE37100CC5B55 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679CC186EE37100CC5B55 /* Accelerate.framework */; };
 		154FACDE186D676C0017B995 /* logoForManual@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 154FACDD186D676C0017B995 /* logoForManual@2x.png */; };
 		154FACE0186D69C60017B995 /* dockForManual@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 154FACDF186D69C60017B995 /* dockForManual@2x.png */; };
+		677DB00F999B0241E9394CF9 /* title@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBFB3B7BBC422DE058C95 /* title@2x.png */; };
 		677DB08E0297BFB5F10D0BBC /* MPSurveyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB1747358CC9715B3E3E2 /* MPSurveyNavigationController.m */; };
 		677DB11FC5E980106A31847B /* MPSurveyQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB615093F5803A29F6DBD /* MPSurveyQuestionViewController.m */; };
 		677DB1CA8015DD8B275D3F84 /* UIImage+MPAverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD9AD2C5BBDE7CFFB38F /* UIImage+MPAverageColor.m */; };
@@ -152,6 +153,7 @@
 		677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "imageIcon@2x.png"; sourceTree = "<group>"; };
 		677DBF80A5F7C28134838CEC /* MPCheckmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPCheckmark.png; sourceTree = "<group>"; };
 		677DBF90DBCC52D987B8E223 /* MPSurvey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSurvey.h; sourceTree = "<group>"; };
+		677DBFB3B7BBC422DE058C95 /* title@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "title@2x.png"; sourceTree = "<group>"; };
 		677DBFF4CC89C6CE27E57E92 /* MPLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPLogo@2x.png"; sourceTree = "<group>"; };
 		800D920C185FCF76003A09C6 /* NLImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLImageViewer.h; sourceTree = "<group>"; };
 		800D920D185FCF76003A09C6 /* NLImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLImageViewer.m; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				800D921D185FD8E6003A09C6 /* iTunesArtwork.png */,
 				800D921E185FD8E6003A09C6 /* AppIcon60x60@2x.png */,
 				800D921F185FD8E6003A09C6 /* iTunesArtwork@2x.png */,
+				677DBFB3B7BBC422DE058C95 /* title@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				677DB8C79E756E197A13B881 /* MPSurvey.storyboard in Resources */,
 				677DB7C961F5BE84CA455322 /* MPDismissKeyboard.png in Resources */,
 				677DB4EC85F7C6B9015DDD71 /* MPDismissKeyboard@2x.png in Resources */,
+				677DB00F999B0241E9394CF9 /* title@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

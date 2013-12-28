@@ -34,6 +34,8 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     [self.navigationItem setHidesBackButton:YES];
+
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title.png"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
