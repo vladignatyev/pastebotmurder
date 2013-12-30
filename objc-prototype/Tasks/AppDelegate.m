@@ -3,15 +3,18 @@
 #import "AppKeys.h"
 #import "Mixpanel.h"
 #import <Crashlytics/Crashlytics.h>
+#import "Flurry.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    [Crashlytics startWithAPIKey:@"1ccfc67a3af6a60459498458b82b8ed331926ad9"];
+    [Crashlytics startWithAPIKey:CRASHLYTICS_KEY];
     
     [Mixpanel sharedInstanceWithToken:MIXPANEL_KEY];
 
+    [Flurry startSession:FLURRY_KEY];
+    
     [[Mixpanel sharedInstance] track:@"start app"];
 
     [self setUpAccountManager];
