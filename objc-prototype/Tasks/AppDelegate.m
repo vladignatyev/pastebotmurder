@@ -2,11 +2,14 @@
 #import <Dropbox/Dropbox.h>
 #import "AppKeys.h"
 #import "Mixpanel.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    [Crashlytics startWithAPIKey:@"1ccfc67a3af6a60459498458b82b8ed331926ad9"];
+    
     [Mixpanel sharedInstanceWithToken:MIXPANEL_KEY];
 
     [[Mixpanel sharedInstance] track:@"start app"];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1515E5CF187147BD004A7F17 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1515E5CE187147BD004A7F17 /* Crashlytics.framework */; };
 		152679C9186EE2BF00CC5B55 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679C8186EE2BF00CC5B55 /* CoreTelephony.framework */; };
 		152679CB186EE2F600CC5B55 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679CA186EE2F600CC5B55 /* AdSupport.framework */; };
 		152679CD186EE37100CC5B55 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679CC186EE37100CC5B55 /* Accelerate.framework */; };
@@ -90,6 +91,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1515E5CE187147BD004A7F17 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		152679C8186EE2BF00CC5B55 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		152679CA186EE2F600CC5B55 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		152679CC186EE37100CC5B55 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
@@ -206,6 +208,7 @@
 			files = (
 				152679CD186EE37100CC5B55 /* Accelerate.framework in Frameworks */,
 				152679CB186EE2F600CC5B55 /* AdSupport.framework in Frameworks */,
+				1515E5CF187147BD004A7F17 /* Crashlytics.framework in Frameworks */,
 				152679C9186EE2BF00CC5B55 /* CoreTelephony.framework in Frameworks */,
 				D3B589201780FD18009E2333 /* UIKit.framework in Frameworks */,
 				D3B589211780FD18009E2333 /* Foundation.framework in Frameworks */,
@@ -353,6 +356,7 @@
 		677DB6C49525E0E3DD06F3AE /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				1515E5CE187147BD004A7F17 /* Crashlytics.framework */,
 				677DB62D8B85370E13FF6927 /* Mixpanel */,
 			);
 			path = Libs;
@@ -530,6 +534,7 @@
 				D3B5891B1780FD18009E2333 /* Sources */,
 				D3B5891C1780FD18009E2333 /* Frameworks */,
 				D3B5891D1780FD18009E2333 /* Resources */,
+				1515E5CD18714789004A7F17 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -618,6 +623,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1515E5CD18714789004A7F17 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#./Libs/Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D3B5891B1780FD18009E2333 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -696,8 +717,9 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/..\"",
-					"\"$(SRCROOT)\"",
+					"\\\"$(SRCROOT)/..\\\"",
+					"$(SRCROOT)",
+					"/Users/rinat/Documents/pastebotmurder/objc-prototype/Libs",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -738,8 +760,9 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/..\"",
-					"\"$(SRCROOT)\"",
+					"\\\"$(SRCROOT)/..\\\"",
+					"$(SRCROOT)",
+					"/Users/rinat/Documents/pastebotmurder/objc-prototype/Libs",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
