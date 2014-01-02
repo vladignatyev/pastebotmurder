@@ -1,0 +1,17 @@
+Want fast and really easy sharing between desktop and all of your mobile devices?
+ShotBuf is designed for you! 
+You will love it for it's clean straight-forward usability you expect from your fruity gadget. 
+
+Features:
+☁ Uses your DropBox
+☁ Works over 3G/LTE
+☁ Stores any content: texts, links, e-mails and images
+☁ Images preview, designers of mobile UI was dreaming about
+☁ It syncs your clipboard, so it works in GIMP, Adobe Photoshop, etc. and doesn't need any plugins
+☁ Pay once, no subscription needed
+☁ Supports iOS 6 and 7
+
+Once you've installed ShotBuf clipboard of your desktop will be safely synced via DropBox against all of your devices. 
+You're not required to know something new. Just copy your content on desktop and it will automatically appear on devices and in your DropBox.
+
+Need more? Find out great cases for housewifes, designers and developers on ShotBuf official web-site!
