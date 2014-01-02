@@ -1,4 +1,4 @@
-Want fast and really easy sharing between desktop and all of your mobile devices?
+Want fast and really easy sharing content between desktop and all of your mobile devices?
 ShotBuf is designed for you! 
 You will love it for it's clean straight-forward usability you expect from your fruity gadget. 
 
@@ -6,6 +6,7 @@ Features:
 ☁ Uses your DropBox
 ☁ Works over 3G/LTE
 ☁ Stores any content: texts, links, e-mails and images
+☁ Stores images from sites and famous photo editors
 ☁ Images preview, designers of mobile UI was dreaming about
 ☁ It syncs your clipboard, so it works in GIMP, Adobe Photoshop, etc. and doesn't need any plugins
 ☁ Pay once, no subscription needed
