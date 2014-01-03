@@ -15,9 +15,23 @@
 
     [super fillByRecord:record];
 
-    self.mainLabel.text = [record titleForLink];
+    float linkLabelY;
+
+    if(![[record titleForLink] isEqualToString:@""]) {
+
+        linkLabelY = 38;
+
+    } else {
+
+        linkLabelY = 20;
+    }
+
+    CGRect frame = _linkLabel.frame;
+    frame.origin.y = linkLabelY;
+    _linkLabel.frame = frame;
 
     _linkLabel.text = [record value];
+    self.mainLabel.text = [record titleForLink];
 }
 
 @end

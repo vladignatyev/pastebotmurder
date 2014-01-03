@@ -8,7 +8,6 @@
 #import "SBImageManager.h"
 #import "SBLinkCell.h"
 #import "SBPlainTextViewController.h"
-#import "AppDelegate.h"
 #import "SBSettingsViewController.h"
 #import "Mixpanel.h"
 
@@ -27,6 +26,8 @@
     [self setUpNavigationBar];
 
     [self setupTasks];
+
+    [self setUpAudio];
 }
 
 - (void)setUpNavigationBar {
@@ -61,6 +62,14 @@
     [[Mixpanel sharedInstance] track:@"open main screen"];
 }
 
+- (void)setUpAudio {
+
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"Buf1" ofType:@"aif"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundPath], &_soundBuf1);
+
+    soundPath = [[NSBundle mainBundle] pathForResource:@"Buf2" ofType:@"aif"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundPath], &_soundBuf2);
+}
 
 // user events
 
@@ -383,6 +392,8 @@
 
             [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
         }
+
+        [self playRandomSoundBuf];
     }
 }
 
@@ -390,6 +401,18 @@
 
 
 // system
+
+- (void)playRandomSoundBuf {
+
+    if (arc4random() % 2) {
+
+        AudioServicesPlaySystemSound(_soundBuf1);
+
+    } else {
+
+        AudioServicesPlaySystemSound(_soundBuf2);
+    }
+}
 
 - (void)logInsertRecord:(DBRecord *)record {
 
