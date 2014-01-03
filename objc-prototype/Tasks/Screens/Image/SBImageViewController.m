@@ -21,7 +21,7 @@
 
     [self setUpImage];
 
-    [[Mixpanel sharedInstance] track:@"open" properties:@{@"type":@"image"}];
+    [[Mixpanel sharedInstance] track:@"open" properties:@{@"type" : @"image"}];
 }
 
 - (void)setUpTouch {
@@ -111,7 +111,11 @@
 
     [_timerForNavBar invalidate];
 
-    [_scrollView setZoomScale:_scrollView.zoomScale * 1.5 animated:YES];
+    float scale = _scrollView.zoomScale;
+
+    float newScale = (1 <= scale && scale < 1.5 ? 2 : 1);
+
+    [_scrollView setZoomScale:newScale animated:YES];
 }
 
 - (void)longTap {
