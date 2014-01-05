@@ -660,7 +660,7 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = "./Libs/Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
 			shellScript = "#./Libs/Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -745,7 +745,9 @@
 					"$(inherited)",
 					"\\\"$(SRCROOT)/..\\\"",
 					"$(SRCROOT)",
-					"/Users/rinat/Documents/pastebotmurder/objc-prototype/Libs",
+					"$(SRCROOT)/Libs",
+					"$(SRCROOT)/Libs/Mixpanel/",
+					"$(SRCROOT)/Libs/Flurry/",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -764,7 +766,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/rinat/Documents/pastebotmurder/objc-prototype/Libs/Flurry",
+					"$(SRCROOT)/Libs/",
+					"$(SRCROOT)/Libs/Flurry/",
+					"$(SRCROOT)/Libs/Mixpanel/",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -792,7 +796,9 @@
 					"$(inherited)",
 					"\\\"$(SRCROOT)/..\\\"",
 					"$(SRCROOT)",
-					"/Users/rinat/Documents/pastebotmurder/objc-prototype/Libs",
+					"$(SRCROOT)/Libs",
+					"$(SRCROOT)/Libs/Mixpanel/",
+					"$(SRCROOT)/Libs/Flurry/",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -804,7 +810,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/rinat/Documents/pastebotmurder/objc-prototype/Libs/Flurry",
+					"$(SRCROOT)/Libs/",
+					"$(SRCROOT)/Libs/Flurry/",
+					"$(SRCROOT)/Libs/Mixpanel/",
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
