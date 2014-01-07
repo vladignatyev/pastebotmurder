@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1515E5CF187147BD004A7F17 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1515E5CE187147BD004A7F17 /* Crashlytics.framework */; };
 		1515E5D318714C81004A7F17 /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1515E5D218714C81004A7F17 /* libFlurry_4.3.0.a */; };
 		152679C9186EE2BF00CC5B55 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679C8186EE2BF00CC5B55 /* CoreTelephony.framework */; };
 		152679CB186EE2F600CC5B55 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679CA186EE2F600CC5B55 /* AdSupport.framework */; };
 		152679CD186EE37100CC5B55 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679CC186EE37100CC5B55 /* Accelerate.framework */; };
 		154330A21876B6010063892C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154330A11876B6010063892C /* AudioToolbox.framework */; };
+		15FC240D187BF98F00C69824 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FC240C187BF98F00C69824 /* Crashlytics.framework */; };
 		677DB08E0297BFB5F10D0BBC /* MPSurveyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB1747358CC9715B3E3E2 /* MPSurveyNavigationController.m */; };
 		677DB11FC5E980106A31847B /* MPSurveyQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB615093F5803A29F6DBD /* MPSurveyQuestionViewController.m */; };
 		677DB1CA8015DD8B275D3F84 /* UIImage+MPAverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD9AD2C5BBDE7CFFB38F /* UIImage+MPAverageColor.m */; };
@@ -95,13 +95,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1515E5CE187147BD004A7F17 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1515E5D118714C81004A7F17 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		1515E5D218714C81004A7F17 /* libFlurry_4.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.0.a; sourceTree = "<group>"; };
 		152679C8186EE2BF00CC5B55 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		152679CA186EE2F600CC5B55 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		152679CC186EE37100CC5B55 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		154330A11876B6010063892C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		15FC240C187BF98F00C69824 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		677DB04028F46CC152B25107 /* MPSurveyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSurveyNavigationController.h; sourceTree = "<group>"; };
 		677DB0532F2E87107E83CAE6 /* SBBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBaseCell.m; sourceTree = "<group>"; };
 		677DB0C8523B150C5E800EDC /* SBImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageManager.h; sourceTree = "<group>"; };
@@ -216,10 +216,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				154330A21876B6010063892C /* AudioToolbox.framework in Frameworks */,
+				15FC240D187BF98F00C69824 /* Crashlytics.framework in Frameworks */,
 				152679CD186EE37100CC5B55 /* Accelerate.framework in Frameworks */,
 				1515E5D318714C81004A7F17 /* libFlurry_4.3.0.a in Frameworks */,
 				152679CB186EE2F600CC5B55 /* AdSupport.framework in Frameworks */,
-				1515E5CF187147BD004A7F17 /* Crashlytics.framework in Frameworks */,
 				152679C9186EE2BF00CC5B55 /* CoreTelephony.framework in Frameworks */,
 				D3B589201780FD18009E2333 /* UIKit.framework in Frameworks */,
 				D3B589211780FD18009E2333 /* Foundation.framework in Frameworks */,
@@ -379,8 +379,8 @@
 		677DB6C49525E0E3DD06F3AE /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				15FC240C187BF98F00C69824 /* Crashlytics.framework */,
 				1515E5D018714C81004A7F17 /* Flurry */,
-				1515E5CE187147BD004A7F17 /* Crashlytics.framework */,
 				677DB62D8B85370E13FF6927 /* Mixpanel */,
 			);
 			path = Libs;
@@ -660,8 +660,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "./Libs/Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
-			shellScript = "#./Libs/Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
+			shellPath = "./Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
+			shellScript = "#./Crashlytics.framework/run 1ccfc67a3af6a60459498458b82b8ed331926ad9";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -743,7 +743,6 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/..\\\"",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Libs",
 					"$(SRCROOT)/Libs/Mixpanel/",
@@ -794,7 +793,6 @@
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)/..\\\"",
 					"$(SRCROOT)",
 					"$(SRCROOT)/Libs",
 					"$(SRCROOT)/Libs/Mixpanel/",
