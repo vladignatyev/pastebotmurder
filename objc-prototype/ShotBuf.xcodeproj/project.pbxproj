@@ -17,7 +17,6 @@
 		677DB11FC5E980106A31847B /* MPSurveyQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB615093F5803A29F6DBD /* MPSurveyQuestionViewController.m */; };
 		677DB1CA8015DD8B275D3F84 /* UIImage+MPAverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD9AD2C5BBDE7CFFB38F /* UIImage+MPAverageColor.m */; };
 		677DB25DDFED5D1A6E8BBD54 /* SBBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0532F2E87107E83CAE6 /* SBBaseCell.m */; };
-		677DB39B41E34426F419F929 /* Buf2.aif in Resources */ = {isa = PBXBuildFile; fileRef = 677DB739AED5C4D81E56BA24 /* Buf2.aif */; };
 		677DB3D5918FFC1CE334BB96 /* imageIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */; };
 		677DB3FC4B4793C8D692FF08 /* UIImage+MPImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBEEAE56C5427DABA7B9 /* UIImage+MPImageEffects.m */; };
 		677DB41335D8E986ACEB7E4E /* MPArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBD59B79B3E090B5FE058 /* MPArrowRight.png */; };
@@ -35,7 +34,6 @@
 		677DB77009BD2C905C606083 /* SBLinkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD4746B3BF3FDA64FB50 /* SBLinkCell.m */; };
 		677DB7C961F5BE84CA455322 /* MPDismissKeyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB71D8031383F1A89245B /* MPDismissKeyboard.png */; };
 		677DB7DBAC5475214B0F5B91 /* forIdiots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB1401EAEE3E857CF370B /* forIdiots@2x.png */; };
-		677DB8215493138E174B735A /* Buf1.aif in Resources */ = {isa = PBXBuildFile; fileRef = 677DB323014A3E5970803C53 /* Buf1.aif */; };
 		677DB880FF8D589A443A027E /* SBNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB64CC001D8CBB4BDEC92 /* SBNavigationController.m */; };
 		677DB88D448B43A09C7BE1DC /* NSData+MPBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB5E9A02428F7F786D438 /* NSData+MPBase64.m */; };
 		677DB8C79E756E197A13B881 /* MPSurvey.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 677DBAF357D212EE2175A52C /* MPSurvey.storyboard */; };
@@ -119,7 +117,6 @@
 		677DB2F804B7B08746FDD22E /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
 		677DB31DFE5935C7923BF5C7 /* dockForManual@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dockForManual@2x.png"; sourceTree = "<group>"; };
 		677DB320D03685CEE641C791 /* SBImageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageCell.h; sourceTree = "<group>"; };
-		677DB323014A3E5970803C53 /* Buf1.aif */ = {isa = PBXFileReference; lastKnownFileType = file.aif; path = Buf1.aif; sourceTree = "<group>"; };
 		677DB363F5BC4FCC4583D95B /* MPArrowLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MPArrowLeft@2x.png"; sourceTree = "<group>"; };
 		677DB4E748C094B83AB8370F /* linkIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "linkIcon@2x.png"; sourceTree = "<group>"; };
 		677DB51588BF159F46A06624 /* NSData+MPBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MPBase64.h"; sourceTree = "<group>"; };
@@ -132,7 +129,6 @@
 		677DB667A4645342B4F3F3CD /* MPSurveyQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSurveyQuestion.m; sourceTree = "<group>"; };
 		677DB71D8031383F1A89245B /* MPDismissKeyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPDismissKeyboard.png; sourceTree = "<group>"; };
 		677DB730FE01E5EF27741539 /* SBManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBManualViewController.m; sourceTree = "<group>"; };
-		677DB739AED5C4D81E56BA24 /* Buf2.aif */ = {isa = PBXFileReference; lastKnownFileType = file.aif; path = Buf2.aif; sourceTree = "<group>"; };
 		677DB81BDF45E9DE7D8C3900 /* MPArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPArrowLeft.png; sourceTree = "<group>"; };
 		677DB837AEEC6318DB12FA7B /* MPSurvey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSurvey.m; sourceTree = "<group>"; };
 		677DB881EA6EC5DAB3ED19E4 /* UIView+MPSnapshotImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPSnapshotImage.m"; sourceTree = "<group>"; };
@@ -527,8 +523,6 @@
 				677DBAB29126115674165594 /* Cells */,
 				677DB47EA59C527AA7C8CF7B /* Managers */,
 				677DB31BAFB524FE2E3862FF /* Images */,
-				677DB323014A3E5970803C53 /* Buf1.aif */,
-				677DB739AED5C4D81E56BA24 /* Buf2.aif */,
 			);
 			name = ShotBuf;
 			path = Tasks;
@@ -642,8 +636,6 @@
 				677DBE8C96913CD191755B8B /* logoForManual@2x.png in Resources */,
 				677DB9A3616627BF185C4A49 /* dockForManual@2x.png in Resources */,
 				677DBD39D490B3C70C45E1BF /* title@2x.png in Resources */,
-				677DB8215493138E174B735A /* Buf1.aif in Resources */,
-				677DB39B41E34426F419F929 /* Buf2.aif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
