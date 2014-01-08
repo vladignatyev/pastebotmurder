@@ -63,12 +63,12 @@
 }
 
 - (void)setUpAudio {
-
-    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"Buf1" ofType:@"aif"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundPath], &_soundBuf1);
-
-    soundPath = [[NSBundle mainBundle] pathForResource:@"Buf2" ofType:@"aif"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundPath], &_soundBuf2);
+// todo: not necessary for AppStore approval process. skipping sound setup.
+//    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"Buf1" ofType:@"aif"];
+//    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundPath], &_soundBuf1);
+//
+//    soundPath = [[NSBundle mainBundle] pathForResource:@"Buf2" ofType:@"aif"];
+//    AudioServicesCreateSystemSoundID((__bridge CFURLRef) [NSURL fileURLWithPath:soundPath], &_soundBuf2);
 }
 
 // user events
@@ -393,7 +393,7 @@
             [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
         }
 
-        [self playRandomSoundBuf];
+//        [self playRandomSoundBuf];
     }
 }
 
@@ -402,16 +402,17 @@
 
 // system
 
+//todo: sound needs improvement. not necessary for AppStore approval process
 - (void)playRandomSoundBuf {
 
-    if (arc4random() % 2) {
-
-        AudioServicesPlaySystemSound(_soundBuf1);
-
-    } else {
-
-        AudioServicesPlaySystemSound(_soundBuf2);
-    }
+//    if (arc4random() % 2) {
+//
+//        AudioServicesPlaySystemSound(_soundBuf1);
+//
+//    } else {
+//
+//        AudioServicesPlaySystemSound(_soundBuf2);
+//    }
 }
 
 - (void)logInsertRecord:(DBRecord *)record {
