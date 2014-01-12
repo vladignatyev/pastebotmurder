@@ -27,7 +27,7 @@
 
     [self setupTasks];
 
-    [self setUpAudio];
+    //[self setUpAudio];
 }
 
 - (void)setUpNavigationBar {
@@ -264,9 +264,9 @@
 
                 slf.isConnected = YES;
 
-                slf.timerForFirstUpdate = [NSTimer scheduledTimerWithTimeInterval:1
-                                                                           target:slf.tableView
-                                                                         selector:@selector(reloadData)
+                slf.timerForFirstUpdate = [NSTimer scheduledTimerWithTimeInterval:2
+                                                                           target:slf
+                                                                         selector:@selector(connectedFinishAndNotNewInserts)
                                                                          userInfo:nil
                                                                           repeats:NO];
 
@@ -278,19 +278,13 @@
 
                 [slf syncTasks];
 
-            } else {
-
-                //[slf.tableView reloadData];
             }
         }];
 
 
         self.records = [NSMutableArray arrayWithArray:[[self.store getTable:BUFS_TABLE] query:nil error:nil]];
 
-        [_records sortUsingComparator:^(DBRecord *record1, DBRecord *record2) {
-
-            return [record2[@"created"] compare:record1[@"created"]];
-        }];
+        [self sortRecordsArray];
 
     } else {
 
@@ -366,10 +360,8 @@
 
 
     [_records addObjectsFromArray:changed];
-    [_records sortUsingComparator:^(DBRecord *record1, DBRecord *record2) {
 
-        return [record2[@"created"] compare:record1[@"created"]];
-    }];
+    [self sortRecordsArray];
 
     NSMutableArray *inserts = [NSMutableArray array];
 
@@ -392,8 +384,6 @@
 
             [self.tableView insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-
-//        [self playRandomSoundBuf];
     }
 }
 
@@ -401,6 +391,83 @@
 
 
 // system
+
+- (void)sortRecordsArray {
+
+    [_records sortUsingComparator:^(DBRecord *record1, DBRecord *record2) {
+
+        return [record2[@"created"] compare:record1[@"created"]];
+    }];
+}
+
+- (void)connectedFinishAndNotNewInserts {
+
+    [self checkFirstRun];
+
+    [self.tableView reloadData];
+}
+
+- (void)checkFirstRun {
+
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_RUN_KEY]) {
+    //if (YES) {
+
+        [self insertWelcomePastes];
+
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_RUN_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
+- (void)insertWelcomePastes {
+
+    DBTable *table = [self.store getTable:BUFS_TABLE];
+
+    [_records addObject:
+            [table insert:@{
+                    @"value" : @"test text",
+                    @"type" : @"plain",
+                    @"created" : [NSDate date]
+            }]];
+
+    [_records addObject:
+            [table insert:@{
+                    @"value" : @"ShotBufTeam@gmail.com",
+                    @"type" : @"email",
+                    @"created" : [NSDate date]
+            }]];
+
+    [_records addObject:
+            [table insert:@{
+                    @"value" : @"http://shotbuf.com/",
+                    @"type" : @"www",
+                    @"title" : @"English title please",
+                    @"created" : [NSDate date]
+            }]];
+
+    //image
+
+    NSString *name = @"welcomeScreen.png";
+
+    DBFilesystem *filesystem = [DBFilesystem sharedFilesystem];
+    DBPath *path = [[DBPath root] childPath:name];
+
+    DBFile *file = [filesystem createFile:path error:nil];
+
+    [file writeData:UIImagePNGRepresentation([UIImage imageNamed:@"WelcomeScreen.png"]) error:nil];
+
+    [file close];
+
+    [_records addObject:
+            [table insert:@{
+                    @"value" : name,
+                    @"type" : @"image",
+                    @"created" : [NSDate date]
+            }]];
+
+
+    [self sortRecordsArray];
+}
 
 //todo: sound needs improvement. not necessary for AppStore approval process
 - (void)playRandomSoundBuf {

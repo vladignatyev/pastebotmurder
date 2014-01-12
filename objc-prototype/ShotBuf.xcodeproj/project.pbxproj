@@ -17,6 +17,7 @@
 		677DB11FC5E980106A31847B /* MPSurveyQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB615093F5803A29F6DBD /* MPSurveyQuestionViewController.m */; };
 		677DB1CA8015DD8B275D3F84 /* UIImage+MPAverageColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBD9AD2C5BBDE7CFFB38F /* UIImage+MPAverageColor.m */; };
 		677DB25DDFED5D1A6E8BBD54 /* SBBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB0532F2E87107E83CAE6 /* SBBaseCell.m */; };
+		677DB28C24AFB15439DD8710 /* WelcomeScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB83B38041B20D88A7BB3 /* WelcomeScreen.png */; };
 		677DB3D5918FFC1CE334BB96 /* imageIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBE9B6AB27CDA231AC0C6 /* imageIcon@2x.png */; };
 		677DB3FC4B4793C8D692FF08 /* UIImage+MPImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DBBEEAE56C5427DABA7B9 /* UIImage+MPImageEffects.m */; };
 		677DB41335D8E986ACEB7E4E /* MPArrowRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBD59B79B3E090B5FE058 /* MPArrowRight.png */; };
@@ -131,6 +132,7 @@
 		677DB730FE01E5EF27741539 /* SBManualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBManualViewController.m; sourceTree = "<group>"; };
 		677DB81BDF45E9DE7D8C3900 /* MPArrowLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MPArrowLeft.png; sourceTree = "<group>"; };
 		677DB837AEEC6318DB12FA7B /* MPSurvey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSurvey.m; sourceTree = "<group>"; };
+		677DB83B38041B20D88A7BB3 /* WelcomeScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WelcomeScreen.png; sourceTree = "<group>"; };
 		677DB881EA6EC5DAB3ED19E4 /* UIView+MPSnapshotImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MPSnapshotImage.m"; sourceTree = "<group>"; };
 		677DB8FF779C5FC74D11B427 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBRecord.m; sourceTree = "<group>"; };
 		677DB941453ADE1FF8FDD483 /* SBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBLoginViewController.m; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 				677DBAB29126115674165594 /* Cells */,
 				677DB47EA59C527AA7C8CF7B /* Managers */,
 				677DB31BAFB524FE2E3862FF /* Images */,
+				677DB83B38041B20D88A7BB3 /* WelcomeScreen.png */,
 			);
 			name = ShotBuf;
 			path = Tasks;
@@ -636,6 +639,7 @@
 				677DBE8C96913CD191755B8B /* logoForManual@2x.png in Resources */,
 				677DB9A3616627BF185C4A49 /* dockForManual@2x.png in Resources */,
 				677DBD39D490B3C70C45E1BF /* title@2x.png in Resources */,
+				677DB28C24AFB15439DD8710 /* WelcomeScreen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

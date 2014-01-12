@@ -5,6 +5,8 @@
 @class DBAccount;
 @class DBAccountManager;
 
+static NSString *const FIRST_RUN_KEY = @"FirstRun";
+
 @interface SBMainViewController : UITableViewController
 
 @property(nonatomic, readonly) DBAccount *account;
