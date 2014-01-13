@@ -100,7 +100,7 @@
 
             file = [[DBFilesystem sharedFilesystem] openFile:existingPath error:nil];
 
-            image = [UIImage imageWithData:[file readData:nil]];
+            image = [UIImage imageWithData:[file readData:nil] scale:[UIScreen mainScreen].scale];
         }
 
         [file close];
