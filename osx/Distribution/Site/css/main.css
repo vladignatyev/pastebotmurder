@@ -1,0 +1,98 @@
+body {
+	font-family: "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Open Sans", sans-serif;
+}
+
+h1 {
+	font-weight: bolder;
+}
+
+.top15 {
+	margin-top:1.5em; 
+}
+
+.download a.download {
+	background: #cccdcd;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	font-size: 16pt;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	padding: 15pt 22.5pt;
+	display: block;
+	text-align: center;
+	border-radius: 5pt;
+	width: 100%;
+	margin-bottom: 2pt;
+}
+
+.download a.download.selected {
+	background: #007ee5;
+}
+
+.no-left-offset {
+	padding-left:0;
+}
+
+
+@media (min-width: 768px) {
+	.no-left-offset {
+		padding-left: 15px;
+	}
+}
+
+@media (min-width: 992px) {
+	.no-left-offset {
+		padding-left: 0px;
+	}
+}
+
+.bottom-hr {
+	border-bottom: 1px #007ee5 solid;
+	padding-bottom: 18pt;
+}
+
+.bottom-hr-gray {
+	border-bottom: 1px #cccdcd solid;
+	padding-bottom: 18pt;
+}
+
+
+.download .screenshot {
+	border: 1px solid #ccc;
+
+}
+
+.bigger {
+	font-size: 1.3em;
+}
+
+.download .screenshots h4{
+	font-weight: bolder;
+}
+
+.download .screenshots p{
+	font-size: 0.9em;
+}
+
+.footer  {
+	margin-top: 15pt;
+}
+.footer a {
+	font-size: 0.9em;
+	color: #999999;
+}
+
+.footer ul.menu {
+	list-style-type: none;
+	margin:0;
+	padding: 0;
+}
+
+.footer ul.menu li {
+	margin:0 !important;
+	padding: 0;
+}
