@@ -63,7 +63,7 @@ h1 {
 
 .download .screenshot {
 	border: 1px solid #ccc;
-
+	box-shadow: 1px 2px 5px #bbb;
 }
 
 .bigger {
