@@ -40,6 +40,8 @@
 		8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		80D1388E188AA5F50032D4D8 /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D1388D188AA5F50032D4D8 /* welcome@2x.png */; };
+		80D13891188AA6CA0032D4D8 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D1388F188AA6CA0032D4D8 /* dropbox.png */; };
+		80D13892188AA6CA0032D4D8 /* dropbox@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D13890188AA6CA0032D4D8 /* dropbox@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +114,8 @@
 		808E6F5E1862065C00123119 /* SBImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBImageManager.h; path = "../objc-prototype/Tasks/Managers/SBImageManager.h"; sourceTree = "<group>"; };
 		809FEC60184FF5A00034B712 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		80D1388D188AA5F50032D4D8 /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome@2x.png"; path = "Images/welcome@2x.png"; sourceTree = "<group>"; };
+		80D1388F188AA6CA0032D4D8 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dropbox.png; path = Images/dropbox.png; sourceTree = "<group>"; };
+		80D13890188AA6CA0032D4D8 /* dropbox@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dropbox@2x.png"; path = "Images/dropbox@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +243,8 @@
 		802C8FC3185F942600BF8482 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				80D1388F188AA6CA0032D4D8 /* dropbox.png */,
+				80D13890188AA6CA0032D4D8 /* dropbox@2x.png */,
 				80D1388D188AA5F50032D4D8 /* welcome@2x.png */,
 				808E6F531861F96B00123119 /* statusbaricon_black.png */,
 				808E6F541861F96B00123119 /* statusbaricon_black@2x.png */,
@@ -364,11 +370,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80D13891188AA6CA0032D4D8 /* dropbox.png in Resources */,
 				802C8FD1185F94C800BF8482 /* statusbaricon_invert.png in Resources */,
 				8026FAD0186124C30076F5CB /* 32x32.png in Resources */,
 				8026FADD18612A3B0076F5CB /* 512x512.png in Resources */,
 				8026FAD41861252F0076F5CB /* 128x128.png in Resources */,
 				802C8FD3185F94C800BF8482 /* statusbaricon@2x.png in Resources */,
+				80D13892188AA6CA0032D4D8 /* dropbox@2x.png in Resources */,
 				808E6F561861F96B00123119 /* statusbaricon_black@2x.png in Resources */,
 				807073841863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist in Resources */,
 				8026FAD8186125640076F5CB /* 256x256.png in Resources */,

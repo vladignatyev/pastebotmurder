@@ -83,6 +83,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="welcome" id="aaX-Vg-Xk8"/>
                     </imageView>
+                    <imageView focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pza-fZ-zlM">
+                        <rect key="frame" x="286" y="7" width="112" height="59"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" focusRingType="none" alignment="left" imageScaling="proportionallyDown" image="dropbox" id="D00-Xd-LWH"/>
+                    </imageView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2xt-ND-88x">
                         <rect key="frame" x="57" y="220" width="299" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -156,6 +161,7 @@
         </menu>
     </objects>
     <resources>
+        <image name="dropbox" width="289" height="87"/>
         <image name="welcome" width="300" height="142"/>
     </resources>
 </document>
