@@ -104,13 +104,13 @@ html, body {
 }
 
 .after {
-	height: 73px;
+	height: 173px;
 	margin-top:-73px;
-	background: url('/img/footer-pattern.png');
+	background: url('/img/footer-pattern.png') bottom repeat-x;
 	text-align: center;
 	font-size: 1.2em;
 	font-weight: bolder;
-	padding-top: 10pt;
+	padding-top: 25pt;
 }
 
 .footer a {
