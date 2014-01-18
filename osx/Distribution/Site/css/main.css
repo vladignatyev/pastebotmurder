@@ -14,8 +14,16 @@ h1 {
 	margin-top:1.5em; 
 }
 
+.download .mac {
+	background: url('/img/d/button-apple.png') no-repeat 20px 15px;
+}
+
+.download .pc {
+	background: url('/img/d/button-windows.png') no-repeat 20px 20px;
+}
+
 .download a.download {
-	background: #cccdcd;
+	background-color: #cccdcd;
 	color: #fff;
 	text-decoration: none;
 	cursor: pointer;
@@ -30,7 +38,7 @@ h1 {
 }
 
 .download a.download.selected {
-	background: #007ee5;
+	background-color: #007ee5;
 }
 
 .no-left-offset {
@@ -80,7 +88,15 @@ h1 {
 
 .footer  {
 	margin-top: 15pt;
+	margin-bottom: 50pt;
+	
 }
+
+.after {
+	height: 73px;
+	background: url('/img/footer-pattern.png');
+}
+
 .footer a {
 	font-size: 0.9em;
 	color: #999999;
