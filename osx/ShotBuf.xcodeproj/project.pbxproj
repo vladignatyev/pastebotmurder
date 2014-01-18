@@ -39,6 +39,7 @@
 		808E6F5F1862065C00123119 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E6F5D1862065C00123119 /* SBImageManager.m */; };
 		8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
+		80D1388E188AA5F50032D4D8 /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D1388D188AA5F50032D4D8 /* welcome@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		808E6F5D1862065C00123119 /* SBImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBImageManager.m; path = "../objc-prototype/Tasks/Managers/SBImageManager.m"; sourceTree = "<group>"; };
 		808E6F5E1862065C00123119 /* SBImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBImageManager.h; path = "../objc-prototype/Tasks/Managers/SBImageManager.h"; sourceTree = "<group>"; };
 		809FEC60184FF5A00034B712 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
+		80D1388D188AA5F50032D4D8 /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome@2x.png"; path = "Images/welcome@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 		802C8FC3185F942600BF8482 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				80D1388D188AA5F50032D4D8 /* welcome@2x.png */,
 				808E6F531861F96B00123119 /* statusbaricon_black.png */,
 				808E6F541861F96B00123119 /* statusbaricon_black@2x.png */,
 				8026FADB18612A3B0076F5CB /* 512x512.png */,
@@ -292,7 +295,6 @@
 				67C40D46181566EE005B06DA /* Frameworks */,
 				67C40D47181566EE005B06DA /* Resources */,
 				67C40D79181567C8005B06DA /* CopyFiles */,
-				806F1D8D18796AF0002F6FC6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -376,6 +378,7 @@
 				802C8FD2185F94C800BF8482 /* statusbaricon_invert@2x.png in Resources */,
 				67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */,
 				8038956C186A7369000966EB /* dsa_pub.pem in Resources */,
+				80D1388E188AA5F50032D4D8 /* welcome@2x.png in Resources */,
 				8026FADA186129B10076F5CB /* 64x64.png in Resources */,
 				678B6DFF181608AE00E3F0DA /* MainMenu.xib in Resources */,
 				802C8FD0185F94C800BF8482 /* statusbaricon.png in Resources */,
@@ -392,22 +395,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		806F1D8D18796AF0002F6FC6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = "/bin/sh ./Crashlytics.framework/run 870ccdb8cc3064df6f8e0bb8b2be411c469fca8d";
-			shellScript = "";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		67C40D45181566EE005B06DA /* Sources */ = {

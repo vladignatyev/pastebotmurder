@@ -156,6 +156,6 @@
         </menu>
     </objects>
     <resources>
-        <image name="welcome" width="583" height="310"/>
+        <image name="welcome" width="300" height="142"/>
     </resources>
 </document>
