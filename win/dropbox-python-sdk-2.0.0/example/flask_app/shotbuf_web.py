@@ -5,14 +5,16 @@ An example of Dropbox App linking with Flask.
 
 import os
 import posixpath
-import wx
+import urllib
+import urlparse
 
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-     render_template, flash, _app_ctx_stack
+     render_template, flash, _app_ctx_stack, after_this_request
 
 from dropbox.client import DropboxClient, DropboxOAuth2Flow
 from bare import ShotBufFrame
+from flask.ext.mobility import Mobility
 
 # configuration
 DEBUG = True
@@ -25,6 +27,7 @@ DROPBOX_APP_SECRET = 'u5sva6uz22bvuyy'
 
 # create our little application :)
 app = Flask(__name__)
+Mobility(app)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
@@ -105,9 +108,26 @@ def dropbox_auth_finish():
 
 @app.route('/dropbox-auth-start')
 def dropbox_auth_start():
+    username = 'user'
+    
+    db = get_db()
+    db.execute('INSERT OR IGNORE INTO users (username) VALUES (?)', [username])
+    db.commit()
+    session['user'] = username
+
     if 'user' not in session:
         abort(403)
-    return redirect(get_auth_flow().start())
+    url = get_auth_flow().start()
+    # print 'url %s' % url
+    params={'display':'mobile'}
+    url_parts = list(urlparse.urlparse(url))
+    # print url_parts
+    query = dict(urlparse.parse_qsl(url_parts[4]))
+    query.update(params)
+
+    url_parts[4] = urllib.urlencode(query)
+    print urlparse.urlunparse(url_parts)
+    return redirect(url)
 
 @app.route('/dropbox-logout')
 def dropbox_logout():
@@ -121,8 +141,10 @@ def dropbox_logout():
 
 def get_auth_flow():
     redirect_uri = url_for('dropbox_auth_finish', _external=True)
-    return DropboxOAuth2Flow(DROPBOX_APP_KEY, DROPBOX_APP_SECRET, redirect_uri,
+    url = DropboxOAuth2Flow(DROPBOX_APP_KEY, DROPBOX_APP_SECRET, redirect_uri,
                                        session, 'dropbox-auth-csrf-token')
+    # print 'url %s' % url
+    return url
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -148,15 +170,8 @@ def logout():
 
 
 def main():
-    wxApp = wx.App(False)
-    frame = ShotBufFrame(None, -1, 'ShotBuf')
-    frame.Show(True)
-    wxApp.MainLoop()
     init_db()
     app.run()
     
-    
-
-
 if __name__ == '__main__':
     main()

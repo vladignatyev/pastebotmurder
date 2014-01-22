@@ -11,8 +11,8 @@ from dropbox import client, rest, session
 
 # XXX Fill in your consumer key and secret below
 # You can find these at http://www.dropbox.com/developers/apps
-APP_KEY = ''
-APP_SECRET = ''
+APP_KEY = '84zxlqvsmm2py5y'
+APP_SECRET = 'u5sva6uz22bvuyy'
 
 def command(login_required=True):
     """a decorator for handling authentication and exceptions"""
