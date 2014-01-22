@@ -1,5 +1,6 @@
 #!/usr/bin/env python	
 import wx
+import wx.html2
 from wx.webkit import WebKitCtrl
 
 class CustomTaskBarIcon(wx.TaskBarIcon):
@@ -43,13 +44,38 @@ class ShotBufFrame(wx.Frame):
 
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
 		
-		self.web = WebKitCtrl(self.panel, 4030, 'http://google.com', (5,5), (200,200))
-		print self.web
 		self.tbiicon = CustomTaskBarIcon()
 		self.Show()
 
 	def OnConnectDropbox(self, event):
-		wx.MessageBox('Connected Dropbox', 'Info', wx.OK | wx.ICON_INFORMATION)
+		dialog = WebViewDialog(None, -1)
+		dialog.browser.LoadURL("http://www.google.com")
+		dialog.ShowModal()
+
+class WebViewDialog(wx.Dialog):
+	def __init__(self, *args, **kw):
+		super(WebViewDialog, self).__init__(*args, **kw)
+		sizer = wx.BoxSizer(wx.VERTICAL)
+		self.browser = wx.html2.WebView.New(self)
+		sizer.Add(self.browser, 1, wx.EXPAND, 10)
+		self.SetSizer(sizer)
+		self.SetSize((700, 700))
+		self.SetTitle('Dropbox authorization')
+
+class WebViewFrame(wx.Frame):
+
+	def __init__(self, parent, id, title):
+		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
+
+		self.panel = wx.Panel(self)
+		self.web = WebKitCtrl(self.panel, 4030, 'http://google.com', (5,5), (400,250))
+
+		self.MakeModal()
+		self.Show()
+
+		self.eventLoop = wx.EventLoop()
+		self.eventLoop.Run()
+		
 if __name__ == '__main__':
 	app = wx.App(False)
 	frame = ShotBufFrame(None, -1, 'ShotBuf')
