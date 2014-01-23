@@ -57,7 +57,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			noQDv5SMCDP7PADE+rXTbAWWEhU=
+			ZJku9ncdwiLaQNXFTVcUrDjscuw=
 			</data>
 			<key>optional</key>
 			<true/>
@@ -94,7 +94,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			M2soYMB4jEi4kyxPpPItVzaMDW0=
+			beEZazpHWKzZiPHtdkofc+L1o9o=
 			</data>
 			<key>requirement</key>
 			<string>anchor apple generic and identifier "org.andymatuschak.Sparkle" and (certificate leaf[field.1.2.840.113635.100.6.1.9] /* exists */ or certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = "9MBK7F2A62")</string>
@@ -152,7 +152,7 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			noQDv5SMCDP7PADE+rXTbAWWEhU=
+			ZJku9ncdwiLaQNXFTVcUrDjscuw=
 			</data>
 			<key>optional</key>
 			<true/>
