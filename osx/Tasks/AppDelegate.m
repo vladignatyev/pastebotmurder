@@ -303,6 +303,7 @@
 - (void)presentWelcomeWindow {
     [self.unlinkDropboxItem setEnabled:NO];
     [self.enableShotBufItem setEnabled:NO];
+    [self.clearDataItem setEnabled:NO];
     
     [self.welcomeWindow setLevel:NSModalPanelWindowLevel];
     [self.welcomeWindow makeKeyAndOrderFront:self];
@@ -325,6 +326,7 @@
     [self.enableShotBufItem setEnabled:NO];
     [self.unlinkDropboxItem setTitle:@"Link DropBox"];
     [self.enableShotBufItem setEnabled:NO];
+    [self.clearDataItem setEnabled:NO];
     [self.accountManager removeObserver:self];
     _store = nil;
 }
@@ -359,6 +361,8 @@
 - (void)enableShotBuf {
     [self.enableShotBufItem setTitle:@"Disable ShotBuf"];
     [self.enableShotBufItem setEnabled:YES];
+    [self.clearDataItem setEnabled:YES];
+
     _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
                                                        target:self
                                                      selector:@selector(timerHandler)

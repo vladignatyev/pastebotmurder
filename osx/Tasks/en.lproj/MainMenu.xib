@@ -108,6 +108,7 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="clearDataItem" destination="dji-3r-Kus" id="a9C-l1-TCN"/>
                 <outlet property="enableShotBufItem" destination="Ogh-A2-vY8" id="MEr-Wv-I2B"/>
                 <outlet property="menu" destination="hLk-zd-nP5" id="dfc-2S-m39"/>
                 <outlet property="unlinkDropboxItem" destination="1DK-WC-TSJ" id="lbc-Ml-6Kb"/>
