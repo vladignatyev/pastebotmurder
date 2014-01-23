@@ -110,7 +110,9 @@ html, body {
 	text-align: center;
 	font-size: 1.2em;
 	font-weight: bolder;
-	padding-top: 25pt;
+	padding-top: 80pt;
+	padding-left: 5pt;
+	padding-right: 5pt;
 }
 
 .footer a {
