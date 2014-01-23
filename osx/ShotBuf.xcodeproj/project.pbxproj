@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		678B6DFF181608AE00E3F0DA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678B6DFD181608AE00E3F0DA /* MainMenu.xib */; };
-		678B6E051816359D00E3F0DA /* TaskCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 678B6E041816359D00E3F0DA /* TaskCellView.m */; };
 		67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C40D11181566AC005B06DA /* Cocoa.framework */; };
 		67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67C40D4E181566EE005B06DA /* InfoPlist.strings */; };
 		67C40D52181566EE005B06DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C40D51181566EE005B06DA /* main.m */; };
@@ -70,8 +69,6 @@
 
 /* Begin PBXFileReference section */
 		678B6DFE181608AE00E3F0DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		678B6E031816359D00E3F0DA /* TaskCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskCellView.h; sourceTree = "<group>"; };
-		678B6E041816359D00E3F0DA /* TaskCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskCellView.m; sourceTree = "<group>"; };
 		67C40D11181566AC005B06DA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67C40D14181566AC005B06DA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		67C40D15181566AC005B06DA /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -192,8 +189,6 @@
 			children = (
 				67C40D57181566EE005B06DA /* AppDelegate.h */,
 				67C40D58181566EE005B06DA /* AppDelegate.m */,
-				678B6E031816359D00E3F0DA /* TaskCellView.h */,
-				678B6E041816359D00E3F0DA /* TaskCellView.m */,
 				678B6DFD181608AE00E3F0DA /* MainMenu.xib */,
 				67C40D4C181566EE005B06DA /* Supporting Files */,
 			);
@@ -411,7 +406,6 @@
 			files = (
 				808E6F5F1862065C00123119 /* SBImageManager.m in Sources */,
 				801A1731185262F50083A25D /* NSString+LinkDetection.m in Sources */,
-				678B6E051816359D00E3F0DA /* TaskCellView.m in Sources */,
 				808E6F5C1862050300123119 /* SBRecord.m in Sources */,
 				67C40D59181566EE005B06DA /* AppDelegate.m in Sources */,
 				67C40D52181566EE005B06DA /* main.m in Sources */,

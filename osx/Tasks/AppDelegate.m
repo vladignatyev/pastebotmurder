@@ -1,7 +1,6 @@
 //  Copyright (c) 2013 ShotBuf. All rights reserved.
 
 #import "AppDelegate.h"
-#import "TaskCellView.h"
 
 #import <Dropbox/Dropbox.h>
 #import <CommonCrypto/CommonDigest.h>
@@ -303,9 +302,18 @@
 
 - (void)presentWelcomeWindow {
     [self.unlinkDropboxItem setEnabled:NO];
+    [self.enableShotBufItem setEnabled:NO];
+    
+    [self.welcomeWindow setLevel:NSModalPanelWindowLevel];
     [self.welcomeWindow makeKeyAndOrderFront:self];
-//    [NSApp activateWithOptions:NSApplicationActivateAllWindows];
-    [NSApp activateIgnoringOtherApps:YES];
+    
+    // Make the window visible on all Spaces
+    if([self.welcomeWindow respondsToSelector: @selector(setCollectionBehavior:)]) {
+        [self.welcomeWindow setCollectionBehavior: NSWindowCollectionBehaviorCanJoinAllSpaces];
+    }
+    else if([self.welcomeWindow respondsToSelector: @selector(canBeVisibleOnAllSpaces)]) {
+        [self.welcomeWindow canBeVisibleOnAllSpaces]; // AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED
+    }
 }
 
 - (void)closeWelcomeWindow {
