@@ -1,7 +1,10 @@
+import token_provider
+
 class ShotBufApp(object):
 
-	def init(self):
-		pass
+	def __init__(self, dropboxApi):
+		self.dropboxApi = dropboxApi
+		
 
 	def enable(self):
 		pass
@@ -13,10 +16,15 @@ class ShotBufApp(object):
 		pass
 
 	def did_login(self):
+		access_token = token_provider.get_access_token()
+		self.dropboxApi.login_with_token(access_token)
+
+	def isLogined(self):
 		pass
 
 	def pasteText(self, text):
 		pass
 
-	def pasteImage(self, image):
-		pass
+	def paste_file(self, name):
+		self.dropboxApi.upload_file(name)
+		

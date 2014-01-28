@@ -8,8 +8,11 @@ from dropbox.rest import ErrorResponse, RESTSocketError
 from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from time import time
 import tempfile
+from shotbuf_app import ShotBufApp
+from dropbox_api import DropboxApi
 
 ACCESS_TOKEN = ''
+
 class CustomTaskBarIcon(wx.TaskBarIcon):
 	ID_HELLO = wx.NewId()
 	ID_HELLO2 = wx.NewId()
@@ -43,7 +46,8 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 class ShotBufFrame(wx.Frame):
 
-	def __init__(self, parent, id, title):
+	def __init__(self, parent, id, title, shotBufApp):
+		self.shotBufApp = shotBufApp
 		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
 
 		self.panel = wx.Panel(self)
@@ -58,6 +62,7 @@ class ShotBufFrame(wx.Frame):
 
 	def OnConnectDropbox(self, event):
 		self.dialog = WebViewDialog(self, -1)
+		self.dialog.shotBufApp = self.shotBufApp
 		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
 		
 		self.dialog.browser.LoadURL("http://127.0.0.1:5000/dropbox-auth-start")
@@ -94,6 +99,8 @@ class ShotBufFrame(wx.Frame):
 						print bitmap
 						
 						print 'temp file name %s' % fileTemp.name
+						self.shotBufApp.paste_file(fileTemp.name)
+						
 					
 			wx.TheClipboard.Close()
 
@@ -119,6 +126,8 @@ class WebViewDialog(wx.Dialog):
 		if url == 'http://127.0.0.1:5000/':
 			print "FUCKING SUCCESS"
 			self.Destroy()
+			print 'asd %s' % self.shotBufApp 
+			self.shotBufApp.did_login()
 		else:
 			print 'Fail'
 
@@ -138,8 +147,14 @@ class WebViewFrame(wx.Frame):
 		self.eventLoop.Run()
 	
 def main():
+	dropboxApi = DropboxApi()
+	shotBufApp = ShotBufApp(dropboxApi)
+	print shotBufApp
+	
+	
+
 	app = wx.App(False)
-	frame = ShotBufFrame(None, -1, 'ShotBuf')
+	frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 	frame.Show(True)
 	print 'Start'
 	app.MainLoop()
