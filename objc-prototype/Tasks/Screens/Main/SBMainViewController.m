@@ -75,7 +75,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if ([self isNeedLoadingCell] || [self isEmpty]) {
+    if ([self isEmptyAndNeedLoadingCell] || [self isEmpty]) {
 
         return;
     }
@@ -149,7 +149,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if ([self isNeedLoadingCell] || [self isEmpty]) {
+    if ([self isEmptyAndNeedLoadingCell]) {
+
+        return 2;
+    }
+
+    if ([self isEmpty]) {
 
         return 1;
     }
@@ -159,7 +164,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if ([self isNeedLoadingCell]) {
+    if ([self isEmptyAndNeedLoadingCell] && indexPath.row == 0) {
 
         return [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
     }
@@ -199,7 +204,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if ([self isNeedLoadingCell] || [self isEmpty]) {
+    if ([self isEmptyAndNeedLoadingCell] || [self isEmpty]) {
 
         return NO;
     }
@@ -211,7 +216,7 @@
 
     UITableViewCell *cell = nil;
 
-    if ([self isNeedLoadingCell]) {
+    if ([self isEmptyAndNeedLoadingCell] && indexPath.row==0) {
 
         cell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
 
@@ -402,15 +407,23 @@
 
 - (void)connectedFinishAndNotNewInserts {
 
-    [self checkFirstRun];
+    //[self checkFirstRunForWelcomPastes];
 
-    [self.tableView reloadData];
+    if([self isEmpty]) {
+
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
+                              withRowAnimation:UITableViewRowAnimationLeft];
+
+    } else {
+
+        [self.tableView reloadData];
+    }
+
 }
 
-- (void)checkFirstRun {
+- (void)checkFirstRunForWelcomPastes {
 
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_RUN_KEY]) {
-    //if (YES) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_RUN_KEY]) {
 
         [self insertWelcomePastes];
 
@@ -496,7 +509,7 @@
     [[Mixpanel sharedInstance] track:@"delete" properties:@{@"type" : [_record typeToString]}];
 }
 
-- (BOOL)isNeedLoadingCell {
+- (BOOL)isEmptyAndNeedLoadingCell {
 
     return !_isConnected && [self isEmpty];
 }

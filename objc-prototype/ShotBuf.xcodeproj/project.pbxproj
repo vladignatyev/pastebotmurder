@@ -78,6 +78,9 @@
 		80C8CD4D18842CD800F39427 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C8CD4F18842CD800F39427 /* Default.png */; };
 		80C8CD5018842CDD00F39427 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C8CD5218842CDD00F39427 /* Default@2x.png */; };
 		80C8CD5318842CE000F39427 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80C8CD5518842CE000F39427 /* Default-568h@2x.png */; };
+		80F2A19418919F970073AB34 /* dropboxLogo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F2A19218919F970073AB34 /* dropboxLogo@2x.png */; };
+		80F2A1961891A0690073AB34 /* clearData@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F2A1951891A0690073AB34 /* clearData@2x.png */; };
+		80F2A1981891A5340073AB34 /* dropboxLogoSmall@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80F2A1971891A5340073AB34 /* dropboxLogoSmall@2x.png */; };
 		D3B589201780FD18009E2333 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6EB17659DB7007C6115 /* UIKit.framework */; };
 		D3B589211780FD18009E2333 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6EF17659DC6007C6115 /* Foundation.framework */; };
 		D3B589221780FD18009E2333 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D358F6ED17659DBF007C6115 /* CoreGraphics.framework */; };
@@ -186,9 +189,12 @@
 		801A172D18525D230083A25D /* AppKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppKeys.m; sourceTree = "<group>"; };
 		80BFCCFB1858B86E009A78B9 /* SBPlainTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlainTextViewController.h; sourceTree = "<group>"; };
 		80BFCCFC1858B86E009A78B9 /* SBPlainTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlainTextViewController.m; sourceTree = "<group>"; };
-		80C8CD4E18842CD800F39427 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Default.png; sourceTree = "<group>"; };
-		80C8CD5118842CDD00F39427 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/Default@2x.png"; sourceTree = "<group>"; };
-		80C8CD5418842CE000F39427 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = "en.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
+		80C8CD4E18842CD800F39427 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = en.lproj/Default.png; sourceTree = "<group>"; };
+		80C8CD5118842CDD00F39427 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default@2x.png"; sourceTree = "<group>"; };
+		80C8CD5418842CE000F39427 /* en */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = en; path = "en.lproj/Default-568h@2x.png"; sourceTree = "<group>"; };
+		80F2A19218919F970073AB34 /* dropboxLogo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dropboxLogo@2x.png"; path = "Tasks/Images/dropboxLogo@2x.png"; sourceTree = "<group>"; };
+		80F2A1951891A0690073AB34 /* clearData@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clearData@2x.png"; path = "Tasks/Images/clearData@2x.png"; sourceTree = "<group>"; };
+		80F2A1971891A5340073AB34 /* dropboxLogoSmall@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dropboxLogoSmall@2x.png"; path = "Tasks/Images/dropboxLogoSmall@2x.png"; sourceTree = "<group>"; };
 		D358F6EB17659DB7007C6115 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		D358F6ED17659DBF007C6115 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		D358F6EF17659DC6007C6115 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -451,6 +457,9 @@
 		800D920F185FD8D9003A09C6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				80F2A1971891A5340073AB34 /* dropboxLogoSmall@2x.png */,
+				80F2A1951891A0690073AB34 /* clearData@2x.png */,
+				80F2A19218919F970073AB34 /* dropboxLogo@2x.png */,
 				800D9210185FD8E6003A09C6 /* AppIcon29x29.png */,
 				800D9211185FD8E6003A09C6 /* AppIcon29x29@2x.png */,
 				800D9212185FD8E6003A09C6 /* AppIcon40x40.png */,
@@ -605,7 +614,9 @@
 				80C8CD5318842CE000F39427 /* Default-568h@2x.png in Resources */,
 				D3B589391780FD3B009E2333 /* Storyboard.storyboard in Resources */,
 				800D9223185FD8E6003A09C6 /* AppIcon40x40@2x.png in Resources */,
+				80F2A19418919F970073AB34 /* dropboxLogo@2x.png in Resources */,
 				800D922E185FD8E6003A09C6 /* AppIcon60x60@2x.png in Resources */,
+				80F2A1981891A5340073AB34 /* dropboxLogoSmall@2x.png in Resources */,
 				800D9228185FD8E6003A09C6 /* AppIcon60x60.png in Resources */,
 				677DBD640FC269818486075F /* mailIcon@2x.png in Resources */,
 				800D922B185FD8E6003A09C6 /* AppIcon76x76.png in Resources */,
@@ -631,6 +642,7 @@
 				677DB732235EBDD15D71E7F8 /* MPCheckmark.png in Resources */,
 				677DB41335D8E986ACEB7E4E /* MPArrowRight.png in Resources */,
 				677DB51FFB84694FAB2E21E1 /* MPArrowLeft@2x.png in Resources */,
+				80F2A1961891A0690073AB34 /* clearData@2x.png in Resources */,
 				677DB75A7120FD268426FADB /* MPCheckmark@2x.png in Resources */,
 				677DB5BB96736EDF5FBB134C /* MPArrowRight@2x.png in Resources */,
 				677DB8C79E756E197A13B881 /* MPSurvey.storyboard in Resources */,

@@ -26,6 +26,14 @@
 
 // user events
 
+- (IBAction)didPressUsageHelp:(id)sender {
+    NSURL *url = [NSURL URLWithString:@"http://shotbuf.com/help/"];
+    
+    if (![[UIApplication sharedApplication] openURL:url])
+        
+        NSLog(@"%@%@",@"Failed to open url:",[url description]);
+}
+
 - (IBAction)didPressUnlink:(id)sender {
 
     [[[DBAccountManager sharedManager] linkedAccount] unlink];

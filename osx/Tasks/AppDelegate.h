@@ -9,6 +9,7 @@
 
 @property (weak) IBOutlet NSMenuItem *unlinkDropboxItem;
 @property (weak) IBOutlet NSMenuItem *enableShotBufItem;
+@property (weak) IBOutlet NSMenuItem *clearDataItem;
 
 - (IBAction)didPressLinkUnlinkButton:(id)sender;
 

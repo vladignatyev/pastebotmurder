@@ -11,6 +11,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 
+- (IBAction)didPressUsageHelp:(id)sender;
 - (IBAction)didPressUnlink:(id)sender;
 - (IBAction)didTapClearDataButton:(id)sender;
 
