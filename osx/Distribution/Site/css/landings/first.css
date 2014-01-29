@@ -1,0 +1,119 @@
+html, body {
+	padding: 0;
+	margin:0;
+	width: 100%;
+	background: url('/img/landings/first/bg.jpg') no-repeat center top;
+	font-family: Helvetica Neue;
+	overflow-x:hidden; 
+}
+
+.pagewrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+	border-bottom: 1px solid;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #ef47b0; 
+}
+
+.head-bg {
+	min-height: 288px;
+	padding: 100px 0 35px 0;
+	color: #fff;
+}
+
+.head-bg h1 {
+	font-family: Helvetica Neue;
+	font-weight: 200;
+	font-size: 60px;
+}
+
+.head-bg h2 {
+	font-family: Helvetica Neue;
+	font-weight: 100;
+	font-size: 36px;
+}
+
+
+.foot-bg {
+	padding: 50px 50px 50px 0;
+	background: #f5f5f5;
+	margin-top: -120px;
+}
+
+/*.lcolumn {
+	float: left;
+	margin-left: -1.5ex;
+}
+*/
+.lcolumn ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.lcolumn ul li {
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+	color: #0a0a0a;
+	font-family: Helvetica Neue;
+	font-weight: 200;
+	line-height: 2em;
+}
+/*.rcolumn {
+	float: left;
+	margin-left: 10%;
+}*/
+
+
+.cta {
+	margin-top:70px;
+	display: inline-block;
+	padding-right: 60px;
+	padding-left: 35px;
+	padding-top:8px;
+	padding-bottom:8px;
+	border-radius: 6px;
+	background: #3ea5fa url('/img/landings/first/twitter.png') no-repeat right center;
+	color: #fff;
+	font-family: Helvetica Neue;
+	font-size: 24px;
+	font-weight: 100;
+}
+
+.cta:hover {
+	background-color: #ef47b0;
+	color: #fff;
+	text-decoration: none;
+}
+
+.rcolumn {
+	color: #383838;
+}
+
+.gray-links a {
+	color: #383838;
+}
+
+.gray-links a:hover {
+	color: #ef47b0; 
+}
+
+
+.noborder {
+	border: none !important;
+}
+
+.dropbox-powered {
+	display: block;
+	padding-top: 50px;
+	/*margin-left: -20px;*/
+}
