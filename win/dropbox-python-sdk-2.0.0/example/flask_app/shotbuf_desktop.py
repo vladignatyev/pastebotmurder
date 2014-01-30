@@ -46,6 +46,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 class ShotBufFrame(wx.Frame):
 
+
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
 		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
@@ -58,10 +59,23 @@ class ShotBufFrame(wx.Frame):
 		self.Bind(wx.EVT_BUTTON, self.OnPasteButton, secondButton)
 		
 		self.tbiicon = CustomTaskBarIcon()
+
+		self.timer = wx.Timer(self)
+
+		self.last_bitmap = None
+
+		
+
 		self.Show()
+
+
+	def on_timer(self, event):
+		print "FUCK"
+	
 
 	def OnConnectDropbox(self, event):
 		self.dialog = WebViewDialog(self, -1)
+		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
 		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
 		
@@ -69,6 +83,10 @@ class ShotBufFrame(wx.Frame):
 		# self.dialog.browser.LoadURL("http://google.com")
 		print 'Connect '
 		self.dialog.Show()
+
+	def did_login(self):
+		self.Bind(wx.EVT_TIMER, self.OnPasteButton, self.timer)
+		self.timer.Start(100)
 
 	def OnPasteButton(self, event):	
 		if not wx.TheClipboard.IsOpened():
@@ -91,10 +109,22 @@ class ShotBufFrame(wx.Frame):
 					if format_type == wx.DF_BITMAP:
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)
 						bitmap = bitmap_data_object.GetBitmap()
-						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
+						print 'last ', self.last_bitmap
+						if self.last_bitmap is None:
+							'New'
+							self.last_bitmap = bitmap
+						elif self.last_bitmap == bitmap:
+							print 'Same'
+							return
+						else:
+							self.last_bitmap == bitmap
+							bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
 						
-						print 'temp file name %s' % fileTemp.name
-						self.shotBufApp.paste_file(fileTemp.name)
+							print 'temp file name %s' % fileTemp.name
+							self.shotBufApp.paste_file(fileTemp.name)
+						
+						
+						
 					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 						text = text_data_object.GetText()
 						self.shotBufApp.paste_text(text)
@@ -126,6 +156,7 @@ class WebViewDialog(wx.Dialog):
 			self.Destroy()
 			print 'asd %s' % self.shotBufApp 
 			self.shotBufApp.did_login()
+			self.parent.did_login()
 		else:
 			print 'Fail'
 
@@ -147,9 +178,7 @@ class WebViewFrame(wx.Frame):
 def main():
 	dropboxApi = DropboxApi()
 	shotBufApp = ShotBufApp(dropboxApi)
-	print shotBufApp
-	
-	
+	print 'is logined', shotBufApp.is_logined()
 
 	app = wx.App(False)
 	frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
