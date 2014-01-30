@@ -2,6 +2,7 @@ import dropbox
 from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from datetime import datetime
 
+
 class DropboxApi(object):
 
 	def login_with_token(self, token):
@@ -11,21 +12,27 @@ class DropboxApi(object):
 		print 'linked account: ', self.client.account_info()
 
 		manager = DatastoreManager(self.client)
-		datastore = manager.open_default_datastore()
-		self.bufs_table = datastore.get_table('bufs_values')
+		self.datastore = manager.open_default_datastore()
+		self.bufs_table = self.datastore.get_table('bufs_values')
 
 	def clear_data(self):
 		pass
 
-	def insert_record(self):
-		d = Date(time())
-		buf = self.bufs_table.insert(value='HUI PIZDA', type='plain', created=d)
-		datastore.commit()
+	def insert_text(self, text, type='plain'):
+		dt = datetime.now()
+		d = Date.from_datetime_local(dt)
+		buf = self.bufs_table.insert(value=text, type=type, created=d)
+		self.datastore.commit()
 
 	def upload_file(self, file):
 		f = open(file, 'rb')
 		dt = datetime.now()
+
 		upload_file_name = 'Shot at %s.png' % dt.strftime("%d.%m.%y %H:%M:%S")
 
 		response = self.client.put_file(upload_file_name, f)
-		print 'uploaded: ', response
+		
+		d = Date.from_datetime_local(dt)
+
+		buf = self.bufs_table.insert(value=upload_file_name, type='image', created=d)
+		self.datastore.commit()

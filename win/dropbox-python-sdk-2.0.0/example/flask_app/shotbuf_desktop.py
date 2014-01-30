@@ -78,28 +78,26 @@ class ShotBufFrame(wx.Frame):
 			if bitmap_success or text_success:
 				print 'Bitmap and text supported'
 				bitmap_data_object = wx.BitmapDataObject()
-				# text_data_object = wx.TextDataObject()
+				text_data_object = wx.TextDataObject()
 				do = wx.DataObjectComposite()
 				do.Add(bitmap_data_object, True)
-				# do.Add(text_data_object, True)
+				do.Add(text_data_object, True)
 				success = wx.TheClipboard.GetData(do)
 				if success:
-					print 'Success'
-					print 'Text %d' % wx.DF_TEXT
-					print 'Image %d' % wx.DF_BITMAP
 					format = do.GetReceivedFormat()
-					print 'format %d' % format.GetType()
 					data_object = do.GetObject(format)
-					print 'data object %s' % data_object
 
-					if format.GetType() == wx.DF_BITMAP:
+					format_type = format.GetType()
+					if format_type == wx.DF_BITMAP:
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)
 						bitmap = bitmap_data_object.GetBitmap()
 						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
-						print bitmap
 						
 						print 'temp file name %s' % fileTemp.name
 						self.shotBufApp.paste_file(fileTemp.name)
+					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
+						text = text_data_object.GetText()
+						self.shotBufApp.paste_text(text)
 						
 					
 			wx.TheClipboard.Close()
