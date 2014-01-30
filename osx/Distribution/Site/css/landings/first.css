@@ -120,7 +120,7 @@ a:hover {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .head-bg h1 {
     font-size: 24px !important;
     margin-left: 82px;
