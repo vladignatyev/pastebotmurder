@@ -72,7 +72,7 @@
     NSDictionary *options = [NSDictionary dictionary];
     NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
 
-    if (copiedItems != nil && [self.account isLinked]) {
+    if (copiedItems != nil && [copiedItems count] > 0 && [self.account isLinked]) {
         NSObject *obj = [copiedItems objectAtIndex:0];
 
         if (![self isNewObject:obj]) {
