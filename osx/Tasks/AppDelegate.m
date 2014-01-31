@@ -278,7 +278,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-    //[self setupHockey];
+    [self setupHockey];
     
     [self checkAndSetupRunAtStartup];
     self.justStarted = YES;
@@ -288,7 +288,7 @@
 
 - (void)setupHockey {
     
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"<APP_IDENTIFIER>" companyName:@"My company" delegate:nil];
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"7c721693a4d55d95e14969a4d3015f9b" companyName:@"ShotBuf" delegate:nil];
     [[BITHockeyManager sharedHockeyManager] startManager];
 }
 
