@@ -278,7 +278,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
-    [self setupHockey];
+    //[self setupHockey];
     
     [self checkAndSetupRunAtStartup];
     self.justStarted = YES;
