@@ -8,6 +8,7 @@
 #import "NSString+LinkDetection.h"
 #import "SBRecord.h"
 #import "SBImageManager.h"
+#import <HockeySDK/HockeySDK.h>
 
 #define APP_KEY     @"84zxlqvsmm2py5y"
 #define APP_SECRET  @"u5sva6uz22bvuyy"
@@ -276,10 +277,19 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+
+    [self setupHockey];
+    
     [self checkAndSetupRunAtStartup];
     self.justStarted = YES;
     [self setupDroboxSharedManager];
     [self passWelcomeScenario];
+}
+
+- (void)setupHockey {
+    
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"<APP_IDENTIFIER>" companyName:@"My company" delegate:nil];
+    [[BITHockeyManager sharedHockeyManager] startManager];
 }
 
 - (void)setupDroboxSharedManager {
