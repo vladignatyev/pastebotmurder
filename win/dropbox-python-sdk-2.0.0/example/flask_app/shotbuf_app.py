@@ -38,7 +38,7 @@ class ShotBufApp(object):
 
 	def __init__(self, dropboxApi):
 		self.dropboxApi = dropboxApi
-		
+		self.lastImageData = None
 
 	def enable(self):
 		pass
@@ -65,4 +65,9 @@ class ShotBufApp(object):
 	def paste_file(self, name):
 		self.dropboxApi.upload_file(name)
 
-		
+
+	def set_image_data_if_new(self, image_data):
+		result = (self.lastImageData is None) or (self.lastImageData != image_data)
+		if result: 
+			self.lastImageData = image_data	
+		return result

@@ -92,9 +92,62 @@ class ShotBufAppTestCase(unittest.TestCase):
 
 	def test_should_be_scheme_link_type(self):
 		actual_type = get_text_type('itms-services://?action=download-manifest&url=http://www.yoursite.ru/dirname/yourFile.plist')
+
 		self.assertEquals(SCHEME_LINK_TYPE, actual_type)
 
 	def test_should_insert_trimmed_link_in_data_store(self):
 		self.shotBufApp.paste_text('   http://linux.org.ru   ')
+
 		self.assertEquals('http://linux.org.ru', self.dropboxApi.last_text())
 		self.assertEquals(WEB_URL_TYPE, self.dropboxApi.last_type())
+
+	def test_should_be_new_image_when_first(self):
+		image_data = 'image data'
+
+		isNew = self.shotBufApp.set_image_data_if_new(image_data)
+
+		self.assertTrue(isNew, "Should be new image when first image come")
+
+	def test_should_set_new_image_when_first(self):
+		image_data = 'image data'
+
+		isNew = self.shotBufApp.set_image_data_if_new(image_data)
+
+		self.assertEquals(image_data, self.shotBufApp.lastImageData, "should set new image when first")
+
+	def test_should_be_duplicate_image_when_buffer_same(self):
+		image_data = 'image data'
+		same_image_data = 'image data'
+		self.shotBufApp.lastImageData = image_data
+
+		isNew = self.shotBufApp.set_image_data_if_new(same_image_data)
+
+		self.assertFalse(isNew, "should be duplicate image when buffer same")
+
+	def test_should_be_new_image_when_buffers_differ(self):
+		image_data = 'image data'
+		another_image_data = 'another image data'
+		self.shotBufApp.lastImageData = image_data
+
+		isNew = self.shotBufApp.set_image_data_if_new(another_image_data)
+
+		self.assertTrue(isNew, "should be new image when buffers differ")		
+
+	def test_should_set_new_image_data_when_buffers_differ(self):
+		image_data = 'image data'
+		new_image_data = 'another image data'
+		self.shotBufApp.lastImageData = image_data
+
+		self.shotBufApp.set_image_data_if_new(new_image_data)
+
+		self.assertEquals(new_image_data, self.shotBufApp.lastImageData, "should be new image when buffers differ")		
+
+	def test_should_not_set_new_image_data_when_same_image(self):
+		image_data = 'image data'
+		new_image_data = 'image data'
+		self.shotBufApp.lastImageData = image_data
+
+		self.shotBufApp.set_image_data_if_new(new_image_data)
+
+		self.assertEquals(image_data, self.shotBufApp.lastImageData, "should be new image when buffers differ")		
+

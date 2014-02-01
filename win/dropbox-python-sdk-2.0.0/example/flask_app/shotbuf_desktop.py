@@ -63,11 +63,7 @@ class ShotBufFrame(wx.Frame):
 		self.timer = wx.Timer(self)
 
 		self.last_bitmap = None
-
-		
-
 		self.Show()
-
 
 	def on_timer(self, event):
 		print "FUCK"
@@ -107,24 +103,18 @@ class ShotBufFrame(wx.Frame):
 
 					format_type = format.GetType()
 					if format_type == wx.DF_BITMAP:
-						fileTemp = tempfile.NamedTemporaryFile(delete = False)
 						bitmap = bitmap_data_object.GetBitmap()
-						print 'last ', self.last_bitmap
-						if self.last_bitmap is None:
-							'New'
-							self.last_bitmap = bitmap
-						elif self.last_bitmap == bitmap:
-							print 'Same'
-							return
-						else:
-							self.last_bitmap == bitmap
+						image = bitmap.ConvertToImage()
+						image_data = image.GetData()
+					
+						isNewImage = self.shotBufApp.set_image_data_if_new(image_data) 
+						if isNewImage:
+
+							fileTemp = tempfile.NamedTemporaryFile(delete = False)
 							bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
-						
-							print 'temp file name %s' % fileTemp.name
+
 							self.shotBufApp.paste_file(fileTemp.name)
-						
-						
-						
+
 					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 						text = text_data_object.GetText()
 						self.shotBufApp.paste_text(text)
