@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15B06507189B9BEE002ED9AE /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15B06506189B9BEE002ED9AE /* HockeySDK.framework */; };
+		15B06508189B9C1B002ED9AE /* HockeySDK.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15B06506189B9BEE002ED9AE /* HockeySDK.framework */; };
 		678B6DFF181608AE00E3F0DA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678B6DFD181608AE00E3F0DA /* MainMenu.xib */; };
 		67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C40D11181566AC005B06DA /* Cocoa.framework */; };
 		67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67C40D4E181566EE005B06DA /* InfoPlist.strings */; };
@@ -60,6 +62,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				15B06508189B9C1B002ED9AE /* HockeySDK.framework in CopyFiles */,
 				80389567186A4888000966EB /* Sparkle.framework in CopyFiles */,
 				8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */,
 			);
@@ -68,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15B06506189B9BEE002ED9AE /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		678B6DFE181608AE00E3F0DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		67C40D11181566AC005B06DA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67C40D14181566AC005B06DA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -120,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15B06507189B9BEE002ED9AE /* HockeySDK.framework in Frameworks */,
 				809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */,
 				80389566186A485C000966EB /* Sparkle.framework in Frameworks */,
 				67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */,
@@ -165,6 +170,7 @@
 		67C40D10181566AC005B06DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15B06506189B9BEE002ED9AE /* HockeySDK.framework */,
 				80389565186A485C000966EB /* Sparkle.framework */,
 				809FEC60184FF5A00034B712 /* Dropbox.framework */,
 				67C40D11181566AC005B06DA /* Cocoa.framework */,
@@ -539,6 +545,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					/Users/ignatev/pastebotmurder/osx,
+					/Users/rinat/Documents/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
@@ -565,6 +572,7 @@
 					"$(inherited)",
 					"$(SRCROOT)",
 					/Users/ignatev/pastebotmurder/osx,
+					/Users/rinat/Documents/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
