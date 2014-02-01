@@ -5,9 +5,11 @@
 @class DBAccount;
 @class DBAccountManager;
 
-static NSString *const FIRST_RUN_KEY = @"FirstRun";
+static NSString *const FIRST_PASTE_KEY = @"FirstPaste";
 
-@interface SBMainViewController : UITableViewController
+static NSString *const SB_HELP_URL = @"http://shotbuf.com/help/";
+
+@interface SBMainViewController : UITableViewController <UIAlertViewDelegate>
 
 @property(nonatomic, readonly) DBAccount *account;
 @property(nonatomic, strong) DBDatastore *store;

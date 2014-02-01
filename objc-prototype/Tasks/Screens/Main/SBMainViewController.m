@@ -349,6 +349,10 @@
         [self.tableView reloadRowsAtIndexPaths:updates withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 
+    if([self isEmpty] && [changed count] > 0) {  // если небыло записей и пришли новые то проверяем надо ли показать алерт?
+
+        [self checkFirstPaste];
+    }
 
     [_records addObjectsFromArray:changed];
 
@@ -380,6 +384,18 @@
 
 
 
+// alert delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if(buttonIndex == 1) {
+
+        NSURL *url = [NSURL URLWithString:SB_HELP_URL];
+
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
 
 // system
 
@@ -393,18 +409,29 @@
 
 - (void)connectedFinishAndNotNewInserts {
 
-    //[self checkFirstRunForWelcomPastes];
+    // вызывается когда обновление законченно но ничего нового не пришло
 }
 
-- (void)checkFirstRunForWelcomPastes {
+- (void)checkFirstPaste {
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_RUN_KEY]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_PASTE_KEY]) {
 
-        [self insertWelcomePastes];
+        [self showWelcomeAlert];
 
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_RUN_KEY];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_PASTE_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+- (void)showWelcomeAlert {
+
+
+    [[[UIAlertView alloc] initWithTitle:@"Hooray! Your first Buf! is ready"
+                                 message:@"Now you may copy text notes, images etc. Open Usage help to use ShotBuf! like a pro!"
+                                delegate:self
+                       cancelButtonTitle:@"OK"
+                       otherButtonTitles:@"Usage help", nil] show];
+
 }
 
 - (void)insertWelcomePastes {
