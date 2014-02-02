@@ -4,6 +4,7 @@
 
 #import <Dropbox/Dropbox.h>
 #import "SBSettingsViewController.h"
+#import "SBMainViewController.h"
 #import "SBRecord.h"
 #import "SBImageManager.h"
 #import "AppKeys.h"
@@ -27,7 +28,8 @@
 // user events
 
 - (IBAction)didPressUsageHelp:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"http://shotbuf.com/help/"];
+    
+    NSURL *url = [NSURL URLWithString:SB_HELP_URL];
     
     if (![[UIApplication sharedApplication] openURL:url])
         

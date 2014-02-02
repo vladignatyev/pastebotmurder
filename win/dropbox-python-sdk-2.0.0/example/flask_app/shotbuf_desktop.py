@@ -46,6 +46,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 class ShotBufFrame(wx.Frame):
 
+
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
 		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
@@ -58,10 +59,19 @@ class ShotBufFrame(wx.Frame):
 		self.Bind(wx.EVT_BUTTON, self.OnPasteButton, secondButton)
 		
 		self.tbiicon = CustomTaskBarIcon()
+
+		self.timer = wx.Timer(self)
+
+		self.last_bitmap = None
 		self.Show()
+
+	def on_timer(self, event):
+		print "FUCK"
+	
 
 	def OnConnectDropbox(self, event):
 		self.dialog = WebViewDialog(self, -1)
+		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
 		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
 		
@@ -69,6 +79,10 @@ class ShotBufFrame(wx.Frame):
 		# self.dialog.browser.LoadURL("http://google.com")
 		print 'Connect '
 		self.dialog.Show()
+
+	def did_login(self):
+		self.Bind(wx.EVT_TIMER, self.OnPasteButton, self.timer)
+		self.timer.Start(100)
 
 	def OnPasteButton(self, event):	
 		if not wx.TheClipboard.IsOpened():
@@ -78,28 +92,32 @@ class ShotBufFrame(wx.Frame):
 			if bitmap_success or text_success:
 				print 'Bitmap and text supported'
 				bitmap_data_object = wx.BitmapDataObject()
-				# text_data_object = wx.TextDataObject()
+				text_data_object = wx.TextDataObject()
 				do = wx.DataObjectComposite()
 				do.Add(bitmap_data_object, True)
-				# do.Add(text_data_object, True)
+				do.Add(text_data_object, True)
 				success = wx.TheClipboard.GetData(do)
 				if success:
-					print 'Success'
-					print 'Text %d' % wx.DF_TEXT
-					print 'Image %d' % wx.DF_BITMAP
 					format = do.GetReceivedFormat()
-					print 'format %d' % format.GetType()
 					data_object = do.GetObject(format)
-					print 'data object %s' % data_object
 
-					if format.GetType() == wx.DF_BITMAP:
-						fileTemp = tempfile.NamedTemporaryFile(delete = False)
+					format_type = format.GetType()
+					if format_type == wx.DF_BITMAP:
 						bitmap = bitmap_data_object.GetBitmap()
-						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
-						print bitmap
-						
-						print 'temp file name %s' % fileTemp.name
-						self.shotBufApp.paste_file(fileTemp.name)
+						image = bitmap.ConvertToImage()
+						image_data = image.GetData()
+					
+						isNewImage = self.shotBufApp.set_image_data_if_new(image_data) 
+						if isNewImage:
+
+							fileTemp = tempfile.NamedTemporaryFile(delete = False)
+							bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
+
+							self.shotBufApp.paste_file(fileTemp.name)
+
+					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
+						text = text_data_object.GetText()
+						self.shotBufApp.paste_text(text)
 						
 					
 			wx.TheClipboard.Close()
@@ -128,6 +146,7 @@ class WebViewDialog(wx.Dialog):
 			self.Destroy()
 			print 'asd %s' % self.shotBufApp 
 			self.shotBufApp.did_login()
+			self.parent.did_login()
 		else:
 			print 'Fail'
 
@@ -149,9 +168,7 @@ class WebViewFrame(wx.Frame):
 def main():
 	dropboxApi = DropboxApi()
 	shotBufApp = ShotBufApp(dropboxApi)
-	print shotBufApp
-	
-	
+	print 'is logined', shotBufApp.is_logined()
 
 	app = wx.App(False)
 	frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)

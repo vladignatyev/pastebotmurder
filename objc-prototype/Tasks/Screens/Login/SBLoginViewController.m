@@ -24,7 +24,7 @@
 
         if(account && [account isLinked]) {
 
-            [self showManualScreen];
+            [self showMainScreen];
         }
     }];
 }
@@ -67,11 +67,6 @@
 
 
 // system
-
-- (void)showManualScreen {
-
-    [self performSegueWithIdentifier:@"manualScreen" sender:self];
-}
 
 - (void)showMainScreen {
 
