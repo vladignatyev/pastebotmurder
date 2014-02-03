@@ -244,6 +244,8 @@
         [sbRecord deleteRecord];
         // TODO: если тип картинка - удалить и файлы из директории приложения
     }
+    
+    [self enableShotBuf];
 
 }
 
