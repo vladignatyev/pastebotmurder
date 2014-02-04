@@ -61,10 +61,8 @@ class ShotBufFrame(wx.Frame):
 
 		self.panel = wx.Panel(self)
 		button = wx.Button(self.panel, label="Connect now", pos=(130,200), size=(140,50))
-		secondButton = wx.Button(self.panel, label="Paste", pos=(130,150), size=(140,50))
 
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
-		self.Bind(wx.EVT_BUTTON, self.OnPasteButton, secondButton)
 		
 		self.tbiicon = CustomTaskBarIcon()
 
@@ -157,21 +155,6 @@ class WebViewDialog(wx.Dialog):
 			self.parent.did_login()
 		else:
 			print 'Fail'
-
-
-class WebViewFrame(wx.Frame):
-
-	def __init__(self, parent, id, title):
-		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
-
-		self.panel = wx.Panel(self)
-		self.web = WebKitCtrl(self.panel, 4030, 'http://127.0.0.1:5000/dropbox-auth-start', (5,5), (400,250))
-
-		self.ShowModal()
-		self.Show()
-
-		self.eventLoop = wx.EventLoop()
-		self.eventLoop.Run()
 	
 def main():
 	dropboxApi = DropboxApi()
