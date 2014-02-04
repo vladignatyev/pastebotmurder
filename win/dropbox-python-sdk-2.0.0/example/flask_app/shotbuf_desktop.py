@@ -13,6 +13,7 @@ from dropbox_api import DropboxApi
 
 ACCESS_TOKEN = ''
 
+
 class CustomTaskBarIcon(wx.TaskBarIcon):
 	ID_ENABLE_SHOTBUF = wx.NewId()
 	ID_DISABLE_SHOTBUF = wx.NewId()
@@ -64,8 +65,6 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		event.Skip()
 
 class ShotBufFrame(wx.Frame):
-
-
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
 		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
@@ -74,22 +73,8 @@ class ShotBufFrame(wx.Frame):
 		button = wx.Button(self.panel, label="Connect now", pos=(130,200), size=(140,50))
 
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
-		
-		self.tbiicon = CustomTaskBarIcon()
-		self.tbiicon.parent = self
 
-		self.timer = wx.Timer(self)
-
-		self.last_bitmap = None
-		self.Show()
-
-	def disable_shotbuf(self):
-		print 'time stop'
-		self.timer.Stop()
-
-	def enable_shotbuf(self):
-		print 'time start'
-		self.timer.Start(100)
+	
 	
 
 	def OnConnectDropbox(self, event):
@@ -103,47 +88,7 @@ class ShotBufFrame(wx.Frame):
 		print 'Connect '
 		self.dialog.Show()
 
-	def did_login(self):
-		self.Bind(wx.EVT_TIMER, self.OnPasteButton, self.timer)
-		self.timer.Start(100)
-
-	def OnPasteButton(self, event):	
-		if not wx.TheClipboard.IsOpened():
-			wx.TheClipboard.Open()
-			bitmap_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_BITMAP))
-			text_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT))
-			if bitmap_success or text_success:
-				print 'Bitmap and text supported'
-				bitmap_data_object = wx.BitmapDataObject()
-				text_data_object = wx.TextDataObject()
-				do = wx.DataObjectComposite()
-				do.Add(bitmap_data_object, True)
-				do.Add(text_data_object, True)
-				success = wx.TheClipboard.GetData(do)
-				if success:
-					format = do.GetReceivedFormat()
-					data_object = do.GetObject(format)
-
-					format_type = format.GetType()
-					if format_type == wx.DF_BITMAP:
-						bitmap = bitmap_data_object.GetBitmap()
-						image = bitmap.ConvertToImage()
-						image_data = image.GetData()
-					
-						isNewImage = self.shotBufApp.set_data_if_new(image_data) 
-						if isNewImage:
-
-							fileTemp = tempfile.NamedTemporaryFile(delete = False)
-							bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
-
-							self.shotBufApp.paste_file(fileTemp.name)
-
-					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
-						text = text_data_object.GetText()
-						self.shotBufApp.paste_text_if_new(text)
-						
-					
-			wx.TheClipboard.Close()
+	
 
 
 
@@ -169,19 +114,81 @@ class WebViewDialog(wx.Dialog):
 			self.Destroy()
 			print 'asd %s' % self.shotBufApp 
 			self.shotBufApp.did_login()
-			self.parent.did_login()
+			enable_shotbuf()
 		else:
 			print 'Fail'
 	
+def disable_shotbuf():
+	print 'time stop'
+	timer.Stop()
+	frame.Unbind(wx.EVT_TIMER)
+
+def enable_shotbuf():
+	print 'enable shotbuf'
+
+	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
+	timer.Start(100)
+
+def OnPasteButton(event):
+	print 'On paste'
+	if not wx.TheClipboard.IsOpened():
+		print 'Open clipboard'
+		wx.TheClipboard.Open()
+		bitmap_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_BITMAP))
+		text_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT))
+		if bitmap_success or text_success:
+			print 'Bitmap and text supported'
+			bitmap_data_object = wx.BitmapDataObject()
+			text_data_object = wx.TextDataObject()
+			do = wx.DataObjectComposite()
+			do.Add(bitmap_data_object, True)
+			do.Add(text_data_object, True)
+			success = wx.TheClipboard.GetData(do)
+			if success:
+				format = do.GetReceivedFormat()
+				data_object = do.GetObject(format)
+
+				format_type = format.GetType()
+				if format_type == wx.DF_BITMAP:
+					bitmap = bitmap_data_object.GetBitmap()
+					image = bitmap.ConvertToImage()
+					image_data = image.GetData()
+				
+					isNewImage = shotBufApp.set_data_if_new(image_data) 
+					if isNewImage:
+
+						fileTemp = tempfile.NamedTemporaryFile(delete = False)
+						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
+
+						shotBufApp.paste_file(fileTemp.name)
+
+				elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
+					text = text_data_object.GetText()
+					shotBufApp.paste_text_if_new(text)
+					
+				
+		wx.TheClipboard.Close()
+
+app = wx.App(False)
+timer = wx.Timer()
+dropboxApi = DropboxApi()
+shotBufApp = ShotBufApp(dropboxApi)
+frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
+
+
+
 def main():
-	dropboxApi = DropboxApi()
-	shotBufApp = ShotBufApp(dropboxApi)
+	
 	print 'is logined', shotBufApp.is_logined()
 
-	app = wx.App(False)
-	frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
-	frame.Show(True)
-	print 'Start'
+	tbiicon = CustomTaskBarIcon()
+	tbiicon.parent = frame
+	
+	if not shotBufApp.is_logined():
+		frame.Show(True)
+	else:
+		shotBufApp.did_login()
+		enable_shotbuf()
 	app.MainLoop()
 	print 'Start'
 
