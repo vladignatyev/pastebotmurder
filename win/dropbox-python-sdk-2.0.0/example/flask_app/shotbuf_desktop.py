@@ -14,6 +14,7 @@ from dropbox_api import DropboxApi
 ACCESS_TOKEN = ''
 
 class CustomTaskBarIcon(wx.TaskBarIcon):
+	ID_ENABLE_SHOTBUF = wx.NewId()
 	ID_DISABLE_SHOTBUF = wx.NewId()
 	ID_UNLINK_DROPBOX = wx.NewId()
 	ID_CLEAR_DATA = wx.NewId()
@@ -25,24 +26,34 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		#Setup
 		icon = wx.Icon("statusbaricon.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
+		self.isEnabled = False
 
 		self.Bind(wx.EVT_MENU, self.OnMenu)
 
 	def CreatePopupMenu(self):
-		menu = wx.Menu()
-		menu.Append(CustomTaskBarIcon.ID_DISABLE_SHOTBUF, "Disable ShotBuf")
-		menu.AppendSeparator()
+		self.menu = wx.Menu()
+		
+		if not self.isEnabled:
+			self.menu.Append(CustomTaskBarIcon.ID_DISABLE_SHOTBUF, "Disable ShotBuf")
+		else:
+			self.menu.Append(CustomTaskBarIcon.ID_ENABLE_SHOTBUF, "Enable ShotBuf")
+		self.menu.AppendSeparator()
 
-		menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink DropBox")
-		menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
-		menu.AppendSeparator()
-		menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
-		menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
-		return menu
+		self.menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink DropBox")
+		self.menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
+		self.menu.AppendSeparator()
+		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
+		self.menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
+		return self.menu
 
 	def OnMenu(self, event):
 		evt_id = event.GetId()
-		# if evt_id == CustomTaskBarIcon.ID_HELLO:
+		if evt_id == CustomTaskBarIcon.ID_DISABLE_SHOTBUF:
+			self.isEnabled = True
+			self.parent.disable_shotbuf()
+		if evt_id == CustomTaskBarIcon.ID_ENABLE_SHOTBUF:
+			self.isEnabled = False
+			self.parent.enable_shotbuf()		
 		# 	wx.MessageBox("Hello World!", "Hello")
 		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
 		# 	wx.MessageBox("Hi Again!", "Hi!")
@@ -65,14 +76,20 @@ class ShotBufFrame(wx.Frame):
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
 		
 		self.tbiicon = CustomTaskBarIcon()
+		self.tbiicon.parent = self
 
 		self.timer = wx.Timer(self)
 
 		self.last_bitmap = None
 		self.Show()
 
-	def on_timer(self, event):
-		print "FUCK"
+	def disable_shotbuf(self):
+		print 'time stop'
+		self.timer.Stop()
+
+	def enable_shotbuf(self):
+		print 'time start'
+		self.timer.Start(100)
 	
 
 	def OnConnectDropbox(self, event):
