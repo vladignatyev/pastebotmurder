@@ -314,6 +314,7 @@
 }
 
 - (void)presentWelcomeWindow {
+    self.justStarted = YES;
     [self.unlinkDropboxItem setEnabled:NO];
     [self.enableShotBufItem setEnabled:NO];
     [self.clearDataItem setEnabled:NO];
