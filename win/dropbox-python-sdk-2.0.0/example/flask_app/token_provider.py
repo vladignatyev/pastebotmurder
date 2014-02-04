@@ -14,4 +14,13 @@ def get_access_token():
 	access_token = row[0]
 
 	return access_token
+
+def remove_access_token():
+	db = sqlite3.connect('instance/myapp.db')
+
+	cursor = db.cursor()
+	row = db.execute('DELETE FROM users WHERE username = ?', ['user'])
+
+	db.commit()
+	db.close()
 	
