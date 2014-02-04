@@ -36,7 +36,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		self.menu = wx.Menu()
 		
 		if not self.isEnabled:
-			self.menu.Append(CustomTaskBarIcon.ID_DISABLE_SHOTBUF, "Disable ShotBuf")
+			self.disableMenuItem = self.menu.Append(CustomTaskBarIcon.ID_DISABLE_SHOTBUF, "Disable ShotBuf")
 		else:
 			self.menu.Append(CustomTaskBarIcon.ID_ENABLE_SHOTBUF, "Enable ShotBuf")
 		self.menu.AppendSeparator()
@@ -44,8 +44,15 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		if shotBufApp.is_logined():
 			self.menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink Dropbox")
 		else:
-			self.menu.Append(CustomTaskBarIcon.ID_LINK_DROPBOX, "Link Dropbox")
-		self.menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
+			self.linkDropboxMenuItem = self.menu.Append(CustomTaskBarIcon.ID_LINK_DROPBOX, "Link Dropbox")
+
+		self.clearDataMenuItem = self.menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
+
+		if not shotBufApp.is_logined():
+			self.disableMenuItem.Enable(False)
+			self.linkDropboxMenuItem.Enable(False)
+			self.clearDataMenuItem.Enable(False)
+
 		self.menu.AppendSeparator()
 		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
 		self.menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
