@@ -14,35 +14,54 @@ from dropbox_api import DropboxApi
 ACCESS_TOKEN = ''
 
 class CustomTaskBarIcon(wx.TaskBarIcon):
-	ID_HELLO = wx.NewId()
-	ID_HELLO2 = wx.NewId()
+	ID_ENABLE_SHOTBUF = wx.NewId()
+	ID_DISABLE_SHOTBUF = wx.NewId()
+	ID_UNLINK_DROPBOX = wx.NewId()
+	ID_CLEAR_DATA = wx.NewId()
+	ID_CHECK_UPDATES = wx.NewId()
+
 	def __init__(self):
 		super(CustomTaskBarIcon, self).__init__()
 
 		#Setup
 		icon = wx.Icon("statusbaricon.png", wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
+		self.isEnabled = False
 
 		self.Bind(wx.EVT_MENU, self.OnMenu)
 
 	def CreatePopupMenu(self):
-		menu = wx.Menu()
-		menu.Append(CustomTaskBarIcon.ID_HELLO, "HELLO")
-		menu.Append(CustomTaskBarIcon.ID_HELLO2, "Hi!")
-		menu.AppendSeparator()
-		menu.Append(wx.ID_CLOSE, "Exit")
-		return menu
+		self.menu = wx.Menu()
+		
+		if not self.isEnabled:
+			self.menu.Append(CustomTaskBarIcon.ID_DISABLE_SHOTBUF, "Disable ShotBuf")
+		else:
+			self.menu.Append(CustomTaskBarIcon.ID_ENABLE_SHOTBUF, "Enable ShotBuf")
+		self.menu.AppendSeparator()
+
+		self.menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink DropBox")
+		self.menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
+		self.menu.AppendSeparator()
+		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
+		self.menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
+		return self.menu
 
 	def OnMenu(self, event):
 		evt_id = event.GetId()
-		if evt_id == CustomTaskBarIcon.ID_HELLO:
-			wx.MessageBox("Hello World!", "Hello")
-		elif evt_id == CustomTaskBarIcon.ID_HELLO2:
-			wx.MessageBox("Hi Again!", "Hi!")
-		elif evt_id == wx.ID_CLOSE:
-			self.Destroy()
-		else:
-			event.Skip()
+		if evt_id == CustomTaskBarIcon.ID_DISABLE_SHOTBUF:
+			self.isEnabled = True
+			self.parent.disable_shotbuf()
+		if evt_id == CustomTaskBarIcon.ID_ENABLE_SHOTBUF:
+			self.isEnabled = False
+			self.parent.enable_shotbuf()		
+		# 	wx.MessageBox("Hello World!", "Hello")
+		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
+		# 	wx.MessageBox("Hi Again!", "Hi!")
+		# el
+		# if evt_id == wx.ID_CLOSE:
+		# 	self.Destroy()
+		# else:
+		event.Skip()
 
 class ShotBufFrame(wx.Frame):
 
@@ -53,20 +72,24 @@ class ShotBufFrame(wx.Frame):
 
 		self.panel = wx.Panel(self)
 		button = wx.Button(self.panel, label="Connect now", pos=(130,200), size=(140,50))
-		secondButton = wx.Button(self.panel, label="Paste", pos=(130,150), size=(140,50))
 
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
-		self.Bind(wx.EVT_BUTTON, self.OnPasteButton, secondButton)
 		
 		self.tbiicon = CustomTaskBarIcon()
+		self.tbiicon.parent = self
 
 		self.timer = wx.Timer(self)
 
 		self.last_bitmap = None
 		self.Show()
 
-	def on_timer(self, event):
-		print "FUCK"
+	def disable_shotbuf(self):
+		print 'time stop'
+		self.timer.Stop()
+
+	def enable_shotbuf(self):
+		print 'time start'
+		self.timer.Start(100)
 	
 
 	def OnConnectDropbox(self, event):
@@ -107,7 +130,7 @@ class ShotBufFrame(wx.Frame):
 						image = bitmap.ConvertToImage()
 						image_data = image.GetData()
 					
-						isNewImage = self.shotBufApp.set_image_data_if_new(image_data) 
+						isNewImage = self.shotBufApp.set_data_if_new(image_data) 
 						if isNewImage:
 
 							fileTemp = tempfile.NamedTemporaryFile(delete = False)
@@ -117,7 +140,7 @@ class ShotBufFrame(wx.Frame):
 
 					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 						text = text_data_object.GetText()
-						self.shotBufApp.paste_text(text)
+						self.shotBufApp.paste_text_if_new(text)
 						
 					
 			wx.TheClipboard.Close()
@@ -149,21 +172,6 @@ class WebViewDialog(wx.Dialog):
 			self.parent.did_login()
 		else:
 			print 'Fail'
-
-
-class WebViewFrame(wx.Frame):
-
-	def __init__(self, parent, id, title):
-		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
-
-		self.panel = wx.Panel(self)
-		self.web = WebKitCtrl(self.panel, 4030, 'http://127.0.0.1:5000/dropbox-auth-start', (5,5), (400,250))
-
-		self.ShowModal()
-		self.Show()
-
-		self.eventLoop = wx.EventLoop()
-		self.eventLoop.Run()
 	
 def main():
 	dropboxApi = DropboxApi()

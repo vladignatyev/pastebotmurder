@@ -101,53 +101,53 @@ class ShotBufAppTestCase(unittest.TestCase):
 		self.assertEquals('http://linux.org.ru', self.dropboxApi.last_text())
 		self.assertEquals(WEB_URL_TYPE, self.dropboxApi.last_type())
 
-	def test_should_be_new_image_when_first(self):
-		image_data = 'image data'
+	def test_should_be_new_data_when_first(self):
+		data = 'data'
 
-		isNew = self.shotBufApp.set_image_data_if_new(image_data)
+		isNew = self.shotBufApp.set_data_if_new(data)
 
-		self.assertTrue(isNew, "Should be new image when first image come")
+		self.assertTrue(isNew, "Should be new data when first data come")
 
-	def test_should_set_new_image_when_first(self):
-		image_data = 'image data'
+	def test_should_set_new_data_when_first(self):
+		data = 'data'
 
-		isNew = self.shotBufApp.set_image_data_if_new(image_data)
+		isNew = self.shotBufApp.set_data_if_new(data)
 
-		self.assertEquals(image_data, self.shotBufApp.lastImageData, "should set new image when first")
+		self.assertEquals(data, self.shotBufApp.lastData, "should set new data when first")
 
-	def test_should_be_duplicate_image_when_buffer_same(self):
-		image_data = 'image data'
-		same_image_data = 'image data'
-		self.shotBufApp.lastImageData = image_data
+	def test_should_be_duplicate_data_when_buffer_same(self):
+		data = 'data'
+		same_data = 'data'
+		self.shotBufApp.lastData = data
 
-		isNew = self.shotBufApp.set_image_data_if_new(same_image_data)
+		isNew = self.shotBufApp.set_data_if_new(same_data)
 
-		self.assertFalse(isNew, "should be duplicate image when buffer same")
+		self.assertFalse(isNew, "should be duplicate data when buffer same")
 
-	def test_should_be_new_image_when_buffers_differ(self):
-		image_data = 'image data'
-		another_image_data = 'another image data'
-		self.shotBufApp.lastImageData = image_data
+	def test_should_be_new_data_when_data_differ(self):
+		data = 'data'
+		another_data = 'another data'
+		self.shotBufApp.lastData = data
 
-		isNew = self.shotBufApp.set_image_data_if_new(another_image_data)
+		isNew = self.shotBufApp.set_data_if_new(another_data)
 
-		self.assertTrue(isNew, "should be new image when buffers differ")		
+		self.assertTrue(isNew, "should be new data when buffers differ")		
 
-	def test_should_set_new_image_data_when_buffers_differ(self):
-		image_data = 'image data'
-		new_image_data = 'another image data'
-		self.shotBufApp.lastImageData = image_data
+	def test_should_set_new_data_when_buffers_differ(self):
+		data = 'data'
+		new_data = 'another data'
+		self.shotBufApp.lastData = data
 
-		self.shotBufApp.set_image_data_if_new(new_image_data)
+		self.shotBufApp.set_data_if_new(new_data)
 
-		self.assertEquals(new_image_data, self.shotBufApp.lastImageData, "should be new image when buffers differ")		
+		self.assertEquals(new_data, self.shotBufApp.lastData, "should be new data when buffers differ")		
 
-	def test_should_not_set_new_image_data_when_same_image(self):
-		image_data = 'image data'
-		new_image_data = 'image data'
-		self.shotBufApp.lastImageData = image_data
+	def test_should_not_set_new_data_when_same_data(self):
+		data = 'data'
+		new_data = 'data'
+		self.shotBufApp.lastData = data
 
-		self.shotBufApp.set_image_data_if_new(new_image_data)
+		self.shotBufApp.set_data_if_new(new_data)
 
-		self.assertEquals(image_data, self.shotBufApp.lastImageData, "should be new image when buffers differ")		
+		self.assertEquals(data, self.shotBufApp.lastData, "should be new data when buffers differ")		
 
