@@ -336,7 +336,7 @@
 - (void)tearDownShotBuf {
     [self disableShotBuf];
     [self.enableShotBufItem setEnabled:NO];
-    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
+    [self.unlinkDropboxItem setTitle:@"Link Dropbox"];
     [self.enableShotBufItem setEnabled:NO];
     [self.clearDataItem setEnabled:NO];
     [self.accountManager removeObserver:self];
@@ -357,7 +357,7 @@
     [self.store addObserver:self block:^(){
     }];
 
-    [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+    [self.unlinkDropboxItem setTitle:@"Unlink Dropbox"];
     [self closeWelcomeWindow];
     [self enableShotBuf];
 }

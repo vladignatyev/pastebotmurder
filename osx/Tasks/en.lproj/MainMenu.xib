@@ -126,7 +126,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="hhc-ed-lRG"/>
-                <menuItem title="Unlink DropBox" id="1DK-WC-TSJ">
+                <menuItem title="Unlink Dropbox" image="dropbox-menuitem" id="1DK-WC-TSJ">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="didPressLinkUnlinkButton:" target="494" id="4E1-Ty-htv"/>
@@ -163,6 +163,7 @@
     </objects>
     <resources>
         <image name="dropbox" width="289" height="87"/>
+        <image name="dropbox-menuitem" width="16" height="15"/>
         <image name="welcome" width="300" height="142"/>
     </resources>
 </document>
