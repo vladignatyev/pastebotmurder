@@ -11,9 +11,12 @@ class DropboxApi(object):
 
 		print 'linked account: ', self.client.account_info()
 
-		manager = DatastoreManager(self.client)
-		self.datastore = manager.open_default_datastore()
+		self.manager = DatastoreManager(self.client)
+		self.datastore = self.manager.open_default_datastore()
 		self.bufs_table = self.datastore.get_table('bufs_values')
+
+	def unlink(self):
+		self.datastore.close()
 
 	def clear_data(self):
 		pass

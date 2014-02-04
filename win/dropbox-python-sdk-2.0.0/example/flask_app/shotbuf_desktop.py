@@ -18,6 +18,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 	ID_ENABLE_SHOTBUF = wx.NewId()
 	ID_DISABLE_SHOTBUF = wx.NewId()
 	ID_UNLINK_DROPBOX = wx.NewId()
+	ID_LINK_DROPBOX = wx.NewId()
 	ID_CLEAR_DATA = wx.NewId()
 	ID_CHECK_UPDATES = wx.NewId()
 
@@ -40,7 +41,10 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 			self.menu.Append(CustomTaskBarIcon.ID_ENABLE_SHOTBUF, "Enable ShotBuf")
 		self.menu.AppendSeparator()
 
-		self.menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink DropBox")
+		if shotBufApp.is_logined():
+			self.menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink Dropbox")
+		else:
+			self.menu.Append(CustomTaskBarIcon.ID_LINK_DROPBOX, "Link Dropbox")
 		self.menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
 		self.menu.AppendSeparator()
 		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
@@ -51,10 +55,14 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		evt_id = event.GetId()
 		if evt_id == CustomTaskBarIcon.ID_DISABLE_SHOTBUF:
 			self.isEnabled = True
-			self.parent.disable_shotbuf()
+			disable_shotbuf()
 		if evt_id == CustomTaskBarIcon.ID_ENABLE_SHOTBUF:
 			self.isEnabled = False
-			self.parent.enable_shotbuf()		
+			enable_shotbuf()	
+		elif evt_id == CustomTaskBarIcon.ID_UNLINK_DROPBOX:
+			shotBufApp.unlink_dropbox()
+			frame.ShowAsTopWindow()
+			disable_shotbuf()	
 		# 	wx.MessageBox("Hello World!", "Hello")
 		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
 		# 	wx.MessageBox("Hi Again!", "Hi!")
@@ -67,7 +75,8 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 class ShotBufFrame(wx.Frame):
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
-		wx.Frame.__init__(self, parent, -1, title, size=(410,290))
+		self.style = wx.DEFAULT_FRAME_STYLE 
+		wx.Frame.__init__(self, parent, -1, title, size=(410,290), style = self.style | wx.STAY_ON_TOP)
 
 		self.panel = wx.Panel(self)
 		button = wx.Button(self.panel, label="Connect now", pos=(130,200), size=(140,50))
@@ -86,8 +95,12 @@ class ShotBufFrame(wx.Frame):
 		self.dialog.browser.LoadURL("http://127.0.0.1:5000/dropbox-auth-start")
 		# self.dialog.browser.LoadURL("http://google.com")
 		print 'Connect '
+		self.SetWindowStyle(self.style)
 		self.dialog.Show()
 
+	def ShowAsTopWindow(self):
+		self.SetWindowStyle(self.style | wx.STAY_ON_TOP)
+		self.Show(True)
 	
 
 
@@ -110,11 +123,13 @@ class WebViewDialog(wx.Dialog):
 		url = event.GetURL()
 		print 'URL %s' % url
 		if url == 'http://127.0.0.1:5000/':
+			self.parent.Hide()
 			print "FUCKING SUCCESS"
 			self.Destroy()
 			print 'asd %s' % self.shotBufApp 
 			self.shotBufApp.did_login()
 			enable_shotbuf()
+
 		else:
 			print 'Fail'
 	
@@ -130,14 +145,11 @@ def enable_shotbuf():
 	timer.Start(100)
 
 def OnPasteButton(event):
-	print 'On paste'
 	if not wx.TheClipboard.IsOpened():
-		print 'Open clipboard'
 		wx.TheClipboard.Open()
 		bitmap_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_BITMAP))
 		text_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT))
 		if bitmap_success or text_success:
-			print 'Bitmap and text supported'
 			bitmap_data_object = wx.BitmapDataObject()
 			text_data_object = wx.TextDataObject()
 			do = wx.DataObjectComposite()

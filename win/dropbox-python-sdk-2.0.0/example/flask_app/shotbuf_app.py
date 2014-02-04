@@ -55,7 +55,12 @@ class ShotBufApp(object):
 
 	def is_logined(self):
 		access_token = token_provider.get_access_token()
+		print 'access token', access_token
 		return access_token != None
+
+	def unlink_dropbox(self):
+		self.dropboxApi.unlink()
+		token_provider.remove_access_token()
 
 	def paste_text(self, text):
 		insert_text = text.strip()
