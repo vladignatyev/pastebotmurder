@@ -75,7 +75,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if ([self isEmptyAndNeedLoadingCell] || [self isEmpty]) {
+    if ([self isEmpty]) {
 
         return;
     }
@@ -149,11 +149,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    if ([self isEmptyAndNeedLoadingCell]) {
-
-        return 2;
-    }
-
     if ([self isEmpty]) {
 
         return 1;
@@ -163,11 +158,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    if ([self isEmptyAndNeedLoadingCell] && indexPath.row == 0) {
-
-        return [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
-    }
 
     if ([self isEmpty]) {
 
@@ -204,7 +194,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    if ([self isEmptyAndNeedLoadingCell] || [self isEmpty]) {
+    if ([self isEmpty]) {
 
         return NO;
     }
@@ -216,11 +206,7 @@
 
     UITableViewCell *cell = nil;
 
-    if ([self isEmptyAndNeedLoadingCell] && indexPath.row==0) {
-
-        cell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell"];
-
-    } else if ([self isEmpty]) {
+    if ([self isEmpty]) {
 
         cell = [tableView dequeueReusableCellWithIdentifier:@"EmptyCell"];
 
@@ -363,6 +349,10 @@
         [self.tableView reloadRowsAtIndexPaths:updates withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 
+    if([self isEmpty] && [changed count] > 0) {  // если небыло записей и пришли новые то проверяем надо ли показать алерт?
+
+        [self checkFirstPaste];
+    }
 
     [_records addObjectsFromArray:changed];
 
@@ -394,6 +384,18 @@
 
 
 
+// alert delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+    if(buttonIndex == 1) {
+
+        NSURL *url = [NSURL URLWithString:SB_HELP_URL];
+
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
 
 // system
 
@@ -407,29 +409,29 @@
 
 - (void)connectedFinishAndNotNewInserts {
 
-    //[self checkFirstRunForWelcomPastes];
-
-    if([self isEmpty]) {
-
-        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]
-                              withRowAnimation:UITableViewRowAnimationLeft];
-
-    } else {
-
-        [self.tableView reloadData];
-    }
-
+    // вызывается когда обновление законченно но ничего нового не пришло
 }
 
-- (void)checkFirstRunForWelcomPastes {
+- (void)checkFirstPaste {
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_RUN_KEY]) {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:FIRST_PASTE_KEY]) {
 
-        [self insertWelcomePastes];
+        [self showWelcomeAlert];
 
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_RUN_KEY];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:FIRST_PASTE_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+}
+
+- (void)showWelcomeAlert {
+
+
+    [[[UIAlertView alloc] initWithTitle:@"Hooray! Your first Buf! is ready"
+                                 message:@"Now you may copy text notes, images etc. Open Usage help to use ShotBuf! like a pro!"
+                                delegate:self
+                       cancelButtonTitle:@"OK"
+                       otherButtonTitles:@"Usage help", nil] show];
+
 }
 
 - (void)insertWelcomePastes {
@@ -507,11 +509,6 @@
     SBRecord *_record = [SBRecord recordByDBRecord:record];
 
     [[Mixpanel sharedInstance] track:@"delete" properties:@{@"type" : [_record typeToString]}];
-}
-
-- (BOOL)isEmptyAndNeedLoadingCell {
-
-    return !_isConnected && [self isEmpty];
 }
 
 - (BOOL)isEmpty {

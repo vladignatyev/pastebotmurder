@@ -11,8 +11,12 @@
     <link href="/css/landings/first.css" rel="stylesheet"/>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
 
-    <meta name="description" content="ShotBuf is extremely easy way to share and send content. Made with love and powered by Dropbox" />
+    <meta name="description" content="ShotBuf is extremely easy way to share and to send content. Made with love and powered by Dropbox" />
     <meta name="keywords" content="share,cloud,dropbox,easy sharing" />
+
+    <meta property="og:image" content="http://shotbuf.com/img/logo_modern.png" />
+    <meta property="og:title" content="ShotBuf!" />
+    <meta property="og:description" content="Extremely easy way to share and to send content. Your devices friendly. Powered by Dropbox" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,6 +26,16 @@
           <![endif]-->
   </head>
 <body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1&appId=491981797579987";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -40,7 +54,11 @@
                 <img class="logo" src="/img/landings/first/logo.png" />
                 <h1>Extremely easy&nbsp;way<br/>to&nbsp;share and&nbsp;to&nbsp;send content</h1>
                 <h2>To any place. From any device</h2>
-                <a href="https://twitter.com/intent/user?screen_name=ShotBuf&amp;used_id=ShotBuf" class="cta noborder">Stay tuned!</a>
+                <a href="https://twitter.com/intent/user?screen_name=ShotBuf&amp;used_id=ShotBuf" class="cta twitter noborder">Stay tuned!</a>
+
+              
+                <a class="cta fbshare noborder" href="http://www.facebook.com/dialog/feed?app_id=491981797579987&link=http://shotbuf.com/?utm_source=fb_share&message=ShotBuf%20is%20extremely%20easy%20way%20to%20share%20and%20to%20send%20content.%20Made%20with%20love%20and%20powered%20by%20Dropbox&display=popup&redirect_uri=http://shotbuf.com/" target="_blank">Share</a>
+
                 <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
               </div>
             </div>
