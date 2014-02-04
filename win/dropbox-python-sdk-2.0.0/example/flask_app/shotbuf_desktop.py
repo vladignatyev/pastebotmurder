@@ -14,8 +14,11 @@ from dropbox_api import DropboxApi
 ACCESS_TOKEN = ''
 
 class CustomTaskBarIcon(wx.TaskBarIcon):
-	ID_HELLO = wx.NewId()
-	ID_HELLO2 = wx.NewId()
+	ID_DISABLE_SHOTBUF = wx.NewId()
+	ID_UNLINK_DROPBOX = wx.NewId()
+	ID_CLEAR_DATA = wx.NewId()
+	ID_CHECK_UPDATES = wx.NewId()
+
 	def __init__(self):
 		super(CustomTaskBarIcon, self).__init__()
 
@@ -27,22 +30,27 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 	def CreatePopupMenu(self):
 		menu = wx.Menu()
-		menu.Append(CustomTaskBarIcon.ID_HELLO, "HELLO")
-		menu.Append(CustomTaskBarIcon.ID_HELLO2, "Hi!")
+		menu.Append(CustomTaskBarIcon.ID_DISABLE_SHOTBUF, "Disable ShotBuf")
 		menu.AppendSeparator()
-		menu.Append(wx.ID_CLOSE, "Exit")
+
+		menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink DropBox")
+		menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
+		menu.AppendSeparator()
+		menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
+		menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
 		return menu
 
 	def OnMenu(self, event):
 		evt_id = event.GetId()
-		if evt_id == CustomTaskBarIcon.ID_HELLO:
-			wx.MessageBox("Hello World!", "Hello")
-		elif evt_id == CustomTaskBarIcon.ID_HELLO2:
-			wx.MessageBox("Hi Again!", "Hi!")
-		elif evt_id == wx.ID_CLOSE:
-			self.Destroy()
-		else:
-			event.Skip()
+		# if evt_id == CustomTaskBarIcon.ID_HELLO:
+		# 	wx.MessageBox("Hello World!", "Hello")
+		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
+		# 	wx.MessageBox("Hi Again!", "Hi!")
+		# el
+		# if evt_id == wx.ID_CLOSE:
+		# 	self.Destroy()
+		# else:
+		event.Skip()
 
 class ShotBufFrame(wx.Frame):
 
@@ -107,7 +115,7 @@ class ShotBufFrame(wx.Frame):
 						image = bitmap.ConvertToImage()
 						image_data = image.GetData()
 					
-						isNewImage = self.shotBufApp.set_image_data_if_new(image_data) 
+						isNewImage = self.shotBufApp.set_data_if_new(image_data) 
 						if isNewImage:
 
 							fileTemp = tempfile.NamedTemporaryFile(delete = False)
@@ -117,7 +125,7 @@ class ShotBufFrame(wx.Frame):
 
 					elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 						text = text_data_object.GetText()
-						self.shotBufApp.paste_text(text)
+						self.shotBufApp.paste_text_if_new(text)
 						
 					
 			wx.TheClipboard.Close()
