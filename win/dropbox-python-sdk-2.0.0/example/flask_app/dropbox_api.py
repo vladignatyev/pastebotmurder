@@ -18,24 +18,23 @@ class DropboxApi(object):
 	def unlink(self):
 		self.datastore.close()
 
-	def clear_data(self):
-		pass
-
 	def insert_text(self, text, type='plain'):
-		dt = datetime.now()
-		d = Date.from_datetime_local(dt)
-		buf = self.bufs_table.insert(value=text, type=type, created=d)
-		self.datastore.commit()
+		def insert_record():
+			dt = datetime.now()
+			d = Date.from_datetime_local(dt)
+			buf = self.bufs_table.insert(value=text, type=type, created=d)
+		self.datastore.transaction(insert_record, max_tries=4)
 
 	def upload_file(self, file):
-		f = open(file, 'rb')
 		dt = datetime.now()
+		def insert_record():
+			d = Date.from_datetime_local(dt)
+			buf = self.bufs_table.insert(value=upload_file_name, type='image', created=d)
+
+		f = open(file, 'rb')
 
 		upload_file_name = 'Shot at %s.png' % dt.strftime("%d.%m.%y %H:%M:%S")
 
 		response = self.client.put_file(upload_file_name, f)
 		
-		d = Date.from_datetime_local(dt)
-
-		buf = self.bufs_table.insert(value=upload_file_name, type='image', created=d)
-		self.datastore.commit()
+		self.datastore.transaction(insert_record, max_tries=4)

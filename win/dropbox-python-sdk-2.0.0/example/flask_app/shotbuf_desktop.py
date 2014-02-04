@@ -46,12 +46,9 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		else:
 			self.linkDropboxMenuItem = self.menu.Append(CustomTaskBarIcon.ID_LINK_DROPBOX, "Link Dropbox")
 
-		self.clearDataMenuItem = self.menu.Append(CustomTaskBarIcon.ID_CLEAR_DATA, "Clear Data")
-
 		if not shotBufApp.is_logined():
 			self.disableMenuItem.Enable(False)
 			self.linkDropboxMenuItem.Enable(False)
-			self.clearDataMenuItem.Enable(False)
 
 		self.menu.AppendSeparator()
 		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
@@ -69,7 +66,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		elif evt_id == CustomTaskBarIcon.ID_UNLINK_DROPBOX:
 			shotBufApp.unlink_dropbox()
 			frame.ShowAsTopWindow()
-			disable_shotbuf()	
+			disable_shotbuf()
 		# 	wx.MessageBox("Hello World!", "Hello")
 		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
 		# 	wx.MessageBox("Hi Again!", "Hi!")
