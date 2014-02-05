@@ -18,6 +18,7 @@
 {
 
    NSStatusItem *statusItem;
+    int uploadingImagesCount;
 }
 
 @property(nonatomic, readonly) DBAccountManager *accountManager;
@@ -112,8 +113,21 @@
                 NSLog(@"Error while writing data into test file %@", error);
             }
             
-            [file close];
-            
+            //[file close];
+
+            if(uploadingImagesCount == 0) {
+
+                [self makeActiveUploadIcon];
+            }
+
+            uploadingImagesCount++;
+
+            [NSTimer scheduledTimerWithTimeInterval:0.5
+                                             target:self
+                                           selector:@selector(uploadingImageProcess:)
+                                           userInfo:file
+                                            repeats:YES];
+
             DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
             
             [tasksTbl insert:@{@"value" : tmpFileName,
@@ -190,6 +204,38 @@
 
         }
     }
+}
+
+- (void)uploadingImageProcess:(NSTimer *)timer {
+
+    DBFile *file = timer.userInfo;
+
+    if(file.status.progress >= 1) {
+
+        uploadingImagesCount--;
+
+        [file close];
+
+        [timer invalidate];
+
+        if(uploadingImagesCount == 0) {
+
+            [self deactivateUploadIcon];
+        }
+    }
+}
+
+- (void)makeActiveUploadIcon {
+
+
+    NSLog(@"ACTIVE ICON!!!!");
+}
+
+- (void)deactivateUploadIcon {
+
+
+    NSLog(@"DEACTIVATE ICON!!!!");
+
 }
 
 - (BOOL)isNewObject:(NSObject *)object {
@@ -374,6 +420,8 @@
     [self.enableShotBufItem setTitle:@"Disable ShotBuf"];
     [self.enableShotBufItem setEnabled:YES];
     [self.clearDataItem setEnabled:YES];
+
+    uploadingImagesCount = 0;
 
     _clipboardTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f
                                                        target:self
