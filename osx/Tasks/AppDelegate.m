@@ -9,6 +9,7 @@
 #import "SBRecord.h"
 #import "SBImageManager.h"
 #import <HockeySDK/HockeySDK.h>
+#import <QuartzCore/QuartzCore.h>
 
 #define APP_KEY     @"84zxlqvsmm2py5y"
 #define APP_SECRET  @"u5sva6uz22bvuyy"
@@ -34,6 +35,12 @@
 
 @end
 
+typedef enum {
+
+    SBIconAnimationUpload,
+    SBIconAnimationEndUpload
+
+} SBIconAnimation;
 
 @implementation AppDelegate
 
@@ -115,18 +122,21 @@
             
             //[file close];
 
+
             if(uploadingImagesCount == 0) {
 
-                [self makeActiveUploadIcon];
+                [self createIconAnimation:SBIconAnimationUpload];
             }
 
             uploadingImagesCount++;
 
-            [NSTimer scheduledTimerWithTimeInterval:0.5
+            [NSTimer scheduledTimerWithTimeInterval:0.2
                                              target:self
                                            selector:@selector(uploadingImageProcess:)
                                            userInfo:file
                                             repeats:YES];
+
+
 
             DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
             
@@ -220,22 +230,64 @@
 
         if(uploadingImagesCount == 0) {
 
-            [self deactivateUploadIcon];
+            [self createIconAnimation:SBIconAnimationEndUpload];
         }
     }
 }
 
-- (void)makeActiveUploadIcon {
+- (void)createIconAnimation:(SBIconAnimation)animationType {
+
+    int startIndex, endIndex;
+
+    float duration;
+
+    if(animationType == SBIconAnimationUpload) {
+
+        startIndex = 1;
+        endIndex = 11;
+
+        duration = 1;
+
+    } else {
+
+        startIndex = 12;
+        endIndex = 16;
+
+        duration = 0.4;
+
+        [NSTimer scheduledTimerWithTimeInterval:duration
+                                         target:self
+                                       selector:@selector(setNormalStatusIcon)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
+
+    NSMutableArray *iconImages = [[NSMutableArray alloc] init];
+    for (int i=startIndex; i<=endIndex; i++) {
+        NSString *imagePath = [NSString stringWithFormat:@"statusbar_anim%d", i];
+        [iconImages addObject:[NSImage imageNamed:imagePath]];
+    }
 
 
-    NSLog(@"ACTIVE ICON!!!!");
-}
+    CALayer *layer = [CALayer layer];
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
+    [animation setCalculationMode:kCAAnimationDiscrete];
+    [animation setDuration:duration];
+    [animation setRepeatCount:HUGE_VALF];
+    [animation setValues:iconImages];
 
-- (void)deactivateUploadIcon {
+    [layer setFrame:NSMakeRect(0, 0, 18, 18)];
+    layer.bounds = NSMakeRect(0, 0, 18, 18);
 
+    [layer addAnimation:animation forKey:@"contents"];
 
-    NSLog(@"DEACTIVATE ICON!!!!");
+    NSView *view = [[NSView alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
 
+    [view setLayer:layer];
+
+    [view setWantsLayer:YES];
+
+    [statusItem setView:view];
 }
 
 - (BOOL)isNewObject:(NSObject *)object {
@@ -512,6 +564,9 @@
 }
 
 - (void)setNormalStatusIcon {
+
+    statusItem.view = nil;
+
     NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon"];
     [statusItem setImage:statusIcon];
 }
