@@ -229,6 +229,7 @@
 }
 
 - (IBAction)didPressClearData:(id)sender {
+    return; // TODO: удалено по соглашению с Виталей до полноценной версии десктопной прилаги
     [self disableShotBuf];
     
     DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
@@ -313,6 +314,7 @@
 }
 
 - (void)presentWelcomeWindow {
+    self.justStarted = YES;
     [self.unlinkDropboxItem setEnabled:NO];
     [self.enableShotBufItem setEnabled:NO];
     [self.clearDataItem setEnabled:NO];

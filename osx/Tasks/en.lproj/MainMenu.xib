@@ -108,7 +108,6 @@
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
-                <outlet property="clearDataItem" destination="dji-3r-Kus" id="a9C-l1-TCN"/>
                 <outlet property="enableShotBufItem" destination="Ogh-A2-vY8" id="MEr-Wv-I2B"/>
                 <outlet property="menu" destination="hLk-zd-nP5" id="dfc-2S-m39"/>
                 <outlet property="unlinkDropboxItem" destination="1DK-WC-TSJ" id="lbc-Ml-6Kb"/>
@@ -130,12 +129,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="didPressLinkUnlinkButton:" target="494" id="4E1-Ty-htv"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Clear data" id="dji-3r-Kus">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="didPressClearData:" target="494" id="5IA-ED-OSd"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="xZA-Qh-kf5"/>
