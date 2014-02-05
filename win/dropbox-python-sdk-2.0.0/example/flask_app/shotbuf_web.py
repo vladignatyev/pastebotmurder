@@ -25,7 +25,6 @@ DROPBOX_APP_SECRET = 'u5sva6uz22bvuyy'
 
 # create our little application :)
 app = Flask(__name__)
-Mobility(app)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
