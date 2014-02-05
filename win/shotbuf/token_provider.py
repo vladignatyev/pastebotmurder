@@ -1,35 +1,32 @@
 import sqlite3
+import os.path
 
+STORAGE_PATH = 'storage.txt'
 
 class TokenProvider(object):
 
 	def get_access_token(self):
-		db = sqlite3.connect('instance/myapp.db')
-
-		cursor = db.cursor()
-		row = db.execute('SELECT access_token FROM users WHERE username = ?', ['user']).fetchone()
-
-		db.close()
-
-		if row is None:
+		if not os.path.isfile(STORAGE_PATH):
+			print 'Not file'
 			return None
 
-		access_token = row[0]
+		f = open(STORAGE_PATH, 'r')
 
-		return access_token
+		result = f.readline().strip()
 
-	# def insert_access_token(self, token):
-	# 	db = sqlite3.connect('instance/myapp.db')
+		f.close()
+
+		return result
 		
-	# 	db.execute('UPDATE users SET access_token = ? WHERE username = ?', data)
-	# 	db.commit()
+	def set_access_token(self, token):
+		f = open(STORAGE_PATH, 'w')
+
+		f.write(token)
+
+		f.close()
 
 	def remove_access_token(self):
-		db = sqlite3.connect('instance/myapp.db')
+		f = open(STORAGE_PATH, 'w')
 
-		cursor = db.cursor()
-		row = db.execute('DELETE FROM users WHERE username = ?', ['user'])
-
-		db.commit()
-		db.close()
+		f.close()	
 	
