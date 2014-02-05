@@ -42,6 +42,14 @@ class ShotBufApp(object):
 		self.lastData = None
 		self.isFirstPaste = False	
 
+	def get_auth_url(self):
+		return self.dropboxApi.start_auth()
+
+	def did_finish_auth(self, auth_code):
+		access_token = self.dropboxApi.finish_auth(auth_code)
+		self.tokenProvider.set_access_token(access_token)
+		self.isFirstPaste = True
+
 	def did_login(self):
 		access_token = self.tokenProvider.get_access_token()
 		self.dropboxApi.login_with_token(access_token)
@@ -54,7 +62,7 @@ class ShotBufApp(object):
 
 	def unlink_dropbox(self):
 		self.dropboxApi.unlink()
-		self.tokenProvider.remove_access_token()
+		self.tokenProvider.remove_token_storage()
 
 	def paste_text(self, text):
 		insert_text = text.strip()
@@ -79,3 +87,6 @@ class ShotBufApp(object):
 		isNew = self.set_data_if_new(text)
 		if isNew:
 			self.paste_text(text)
+
+	def enable(self):
+		self.isFirstPaste = True

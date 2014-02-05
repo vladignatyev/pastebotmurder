@@ -2,11 +2,7 @@
 import wx
 import wx.html2
 from wx.webkit import WebKitCtrl
-from dropbox.client import DropboxOAuth2FlowNoRedirect
 
-from dropbox.client import DropboxClient
-from dropbox.rest import ErrorResponse, RESTSocketError
-from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from time import time
 import tempfile
 from shotbuf_app import ShotBufApp
@@ -97,10 +93,8 @@ class ShotBufFrame(wx.Frame):
 		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
 		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
-		auth_flow = DropboxOAuth2FlowNoRedirect('84zxlqvsmm2py5y', 'u5sva6uz22bvuyy')
-		authorize_url = auth_flow.start()
 
-		self.dialog.browser.LoadURL(authorize_url)
+		self.dialog.browser.LoadURL(shotBufApp.get_auth_url())
 		# self.dialog.browser.LoadURL("http://google.com")
 		print 'Connect '
 		self.SetWindowStyle(self.style)
@@ -143,13 +137,15 @@ class WebViewDialog(wx.Dialog):
 				}
 				document.title = document.getElementsByClassName('auth-code')[0].innerText;
 				""")
-			print 'javascript result ', self.browser.GetCurrentTitle()
-			# self.parent.Hide()
+			auth_code = self.browser.GetCurrentTitle()
+			self.parent.Hide()
 			print "FUCKING SUCCESS"
-			# self.Destroy()
+			self.Destroy()
+			print 'javascript result ', auth_code
+			
 			print 'asd %s' % self.shotBufApp 
-			# self.shotBufApp.did_login()
-			# enable_shotbuf()
+			self.shotBufApp.did_finish_auth(auth_code)
+			enable_shotbuf()
 
 		else:
 			print 'Fail'
@@ -161,6 +157,7 @@ def disable_shotbuf():
 
 def enable_shotbuf():
 	print 'enable shotbuf'
+	shotBufApp.enable()
 
 	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
 	timer.Start(100)

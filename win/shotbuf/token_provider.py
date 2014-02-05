@@ -19,14 +19,14 @@ class TokenProvider(object):
 		return result
 		
 	def set_access_token(self, token):
+		print 'Token set ', type(token), token
 		f = open(STORAGE_PATH, 'w')
 
 		f.write(token)
 
 		f.close()
 
-	def remove_access_token(self):
-		f = open(STORAGE_PATH, 'w')
-
-		f.close()	
+	def remove_token_storage(self):
+		if os.path.isfile(STORAGE_PATH):
+			os.remove(STORAGE_PATH)
 	

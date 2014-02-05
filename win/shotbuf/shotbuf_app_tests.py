@@ -46,6 +46,11 @@ class ShotBufAppTestCase(unittest.TestCase):
 
 		self.assertTrue(self.shotBufApp.isFirstPaste, "should be first paste after did login")
 
+	def test_should_be_first_paster_after_enable(self):
+		self.shotBufApp.enable()
+
+		self.assertTrue(self.shotBufApp.isFirstPaste)
+
 	def test_should_be_text(self):
 		text = "Welcome to the Hell!"
 		isWebUrl = is_web_url(text)
