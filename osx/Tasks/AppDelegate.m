@@ -281,11 +281,17 @@ typedef enum {
 
     [layer addAnimation:animation forKey:@"contents"];
 
-    NSView *view = [[NSView alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
+    [statusItem setView:nil];
 
-    [view setLayer:layer];
+    NSView *animationView = [[NSView alloc] initWithFrame:CGRectMake(0, 3, 18, 18)];
 
-    [view setWantsLayer:YES];
+    NSView *view = [[NSView alloc] initWithFrame:CGRectMake(0, 0, 22, 21)];
+
+    [view addSubview:animationView];
+
+    [animationView setLayer:layer];
+
+    [animationView setWantsLayer:YES];
 
     [statusItem setView:view];
 }
@@ -559,7 +565,7 @@ typedef enum {
 
 
 - (void)setDisabledStatusIcon {
-    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon_black"];
+    NSImage* statusIcon = [NSImage imageNamed:@"statusbar_stat_black"];
     [statusItem setImage:statusIcon];
 }
 
@@ -567,7 +573,7 @@ typedef enum {
 
     statusItem.view = nil;
 
-    NSImage* statusIcon = [NSImage imageNamed:@"statusbaricon"];
+    NSImage* statusIcon = [NSImage imageNamed:@"statusbar_stat_blue"];
     [statusItem setImage:statusIcon];
 }
 
