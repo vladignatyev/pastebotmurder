@@ -106,6 +106,9 @@ class ShotBufAppTestCase(unittest.TestCase):
 		for email in emails:
 			self.assertTrue(is_email(email))
 
+	def test_should_be_text_type_when_contains_links(self):
+		self.assertEquals(PLAIN_TYPE, get_text_type('http://linux.org.ru   asd'))
+
 	def test_should_be_text_type(self):
 		self.assertEquals(PLAIN_TYPE, get_text_type('asd'))
 

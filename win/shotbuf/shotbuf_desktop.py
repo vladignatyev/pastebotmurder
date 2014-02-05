@@ -92,11 +92,9 @@ class ShotBufFrame(wx.Frame):
 		self.dialog = WebViewDialog(self, -1)
 		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
-		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
 
 		self.dialog.browser.LoadURL(shotBufApp.get_auth_url())
-		# self.dialog.browser.LoadURL("http://google.com")
-		print 'Connect '
+
 		self.SetWindowStyle(self.style)
 		self.dialog.Show()
 
@@ -116,14 +114,11 @@ class WebViewDialog(wx.Dialog):
 		self.SetSizer(sizer)
 		self.SetSize((700, 700))
 		self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.browser)
-		# 
 
 		self.SetTitle('Dropbox authorization')
 
 	def OnNavigated(self, event):
-		print "HUI PIZDA"
 		url = event.GetURL()
-		print 'URL %s' % url
 		if url == 'https://www.dropbox.com/1/oauth2/authorize_submit':
 			result = self.browser.RunScript("""
 				if (!document.getElementsByClassName) {
@@ -139,11 +134,8 @@ class WebViewDialog(wx.Dialog):
 				""")
 			auth_code = self.browser.GetCurrentTitle()
 			self.parent.Hide()
-			print "FUCKING SUCCESS"
 			self.Destroy()
-			print 'javascript result ', auth_code
 			
-			print 'asd %s' % self.shotBufApp 
 			self.shotBufApp.did_finish_auth(auth_code)
 			enable_shotbuf()
 

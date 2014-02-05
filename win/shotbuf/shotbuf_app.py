@@ -8,17 +8,20 @@ EMAIL_TYPE = 'email'
 WEB_URL_TYPE = 'www'
 SCHEME_LINK_TYPE = 'scheme'
 
+def only_one_word_in_text(text):
+	return len(text.split()) == 1
+
 def is_web_url(text):
 	def has_web_prefix(text):
 		return text.startswith('http://') or text.startswith('https://') or text.startswith('www.')
 
-	return has_web_prefix(text)
+	return has_web_prefix(text) and only_one_word_in_text(text)
 
 def is_scheme_link(text):
 	if is_web_url(text):
 		return False
 	parse_result = urlparse(text)
-	return parse_result.scheme != ''
+	return parse_result.scheme != '' and only_one_word_in_text(text)
 
 
 def is_email(text):
