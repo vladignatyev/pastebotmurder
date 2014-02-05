@@ -13,7 +13,6 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, _app_ctx_stack, after_this_request
 
 from dropbox.client import DropboxClient, DropboxOAuth2Flow
-from bare import ShotBufFrame
 from flask.ext.mobility import Mobility
 
 # configuration
