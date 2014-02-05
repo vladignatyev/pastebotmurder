@@ -1,26 +1,29 @@
 import sqlite3
 
-def get_access_token():
-	db = sqlite3.connect('instance/myapp.db')
 
-	cursor = db.cursor()
-	row = db.execute('SELECT access_token FROM users WHERE username = ?', ['user']).fetchone()
+class TokenProvider(object):
 
-	db.close()
-	
-	if row is None:
-		return None
+	def get_access_token(self):
+		db = sqlite3.connect('instance/myapp.db')
 
-	access_token = row[0]
+		cursor = db.cursor()
+		row = db.execute('SELECT access_token FROM users WHERE username = ?', ['user']).fetchone()
 
-	return access_token
+		db.close()
 
-def remove_access_token():
-	db = sqlite3.connect('instance/myapp.db')
+		if row is None:
+			return None
 
-	cursor = db.cursor()
-	row = db.execute('DELETE FROM users WHERE username = ?', ['user'])
+		access_token = row[0]
 
-	db.commit()
-	db.close()
+		return access_token
+
+	def remove_access_token(self):
+		db = sqlite3.connect('instance/myapp.db')
+
+		cursor = db.cursor()
+		row = db.execute('DELETE FROM users WHERE username = ?', ['user'])
+
+		db.commit()
+		db.close()
 	

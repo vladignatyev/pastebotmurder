@@ -7,6 +7,9 @@ class FakeDropboxApi(object):
 	def __init__(self):
 		self.text=''
 
+	def login_with_token(self, token):
+		pass
+
 	def insert_text(self, text, type='plain'):
 		self.text = text
 		self.type = type
@@ -17,6 +20,16 @@ class FakeDropboxApi(object):
 	def last_type(self):
 		return self.type
 
+class FakeTokenProvider(object):
+
+
+	def get_access_token(self):
+		return None
+
+	def remove_access_token(self):
+		pass
+	
+
 class ShotBufAppTestCase(unittest.TestCase):
 
 	def setUp(self):
@@ -24,7 +37,14 @@ class ShotBufAppTestCase(unittest.TestCase):
 		'myapp-is-cool://showbigboobs!', 'ftp://someuser:somepassword@very-long.domain.63.com']
 		self.texts = ['asd', 'itms-service?asd', 'httpasd', 'bla bla bla http://linux.org.ru', 'http://asd.org']
 		self.dropboxApi = FakeDropboxApi()
-		self.shotBufApp = ShotBufApp(self.dropboxApi)
+		self.tokenProvider = FakeTokenProvider()
+
+		self.shotBufApp = ShotBufApp(self.dropboxApi, self.tokenProvider)
+
+	def test_should_be_first_paste_after_did_login(self):
+		self.shotBufApp.did_login()
+
+		self.assertTrue(self.shotBufApp.isFirstPaste, "should be first paste after did login")
 
 	def test_should_be_text(self):
 		text = "Welcome to the Hell!"
@@ -101,14 +121,23 @@ class ShotBufAppTestCase(unittest.TestCase):
 		self.assertEquals('http://linux.org.ru', self.dropboxApi.last_text())
 		self.assertEquals(WEB_URL_TYPE, self.dropboxApi.last_type())
 
-	def test_should_be_new_data_when_first(self):
+	def test_should_be_false_status_when_first_paste(self):
+		self.shotBufApp.isFirstPaste = True
 		data = 'data'
 
 		isNew = self.shotBufApp.set_data_if_new(data)
 
-		self.assertTrue(isNew, "Should be new data when first data come")
+		self.assertFalse(isNew, "Should be new data when first data come")
 
-	def test_should_set_new_data_when_first(self):
+	def test_should_reset_first_paste_status_after_first_paste(self):
+		self.shotBufApp.isFirstPaste = True
+		data = 'data'
+
+		isNew = self.shotBufApp.set_data_if_new(data)
+
+		self.assertFalse(self.shotBufApp.isFirstPaste, "Should reset first paste status after first paste")
+
+	def test_should_set_new_data_when_first_paste(self):
 		data = 'data'
 
 		isNew = self.shotBufApp.set_data_if_new(data)

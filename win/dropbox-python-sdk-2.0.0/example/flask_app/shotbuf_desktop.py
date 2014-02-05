@@ -9,6 +9,7 @@ from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from time import time
 import tempfile
 from shotbuf_app import ShotBufApp
+from token_provider import TokenProvider
 from dropbox_api import DropboxApi
 
 ACCESS_TOKEN = ''
@@ -188,7 +189,10 @@ def OnPasteButton(event):
 app = wx.App(False)
 timer = wx.Timer()
 dropboxApi = DropboxApi()
-shotBufApp = ShotBufApp(dropboxApi)
+tokenProvider = TokenProvider()
+
+shotBufApp = ShotBufApp(dropboxApi, tokenProvider)
+
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 
 

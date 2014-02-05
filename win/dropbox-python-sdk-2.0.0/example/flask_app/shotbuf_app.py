@@ -36,31 +36,25 @@ def get_text_type(text):
 
 class ShotBufApp(object):
 
-	def __init__(self, dropboxApi):
+	def __init__(self, dropboxApi, tokenProvider):
 		self.dropboxApi = dropboxApi
+		self.tokenProvider = tokenProvider
 		self.lastData = None
-
-	def enable(self):
-		pass
-
-	def disable(self):
-		pass
-
-	def isEnabled(self):
-		pass
+		self.isFirstPaste = False	
 
 	def did_login(self):
-		access_token = token_provider.get_access_token()
+		access_token = self.tokenProvider.get_access_token()
 		self.dropboxApi.login_with_token(access_token)
+		self.isFirstPaste = True
 
 	def is_logined(self):
-		access_token = token_provider.get_access_token()
+		access_token = self.tokenProvider.get_access_token()
 		print 'access token', access_token
 		return access_token != None
 
 	def unlink_dropbox(self):
 		self.dropboxApi.unlink()
-		token_provider.remove_access_token()
+		self.tokenProvider.remove_access_token()
 
 	def paste_text(self, text):
 		insert_text = text.strip()
@@ -72,7 +66,11 @@ class ShotBufApp(object):
 
 
 	def set_data_if_new(self, data):
-		result = (self.lastData is None) or (self.lastData != data)
+		if self.isFirstPaste:
+			self.lastData = data
+			self.isFirstPaste = False
+			return False
+		result = (self.lastData != data)
 		if result: 
 			self.lastData = data	
 		return result
