@@ -275,6 +275,7 @@
 }
 
 - (IBAction)didPressClearData:(id)sender {
+    return; // TODO: удалено по соглашению с Виталей до полноценной версии десктопной прилаги
     [self disableShotBuf];
     
     DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
@@ -359,6 +360,7 @@
 }
 
 - (void)presentWelcomeWindow {
+    self.justStarted = YES;
     [self.unlinkDropboxItem setEnabled:NO];
     [self.enableShotBufItem setEnabled:NO];
     [self.clearDataItem setEnabled:NO];
@@ -382,7 +384,7 @@
 - (void)tearDownShotBuf {
     [self disableShotBuf];
     [self.enableShotBufItem setEnabled:NO];
-    [self.unlinkDropboxItem setTitle:@"Link DropBox"];
+    [self.unlinkDropboxItem setTitle:@"Link Dropbox"];
     [self.enableShotBufItem setEnabled:NO];
     [self.clearDataItem setEnabled:NO];
     [self.accountManager removeObserver:self];
@@ -403,7 +405,7 @@
     [self.store addObserver:self block:^(){
     }];
 
-    [self.unlinkDropboxItem setTitle:@"Unlink DropBox"];
+    [self.unlinkDropboxItem setTitle:@"Unlink Dropbox"];
     [self closeWelcomeWindow];
     [self enableShotBuf];
 }

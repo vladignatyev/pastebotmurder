@@ -59,14 +59,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Then select link in your desktop browser and press ⌘C on  Mac or Ctrl+C on PC respectively" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ITR-4Y-VaR">
-                                            <rect key="frame" x="20" y="245" width="280" height="68"/>
+                                            <rect key="frame" x="20" y="280" width="280" height="68"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcomeImg.png" id="SKn-4u-Ffp">
-                                            <rect key="frame" x="15" y="115" width="291" height="122"/>
+                                            <rect key="frame" x="-5" y="110" width="331" height="172"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                     </subviews>
@@ -280,13 +280,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="0.27715567499999999" green="0.36102185240000001" blue="0.91264748090000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text"> К счастью, бабушка отсутствовала совсем недолго, вернувшись в комнату с семейным фотоальбомом и красной пухлой папкой в руках.
+                                <string key="text"> К счастью, бабушка отсутствовала совсем недолго, вернувшись в комнату с семейным фотоальбомом и красной пухлой папкой в руках.
   Её рассказ о нашей семье просто потряс меня до глубины души. Я и представить себе не могла, что можно вот так, просто, пожертвовать своей жизнью ради другого человека.
   Да-да! До того момента я и не догадывалась, что являюсь приёмной дочерью. И на невинный детский вопрос о том, где же тогда мои настоящие родители, получила ещё более обескураживающий ответ: они были спелеологами и тоже погибли во время одной из экспедиций. Их тоже завалило камнями. А так как родственников у них не было, меня удочерили их друзья - мои приёмные родители...
   Наутро же меня ждало ещё одно горе: сердце моей бабушки ночью остановилось и... я осталась круглой сиротой.
   Дальше - Детский Дом. Вспоминать про этот кошмар мне до сих пор страшно, поскольку такого количества унижений я не испытывала за всю свою сознательную жизнь. Говорят, что Детские Дома предназначены для помощи одиноким детям. Видимо, далеко не все. По крайней мере, к моему заведению это точно не относится! Такого количества жулья, ворья и гнусности, наверное, с лихвой хватило бы на городок средних размеров. А там всё "ЭТО" обитало в пределах одного здания.
   Единственное хорошее, что помню из тех времён - я очень близко сдружилась с одной девочкой по имени Лариса, которой очень не нравилось, когда её называли этим именем. Поэтому я всегда называла её Лорой или Лорочкой... Нас одинаково ненавидели старшие и частенько лупили, почём зря. Поэтому мы всегда ходили вдвоём: так каждой из нас доставалось меньше побоев, которые распределялись поровну между мной и ей...
-  Но, вот, недавно, случайно, я повстречала её на рынке: узнать в дородной матроне, одетой в дорогущие меха, ту, забитую и трясущуюся от страха, Лорку, было сложно. Теперь это была Повелительница... Госпожа с целой свитой прислуги. Но я узнала её. Меня она узнала тоже. Но, когда я попыталась с ней заговорить, она резко отшила меня, быстро прошептав прямо в ухо: "Шла бы ты, подобру-поздорову, голь перекатная! И не смей позорить меня нашим общим прошлым!" - Сказала, как ушатом ледяной</mutableString>
+  Но, вот, недавно, случайно, я повстречала её на рынке: узнать в дородной матроне, одетой в дорогущие меха, ту, забитую и трясущуюся от страха, Лорку, было сложно. Теперь это была Повелительница... Госпожа с целой свитой прислуги. Но я узнала её. Меня она узнала тоже. Но, когда я попыталась с ней заговорить, она резко отшила меня, быстро прошептав прямо в ухо: "Шла бы ты, подобру-поздорову, голь перекатная! И не смей позорить меня нашим общим прошлым!" - Сказала, как ушатом ледяной</string>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -545,7 +545,7 @@
         <image name="mailIcon.png" width="16" height="16"/>
         <image name="settingsIcon.png" width="21" height="21"/>
         <image name="textIcon.png" width="16" height="16"/>
-        <image name="welcomeImg.png" width="209" height="78"/>
+        <image name="welcomeImg.png" width="320" height="152"/>
     </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

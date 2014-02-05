@@ -5,7 +5,7 @@
   "icon": "distributive.icns",
   "icons": {
     "size": 128,
-    "app": [100, 145],
-    "alias": [364, 145]
+    "app": [100, 125],
+    "alias": [364, 125]
   }
 }
