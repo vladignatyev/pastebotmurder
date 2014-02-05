@@ -2,6 +2,7 @@
 import wx
 import wx.html2
 from wx.webkit import WebKitCtrl
+from dropbox.client import DropboxOAuth2FlowNoRedirect
 
 from dropbox.client import DropboxClient
 from dropbox.rest import ErrorResponse, RESTSocketError
@@ -96,8 +97,10 @@ class ShotBufFrame(wx.Frame):
 		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
 		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
-		
-		self.dialog.browser.LoadURL("http://127.0.0.1:5000/dropbox-auth-start")
+		auth_flow = DropboxOAuth2FlowNoRedirect('84zxlqvsmm2py5y', 'u5sva6uz22bvuyy')
+		authorize_url = auth_flow.start()
+
+		self.dialog.browser.LoadURL(authorize_url)
 		# self.dialog.browser.LoadURL("http://google.com")
 		print 'Connect '
 		self.SetWindowStyle(self.style)
@@ -127,13 +130,26 @@ class WebViewDialog(wx.Dialog):
 		print "HUI PIZDA"
 		url = event.GetURL()
 		print 'URL %s' % url
-		if url == 'http://127.0.0.1:5000/':
-			self.parent.Hide()
+		if url == 'https://www.dropbox.com/1/oauth2/authorize_submit':
+			result = self.browser.RunScript("""
+				if (!document.getElementsByClassName) {
+    				document.getElementsByClassName=function(cn) {
+        			var allT=document.getElementsByTagName('*'), allCN=[], i=0, a;
+        			while(a=allT[i++]) {
+            			a.className==cn ? allCN[allCN.length]=a : null;
+        			}
+        			return allCN
+   					}
+				}
+				document.title = document.getElementsByClassName('auth-code')[0].innerText;
+				""")
+			print 'javascript result ', self.browser.GetCurrentTitle()
+			# self.parent.Hide()
 			print "FUCKING SUCCESS"
-			self.Destroy()
+			# self.Destroy()
 			print 'asd %s' % self.shotBufApp 
-			self.shotBufApp.did_login()
-			enable_shotbuf()
+			# self.shotBufApp.did_login()
+			# enable_shotbuf()
 
 		else:
 			print 'Fail'

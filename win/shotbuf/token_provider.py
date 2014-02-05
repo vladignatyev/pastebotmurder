@@ -18,6 +18,12 @@ class TokenProvider(object):
 
 		return access_token
 
+	# def insert_access_token(self, token):
+	# 	db = sqlite3.connect('instance/myapp.db')
+		
+	# 	db.execute('UPDATE users SET access_token = ? WHERE username = ?', data)
+	# 	db.commit()
+
 	def remove_access_token(self):
 		db = sqlite3.connect('instance/myapp.db')
 
