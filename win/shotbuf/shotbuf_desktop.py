@@ -8,6 +8,7 @@ import tempfile
 from shotbuf_app import ShotBufApp
 from token_provider import TokenProvider
 from dropbox_api import DropboxApi
+import numpy
 
 ACCESS_TOKEN = ''
 
@@ -173,10 +174,11 @@ def OnPasteButton(event):
 				format_type = format.GetType()
 				if format_type == wx.DF_BITMAP:
 					bitmap = bitmap_data_object.GetBitmap()
-					image = bitmap.ConvertToImage()
-					image_data = image.GetData()
+					size = bitmap.GetSize()
+					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
+					bitmap.CopyToBuffer(image_data)
 				
-					isNewImage = shotBufApp.set_data_if_new(image_data) 
+					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
 
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)

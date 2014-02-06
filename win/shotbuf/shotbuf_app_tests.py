@@ -1,6 +1,7 @@
 import unittest
 
 from shotbuf_app import *
+import numpy
 
 class FakeDropboxApi(object):
 
@@ -133,7 +134,7 @@ class ShotBufAppTestCase(unittest.TestCase):
 		self.shotBufApp.isFirstPaste = True
 		data = 'data'
 
-		isNew = self.shotBufApp.set_data_if_new(data)
+		isNew = self.shotBufApp.set_text_data_if_new(data)
 
 		self.assertFalse(isNew, "Should be new data when first data come")
 
@@ -141,23 +142,23 @@ class ShotBufAppTestCase(unittest.TestCase):
 		self.shotBufApp.isFirstPaste = True
 		data = 'data'
 
-		isNew = self.shotBufApp.set_data_if_new(data)
+		isNew = self.shotBufApp.set_text_data_if_new(data)
 
 		self.assertFalse(self.shotBufApp.isFirstPaste, "Should reset first paste status after first paste")
 
 	def test_should_set_new_data_when_first_paste(self):
 		data = 'data'
 
-		isNew = self.shotBufApp.set_data_if_new(data)
+		isNew = self.shotBufApp.set_text_data_if_new(data)
 
 		self.assertEquals(data, self.shotBufApp.lastData, "should set new data when first")
 
-	def test_should_be_duplicate_data_when_buffer_same(self):
+	def test_should_be_duplicate_data_when_text_same(self):
 		data = 'data'
 		same_data = 'data'
 		self.shotBufApp.lastData = data
 
-		isNew = self.shotBufApp.set_data_if_new(same_data)
+		isNew = self.shotBufApp.set_text_data_if_new(same_data)
 
 		self.assertFalse(isNew, "should be duplicate data when buffer same")
 
@@ -166,16 +167,16 @@ class ShotBufAppTestCase(unittest.TestCase):
 		another_data = 'another data'
 		self.shotBufApp.lastData = data
 
-		isNew = self.shotBufApp.set_data_if_new(another_data)
+		isNew = self.shotBufApp.set_text_data_if_new(another_data)
 
 		self.assertTrue(isNew, "should be new data when buffers differ")		
 
-	def test_should_set_new_data_when_buffers_differ(self):
+	def test_should_set_new_data_when_text_differ(self):
 		data = 'data'
 		new_data = 'another data'
 		self.shotBufApp.lastData = data
 
-		self.shotBufApp.set_data_if_new(new_data)
+		self.shotBufApp.set_text_data_if_new(new_data)
 
 		self.assertEquals(new_data, self.shotBufApp.lastData, "should be new data when buffers differ")		
 
@@ -184,7 +185,54 @@ class ShotBufAppTestCase(unittest.TestCase):
 		new_data = 'data'
 		self.shotBufApp.lastData = data
 
-		self.shotBufApp.set_data_if_new(new_data)
+		self.shotBufApp.set_text_data_if_new(new_data)
 
 		self.assertEquals(data, self.shotBufApp.lastData, "should be new data when buffers differ")		
 
+	def test_last_image_data_should_be_none_by_default(self):
+		self.assertEquals(None, self.shotBufApp.lastImageData)
+
+	def test_should_set_first_image(self):
+		self.shotBufApp.isFirstPaste = True
+		image = numpy.zeros((10, 10, 3), dtype=numpy.uint8)
+
+		self.shotBufApp.set_image_data_if_new(image)
+
+		self.assertTrue(numpy.array_equal(image , self.shotBufApp.lastImageData))
+
+	def test_should_be_new_image_when_no_previous_image(self):
+		image = numpy.zeros((10, 10, 3), dtype=numpy.uint8)
+
+		isNew = self.shotBufApp.set_image_data_if_new(image)
+
+		self.assertTrue(isNew, "should be new image when no previous image")
+
+	def test_should_be_new_image_when_buffers_data_differ(self):
+		old_image = numpy.zeros((10, 10, 3), dtype=numpy.uint8)
+		self.shotBufApp.lastImageData = old_image
+
+		new_image = numpy.zeros((10, 10, 3), dtype=numpy.uint8)
+		new_image[0,0,0] = 1
+		isNew = self.shotBufApp.set_image_data_if_new(new_image)
+
+		self.assertTrue(isNew, "should be new image when buffers differ")
+
+	def test_should_be_new_image_when_buffers_size_differ(self):
+		old_image = numpy.zeros((10, 10, 3), dtype=numpy.uint8)
+		self.shotBufApp.lastImageData = old_image
+
+		new_image = numpy.zeros((12, 10, 3), dtype=numpy.uint8)
+		new_image[0,0,0] = 1
+		isNew = self.shotBufApp.set_image_data_if_new(new_image)
+
+		self.assertTrue(isNew, "should be new image when buffers size differ")
+
+	def test_should_set_new_image_when_buffers_size_differ(self):
+		old_image = numpy.zeros((10, 10, 3), dtype=numpy.uint8)
+		self.shotBufApp.lastImageData = old_image
+
+		new_image = numpy.zeros((12, 10, 3), dtype=numpy.uint8)
+		new_image[0,0,0] = 1
+		isNew = self.shotBufApp.set_image_data_if_new(new_image)
+
+		self.assertTrue(numpy.array_equal(new_image, self.shotBufApp.lastImageData), "should set new image when buffers size differ")

@@ -2,6 +2,7 @@ import token_provider
 from validate_email import validate_email
 
 from urlparse import urlparse
+import numpy
 
 PLAIN_TYPE = 'plain'
 EMAIL_TYPE = 'email'
@@ -43,6 +44,7 @@ class ShotBufApp(object):
 		self.dropboxApi = dropboxApi
 		self.tokenProvider = tokenProvider
 		self.lastData = None
+		self.lastImageData = None
 		self.isFirstPaste = False	
 
 	def get_auth_url(self):
@@ -76,18 +78,34 @@ class ShotBufApp(object):
 		self.dropboxApi.upload_file(name)
 
 
-	def set_data_if_new(self, data):
+	def set_image_data_if_new(self, image_data):
+		def setDataFunc(image_data):
+			self.lastImageData = image_data
+		def compareImageFunc(image_data):
+			return not numpy.array_equal(self.lastImageData, image_data)
+
+		return self.set_data_if_new(image_data, setDataFunc, compareImageFunc)
+
+
+	def set_data_if_new(self, data, setDataFunc, compareFunc):
 		if self.isFirstPaste:
-			self.lastData = data
+			setDataFunc(data)
 			self.isFirstPaste = False
 			return False
-		result = (self.lastData != data)
-		if result: 
-			self.lastData = data	
-		return result
+		isNewData = compareFunc(data)
+		if isNewData: 
+			setDataFunc(data)	
+		return isNewData
+
+	def set_text_data_if_new(self, data):
+		def setDataFunc(data):
+			self.lastData = data
+		return self.set_data_if_new(data, setDataFunc, lambda data: self.lastData != data)
+
+	
 
 	def paste_text_if_new(self, text):
-		isNew = self.set_data_if_new(text)
+		isNew = self.set_text_data_if_new(text)
 		if isNew:
 			self.paste_text(text)
 
