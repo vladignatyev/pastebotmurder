@@ -2,16 +2,13 @@
 import wx
 import wx.html2
 from wx.webkit import WebKitCtrl
-from dropbox.client import DropboxOAuth2FlowNoRedirect
 
-from dropbox.client import DropboxClient
-from dropbox.rest import ErrorResponse, RESTSocketError
-from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from time import time
 import tempfile
 from shotbuf_app import ShotBufApp
 from token_provider import TokenProvider
 from dropbox_api import DropboxApi
+import numpy
 
 ACCESS_TOKEN = ''
 
@@ -96,13 +93,9 @@ class ShotBufFrame(wx.Frame):
 		self.dialog = WebViewDialog(self, -1)
 		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
-		# self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.dialog.browser)
-		auth_flow = DropboxOAuth2FlowNoRedirect('84zxlqvsmm2py5y', 'u5sva6uz22bvuyy')
-		authorize_url = auth_flow.start()
 
-		self.dialog.browser.LoadURL(authorize_url)
-		# self.dialog.browser.LoadURL("http://google.com")
-		print 'Connect '
+		self.dialog.browser.LoadURL(shotBufApp.get_auth_url())
+
 		self.SetWindowStyle(self.style)
 		self.dialog.Show()
 
@@ -122,14 +115,11 @@ class WebViewDialog(wx.Dialog):
 		self.SetSizer(sizer)
 		self.SetSize((700, 700))
 		self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.browser)
-		# 
 
 		self.SetTitle('Dropbox authorization')
 
 	def OnNavigated(self, event):
-		print "HUI PIZDA"
 		url = event.GetURL()
-		print 'URL %s' % url
 		if url == 'https://www.dropbox.com/1/oauth2/authorize_submit':
 			result = self.browser.RunScript("""
 				if (!document.getElementsByClassName) {
@@ -143,13 +133,12 @@ class WebViewDialog(wx.Dialog):
 				}
 				document.title = document.getElementsByClassName('auth-code')[0].innerText;
 				""")
-			print 'javascript result ', self.browser.GetCurrentTitle()
-			# self.parent.Hide()
-			print "FUCKING SUCCESS"
-			# self.Destroy()
-			print 'asd %s' % self.shotBufApp 
-			# self.shotBufApp.did_login()
-			# enable_shotbuf()
+			auth_code = self.browser.GetCurrentTitle()
+			self.parent.Hide()
+			self.Destroy()
+			
+			self.shotBufApp.did_finish_auth(auth_code)
+			enable_shotbuf()
 
 		else:
 			print 'Fail'
@@ -161,6 +150,7 @@ def disable_shotbuf():
 
 def enable_shotbuf():
 	print 'enable shotbuf'
+	shotBufApp.enable()
 
 	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
 	timer.Start(100)
@@ -169,25 +159,36 @@ def OnPasteButton(event):
 	if not wx.TheClipboard.IsOpened():
 		wx.TheClipboard.Open()
 		bitmap_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_BITMAP))
+		
+		print 'succes: %s' % bitmap_success
 		text_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT))
 		if bitmap_success or text_success:
+
 			bitmap_data_object = wx.BitmapDataObject()
 			text_data_object = wx.TextDataObject()
 			do = wx.DataObjectComposite()
 			do.Add(bitmap_data_object, True)
 			do.Add(text_data_object, True)
 			success = wx.TheClipboard.GetData(do)
+			print 172
 			if success:
+				print 174
 				format = do.GetReceivedFormat()
 				data_object = do.GetObject(format)
 
 				format_type = format.GetType()
-				if format_type == wx.DF_BITMAP:
+				print 'format_type', format_type
+				print 'format types values'
+				print 'wx.DF_BITMAP', wx.DF_BITMAP
+				print '[wx.DF_UNICODETEXT, wx.DF_TEXT]', [wx.DF_UNICODETEXT, wx.DF_TEXT]
+
+				if format_type in [wx.DF_DIB, wx.DF_BITMAP]:
 					bitmap = bitmap_data_object.GetBitmap()
-					image = bitmap.ConvertToImage()
-					image_data = image.GetData()
+					size = bitmap.GetSize()
+					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
+					bitmap.CopyToBuffer(image_data)
 				
-					isNewImage = shotBufApp.set_data_if_new(image_data) 
+					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
 
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)

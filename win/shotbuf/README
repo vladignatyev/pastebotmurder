@@ -11,3 +11,19 @@ How to use
 
 2. Now you can run the simple_dropbox_app.py file with your python interpreter and
    the application will greet you on http://localhost:5000/.
+
+
+How to build
+----------
+
+Use pyinstaller and edit dropbox sdk rest.py
+
+TRUSTED_CERT_FILE = 'trusted-certs.crt' # pkg_resources.resource_filename(__name__, 'trusted-certs.crt')
+Copy trusted-certs.crt from your folder to dist
+
+Edit pyinstaller  setup.py http://stackoverflow.com/a/20976593
+
+   def append(self, tpl):
+        try:
+            fn = tpl[0]
+            if tpl[2] in ["BINARY","DATA"]:

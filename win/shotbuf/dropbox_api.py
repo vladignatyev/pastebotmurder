@@ -1,9 +1,31 @@
 import dropbox
 from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from datetime import datetime
+from dropbox import rest as dbrest
+from dropbox.client import DropboxOAuth2FlowNoRedirect
 
+APP_KEY = '84zxlqvsmm2py5y'
+APP_SECRET = 'u5sva6uz22bvuyy'
 
 class DropboxApi(object):
+
+	def start_auth(self):
+		self.auth_flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET)
+		authorize_url = self.auth_flow.start()
+		return authorize_url
+
+	def finish_auth(self, auth_code):
+		try:
+			access_token, user_id = self.auth_flow.finish(auth_code)
+		except dbrest.ErrorResponse , e:
+			print 'Error %s' % e
+			return
+
+		print 'finish auth access_token', access_token
+
+		self.login_with_token(access_token)
+
+		return access_token
 
 	def login_with_token(self, token):
 		self.token = token
