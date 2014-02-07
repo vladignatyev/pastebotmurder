@@ -257,7 +257,7 @@ typedef enum {
 
         [NSTimer scheduledTimerWithTimeInterval:duration
                                          target:self
-                                       selector:@selector(setNormalStatusIcon)
+                                       selector:@selector(stopAnimations)
                                        userInfo:nil
                                         repeats:NO];
     }
@@ -294,6 +294,17 @@ typedef enum {
     [animationView setWantsLayer:YES];
 
     [statusItem setView:view];
+}
+
+- (void)stopAnimations {
+
+    statusItem.view = nil;
+
+    [statusItem setHighlightMode:YES];
+
+    [self setAlternativeStatusIcon];
+
+    [self setNormalStatusIcon];
 }
 
 - (BOOL)isNewObject:(NSObject *)object {
@@ -559,7 +570,7 @@ typedef enum {
 }
 
 - (void)setAlternativeStatusIcon {
-    NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbaricon_invert"];
+    NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbar_anim_invert"];
     [statusItem setAlternateImage:statusIconHighlighted];
 }
 
@@ -570,8 +581,6 @@ typedef enum {
 }
 
 - (void)setNormalStatusIcon {
-
-    statusItem.view = nil;
 
     NSImage* statusIcon = [NSImage imageNamed:@"statusbar_stat_blue"];
     [statusItem setImage:statusIcon];

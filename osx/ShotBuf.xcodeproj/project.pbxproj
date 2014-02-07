@@ -35,6 +35,7 @@
 		677DB965D4A14B980E4C19FA /* statusbar_anim13@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB70A7566A1477E73FD11 /* statusbar_anim13@2x.png */; };
 		677DBA1C901A53630E7C412D /* statusbar_anim16@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBD2A4F1A17F2C1974ACB /* statusbar_anim16@2x.png */; };
 		677DBA958EEA111778A94326 /* statusbar_stat_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBBE2FBADC5A8322455B9 /* statusbar_stat_black.png */; };
+		677DBACFA67AA1DD72B7030C /* statusbar_anim_invert.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBBDE1DF9585A7AF9BA84 /* statusbar_anim_invert.png */; };
 		677DBAD2989DA5A2FCF5BFB1 /* statusbar_anim16.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBA52A1E3C91E37F99506 /* statusbar_anim16.png */; };
 		677DBAEFF9D4227171C65211 /* statusbar_anim3.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBAD88FFCEA7EB4DD4B58 /* statusbar_anim3.png */; };
 		677DBB1D913C322325805350 /* statusbar_anim5.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBB054FEE2003B63FF53E /* statusbar_anim5.png */; };
@@ -48,6 +49,7 @@
 		677DBDEFA243B58FAF0FF119 /* statusbar_anim2.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB7633344CD59895D04FA /* statusbar_anim2.png */; };
 		677DBE9A0D8AC5B7D0C7BC8F /* statusbar_stat_error.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DB2BA9D19D98D531A9EDE /* statusbar_stat_error.png */; };
 		677DBEFB7ACFD382E3A22525 /* statusbar_anim9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBB0BD53D1F32CC091030 /* statusbar_anim9@2x.png */; };
+		677DBF8D5153327984435814 /* statusbar_anim_invert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 677DBB6BC8639A7F0AFB34A9 /* statusbar_anim_invert@2x.png */; };
 		678B6DFF181608AE00E3F0DA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 678B6DFD181608AE00E3F0DA /* MainMenu.xib */; };
 		67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C40D11181566AC005B06DA /* Cocoa.framework */; };
 		67C40D50181566EE005B06DA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 67C40D4E181566EE005B06DA /* InfoPlist.strings */; };
@@ -139,9 +141,11 @@
 		677DBAD88FFCEA7EB4DD4B58 /* statusbar_anim3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusbar_anim3.png; sourceTree = "<group>"; };
 		677DBB054FEE2003B63FF53E /* statusbar_anim5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusbar_anim5.png; sourceTree = "<group>"; };
 		677DBB0BD53D1F32CC091030 /* statusbar_anim9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusbar_anim9@2x.png"; sourceTree = "<group>"; };
+		677DBB6BC8639A7F0AFB34A9 /* statusbar_anim_invert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusbar_anim_invert@2x.png"; sourceTree = "<group>"; };
 		677DBB7A8134E441EC8EC416 /* statusbar_anim3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusbar_anim3@2x.png"; sourceTree = "<group>"; };
 		677DBB7C45965AB5DE7424A2 /* statusbar_anim15@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusbar_anim15@2x.png"; sourceTree = "<group>"; };
 		677DBB81F2F774203F811EA5 /* statusbar_anim10@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusbar_anim10@2x.png"; sourceTree = "<group>"; };
+		677DBBDE1DF9585A7AF9BA84 /* statusbar_anim_invert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusbar_anim_invert.png; sourceTree = "<group>"; };
 		677DBBE2FBADC5A8322455B9 /* statusbar_stat_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbar_stat_black.png; path = statusbaranim/statusbar_stat_black.png; sourceTree = "<group>"; };
 		677DBC1E12421412F54CA1D9 /* statusbar_stat_error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbar_stat_error@2x.png"; path = "statusbaranim/statusbar_stat_error@2x.png"; sourceTree = "<group>"; };
 		677DBC5A4F897697C21023D4 /* statusbar_stat_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbar_stat_blue@2x.png"; path = "statusbaranim/statusbar_stat_blue@2x.png"; sourceTree = "<group>"; };
@@ -392,6 +396,8 @@
 				677DBC5A4F897697C21023D4 /* statusbar_stat_blue@2x.png */,
 				677DBBE2FBADC5A8322455B9 /* statusbar_stat_black.png */,
 				677DBC1E12421412F54CA1D9 /* statusbar_stat_error@2x.png */,
+				677DBB6BC8639A7F0AFB34A9 /* statusbar_anim_invert@2x.png */,
+				677DBBDE1DF9585A7AF9BA84 /* statusbar_anim_invert.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -564,6 +570,8 @@
 				677DB69879D7E4CC58B34FA7 /* statusbar_stat_blue@2x.png in Resources */,
 				677DBA958EEA111778A94326 /* statusbar_stat_black.png in Resources */,
 				677DB4BE80DFEBC3B1718163 /* statusbar_stat_error@2x.png in Resources */,
+				677DBF8D5153327984435814 /* statusbar_anim_invert@2x.png in Resources */,
+				677DBACFA67AA1DD72B7030C /* statusbar_anim_invert.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
