@@ -19,7 +19,8 @@ typedef enum {
 
     SBIconAnimationNone,
     SBIconAnimationUpload,
-    SBIconAnimationEndUpload
+    SBIconAnimationEndUpload,
+    SBIconAnimationFastPaste
 
 } SBIconAnimation;
 
@@ -158,6 +159,11 @@ typedef enum {
 
         } else if ([obj isKindOfClass:[NSString class]]) {
 
+            if(uploadingImagesCount == 0){
+
+                [self createIconAnimation:SBIconAnimationFastPaste];
+            }
+
             NSString *string = (NSString *) obj;
 
             string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -251,6 +257,10 @@ typedef enum {
     } else if (animationType == SBIconAnimationEndUpload) {
 
         currentFrameIconAnimation = 11;
+
+    } else if (animationType == SBIconAnimationFastPaste) {
+
+        currentFrameIconAnimation = 16;
     }
 
     [self renderIconAnimation];
@@ -277,6 +287,17 @@ typedef enum {
     } else if (currentIconAnimation == SBIconAnimationEndUpload) {
 
         if(currentFrameIconAnimation > 16) {
+
+            [self stopIconAnimation];
+
+            return;
+        }
+
+    } else if (currentIconAnimation == SBIconAnimationFastPaste) {
+
+        frameDuration = 0.2;
+
+        if(currentFrameIconAnimation > 17) {
 
             [self stopIconAnimation];
 
