@@ -186,8 +186,12 @@ def OnPasteButton(event):
 					bitmap = bitmap_data_object.GetBitmap()
 					size = bitmap.GetSize()
 					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
-					bitmap.CopyToBuffer(image_data)
+
+					image = bitmap.ConvertToImage()
+					rgb_bitmap = image.ConvertToBitmap()
+					rgb_bitmap.CopyToBuffer(image_data)
 				
+
 					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
 
