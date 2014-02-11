@@ -76,13 +76,13 @@
 		80389566186A485C000966EB /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80389565186A485C000966EB /* Sparkle.framework */; };
 		80389567186A4888000966EB /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 80389565186A485C000966EB /* Sparkle.framework */; };
 		8038956C186A7369000966EB /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8038956B186A7369000966EB /* dsa_pub.pem */; };
+		806C825118A549A3002F9AA2 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 806C824F18A54910002F9AA2 /* Dropbox.framework */; };
+		806C825218A54AA2002F9AA2 /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 806C824F18A54910002F9AA2 /* Dropbox.framework */; };
 		807073841863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist in Resources */ = {isa = PBXBuildFile; fileRef = 807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */; };
 		808E6F551861F96B00123119 /* statusbaricon_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F531861F96B00123119 /* statusbaricon_black.png */; };
 		808E6F561861F96B00123119 /* statusbaricon_black@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 808E6F541861F96B00123119 /* statusbaricon_black@2x.png */; };
 		808E6F5C1862050300123119 /* SBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E6F5B1862050300123119 /* SBRecord.m */; };
 		808E6F5F1862065C00123119 /* SBImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 808E6F5D1862065C00123119 /* SBImageManager.m */; };
-		8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
-		809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 809FEC60184FF5A00034B712 /* Dropbox.framework */; };
 		80CEEA9518A19CCC0042CBC4 /* dropbox-menuitem.png in Resources */ = {isa = PBXBuildFile; fileRef = 80CEEA9318A19CCC0042CBC4 /* dropbox-menuitem.png */; };
 		80CEEA9618A19CCC0042CBC4 /* dropbox-menuitem@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80CEEA9418A19CCC0042CBC4 /* dropbox-menuitem@2x.png */; };
 		80D1388E188AA5F50032D4D8 /* welcome@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80D1388D188AA5F50032D4D8 /* welcome@2x.png */; };
@@ -107,9 +107,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				806C825218A54AA2002F9AA2 /* Dropbox.framework in CopyFiles */,
 				15B06508189B9C1B002ED9AE /* HockeySDK.framework in CopyFiles */,
 				80389567186A4888000966EB /* Sparkle.framework in CopyFiles */,
-				8098525218500EFC000680EE /* Dropbox.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +194,7 @@
 		802C8FCF185F94C800BF8482 /* statusbaricon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon@2x.png"; path = "Images/statusbaricon@2x.png"; sourceTree = "<group>"; };
 		80389565186A485C000966EB /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		8038956B186A7369000966EB /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Distribution/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
+		806C824F18A54910002F9AA2 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		807073831863CA1D00F9ABE7 /* com.shotbuf.ShotBuf.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = com.shotbuf.ShotBuf.plist; sourceTree = "<group>"; };
 		808E6F531861F96B00123119 /* statusbaricon_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbaricon_black.png; path = Images/statusbaricon_black.png; sourceTree = "<group>"; };
 		808E6F541861F96B00123119 /* statusbaricon_black@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "statusbaricon_black@2x.png"; path = "Images/statusbaricon_black@2x.png"; sourceTree = "<group>"; };
@@ -201,7 +202,6 @@
 		808E6F5B1862050300123119 /* SBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBRecord.m; path = "../objc-prototype/Tasks/Model/SBRecord.m"; sourceTree = "<group>"; };
 		808E6F5D1862065C00123119 /* SBImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBImageManager.m; path = "../objc-prototype/Tasks/Managers/SBImageManager.m"; sourceTree = "<group>"; };
 		808E6F5E1862065C00123119 /* SBImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBImageManager.h; path = "../objc-prototype/Tasks/Managers/SBImageManager.h"; sourceTree = "<group>"; };
-		809FEC60184FF5A00034B712 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		80CEEA9318A19CCC0042CBC4 /* dropbox-menuitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dropbox-menuitem.png"; path = "Images/dropbox-menuitem.png"; sourceTree = "<group>"; };
 		80CEEA9418A19CCC0042CBC4 /* dropbox-menuitem@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dropbox-menuitem@2x.png"; path = "Images/dropbox-menuitem@2x.png"; sourceTree = "<group>"; };
 		80D1388D188AA5F50032D4D8 /* welcome@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "welcome@2x.png"; path = "Images/welcome@2x.png"; sourceTree = "<group>"; };
@@ -214,9 +214,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				806C825118A549A3002F9AA2 /* Dropbox.framework in Frameworks */,
 				1563D92A18A2530600E8A749 /* QuartzCore.framework in Frameworks */,
 				15B06507189B9BEE002ED9AE /* HockeySDK.framework in Frameworks */,
-				809FEC61184FF5A00034B712 /* Dropbox.framework in Frameworks */,
 				80389566186A485C000966EB /* Sparkle.framework in Frameworks */,
 				67C40D4A181566EE005B06DA /* Cocoa.framework in Frameworks */,
 			);
@@ -305,10 +305,10 @@
 				1563D92918A2530600E8A749 /* QuartzCore.framework */,
 				15B06506189B9BEE002ED9AE /* HockeySDK.framework */,
 				80389565186A485C000966EB /* Sparkle.framework */,
-				809FEC60184FF5A00034B712 /* Dropbox.framework */,
 				67C40D11181566AC005B06DA /* Cocoa.framework */,
 				67C40D30181566AC005B06DA /* XCTest.framework */,
 				67C40D13181566AC005B06DA /* Other Frameworks */,
+				806C824F18A54910002F9AA2 /* Dropbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -732,8 +732,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					/Users/ignatev/pastebotmurder/osx,
-					/Users/rinat/Documents/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
@@ -759,8 +757,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					/Users/ignatev/pastebotmurder/osx,
-					/Users/rinat/Documents/pastebotmurder/osx,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tasks/Tasks-Prefix.pch";
