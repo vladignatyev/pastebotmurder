@@ -105,6 +105,7 @@ class ShotBufFrame(wx.Frame):
 
 	def ShowAsTopWindow(self):
 		self.SetWindowStyle(self.style | wx.STAY_ON_TOP)
+		self.Center()
 		self.Show(True)
 	
 
@@ -117,9 +118,10 @@ class WebViewDialog(wx.Dialog):
 		self.browser = wx.html2.WebView.New(self)
 		sizer.Add(self.browser, 1, wx.EXPAND, 10)
 		self.SetSizer(sizer)
-		self.SetSize((700, 700))
+		self.SetSize((1024, 768))
 		self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.browser)
 
+		self.Center()
 		self.SetTitle('Dropbox authorization')
 
 	def OnNavigated(self, event):
@@ -225,7 +227,7 @@ def main():
 	tbiicon.parent = frame
 	
 	if not shotBufApp.is_logined():
-		frame.Show(True)
+		frame.ShowAsTopWindow()
 	else:
 		shotBufApp.did_login()
 		enable_shotbuf()
