@@ -51,7 +51,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 		self.menu.AppendSeparator()
 		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
-		self.menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
+		self.menu.Append(wx.ID_EXIT, "Quit ShotBuf")
 		return self.menu
 
 	def OnMenu(self, event):
@@ -66,6 +66,10 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 			shotBufApp.unlink_dropbox()
 			frame.ShowAsTopWindow()
 			disable_shotbuf()
+		elif evt_id == wx.ID_EXIT:
+			disable_shotbuf()
+			print 'Quit'
+			app.ExitMainLoop()
 		# 	wx.MessageBox("Hello World!", "Hello")
 		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
 		# 	wx.MessageBox("Hi Again!", "Hi!")
