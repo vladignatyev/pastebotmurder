@@ -66,7 +66,7 @@ class ShotBufApp(object):
 
 	def unlink_dropbox(self):
 		self.dropboxApi.unlink()
-		self.tokenProvider.remove_token_storage()
+		self.tokenProvider.remove_access_token()
 
 	def paste_text(self, text):
 		insert_text = text.strip()

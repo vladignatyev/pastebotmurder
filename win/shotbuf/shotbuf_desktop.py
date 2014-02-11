@@ -1,6 +1,8 @@
 #!/usr/bin/env python	
 import wx
 import wx.html2
+import sys
+import logging
 from wx.webkit import WebKitCtrl
 
 from time import time
@@ -217,7 +219,13 @@ shotBufApp = ShotBufApp(dropboxApi, tokenProvider)
 
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 
+logging.basicConfig(filename='shotbuf.log',level=logging.DEBUG)
 
+def my_handler(type, value, tb):
+    logging.exception("Uncaught exception: {0}".format(str(value)))
+
+# Install exception handler
+sys.excepthook = my_handler
 
 def main():
 	
