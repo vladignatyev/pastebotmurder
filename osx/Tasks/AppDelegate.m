@@ -15,11 +15,22 @@
 #define APP_SECRET  @"u5sva6uz22bvuyy"
 #define BUFS_TABLE @"bufs_values"
 
+typedef enum {
+
+    SBIconAnimationNone,
+    SBIconAnimationUpload,
+    SBIconAnimationEndUpload,
+    SBIconAnimationFastPaste
+
+} SBIconAnimation;
+
 @interface AppDelegate ()
 {
 
    NSStatusItem *statusItem;
     int uploadingImagesCount;
+    int currentFrameIconAnimation;
+    SBIconAnimation currentIconAnimation;
 }
 
 @property(nonatomic, readonly) DBAccountManager *accountManager;
@@ -35,12 +46,7 @@
 
 @end
 
-typedef enum {
 
-    SBIconAnimationUpload,
-    SBIconAnimationEndUpload
-
-} SBIconAnimation;
 
 @implementation AppDelegate
 
@@ -50,10 +56,10 @@ typedef enum {
     NSString *dateString = [NSDateFormatter localizedStringFromDate:[[NSDate alloc] init]
                                                           dateStyle:NSDateFormatterShortStyle
                                                           timeStyle:NSDateFormatterMediumStyle];
-    
+
     NSString *shotAt = @"Shot at ";
     return [[shotAt stringByAppendingString:dateString] stringByAppendingString:@".png"];
-    
+
 }
 
 - (NSData*) getDataFromImage:(NSImage*)image {
@@ -89,13 +95,13 @@ typedef enum {
         }
 
         if ([obj isKindOfClass:[NSImage class]]) {
-            
+
             NSData *data = [self getDataFromImage:(NSImage *) obj];
 
             NSString *tmpFileName = [self getFileTmpName];
-            
-            
-            
+
+
+
 //            [data writeToFile:[@"/tmp/" stringByAppendingString:tmpFileName]
 //                   atomically:NO];
 
@@ -108,18 +114,18 @@ typedef enum {
 //                if ([error code] != DBErrorParamsNotFound) {
 //                    NSLog(@"Error if path look up failed for some other reason than NOT FOUND %@", error);
 //                }
-            
+
             // Create a new file.
             DBFile *file = [filesystem createFile:path error:&error];
             if (!file) {
                 NSLog(@"Error while creating new test file %@", error);
             }
-            
+
             // Write to the new test file.
             if (![file writeData:data error:&error]) {
                 NSLog(@"Error while writing data into test file %@", error);
             }
-            
+
             //[file close];
 
 
@@ -139,7 +145,7 @@ typedef enum {
 
 
             DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-            
+
             [tasksTbl insert:@{@"value" : tmpFileName,
                                @"type" : @"image",
                                @"created" : [NSDate date]}];
@@ -153,10 +159,15 @@ typedef enum {
 
         } else if ([obj isKindOfClass:[NSString class]]) {
 
+            if(uploadingImagesCount == 0){
+
+                [self createIconAnimation:SBIconAnimationFastPaste];
+            }
+
             NSString *string = (NSString *) obj;
-            
+
             string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            
+
             NSString *stringType = @"plain";
             if ([string isEmail]) {
                 stringType = @"email";
@@ -193,7 +204,7 @@ typedef enum {
                                                    NSString *title = [responseText substringWithRange:[result rangeAtIndex:1]];
 
                                                    buf[@"title"] = title;
-                                                   
+
                                                    DBError *error = nil;
                                                    [self.store sync:&error];
                                                    if (error) {
@@ -204,7 +215,7 @@ typedef enum {
                                            }
                                        }];
             }
-            
+
             DBError *error = nil;
             NSDictionary* dictionary =[self.store sync:&error];
             NSLog(@"dictionary %@", dictionary);
@@ -237,63 +248,77 @@ typedef enum {
 
 - (void)createIconAnimation:(SBIconAnimation)animationType {
 
-    int startIndex, endIndex;
-
-    float duration;
+    currentIconAnimation = animationType;
 
     if(animationType == SBIconAnimationUpload) {
 
-        startIndex = 1;
-        endIndex = 11;
+        currentFrameIconAnimation = 0;
 
-        duration = 1;
+    } else if (animationType == SBIconAnimationEndUpload) {
 
-    } else {
+        currentFrameIconAnimation = 11;
 
-        startIndex = 12;
-        endIndex = 16;
+    } else if (animationType == SBIconAnimationFastPaste) {
 
-        duration = 0.4;
-
-        [NSTimer scheduledTimerWithTimeInterval:duration
-                                         target:self
-                                       selector:@selector(setNormalStatusIcon)
-                                       userInfo:nil
-                                        repeats:NO];
+        currentFrameIconAnimation = 16;
     }
 
-    NSMutableArray *iconImages = [[NSMutableArray alloc] init];
-    for (int i=startIndex; i<=endIndex; i++) {
-        NSString *imagePath = [NSString stringWithFormat:@"statusbar_anim%d", i];
-        [iconImages addObject:[NSImage imageNamed:imagePath]];
+    [self renderIconAnimation];
+}
+
+- (void)renderIconAnimation {
+
+    if(currentIconAnimation == SBIconAnimationNone) {
+
+        return;
     }
 
+    float frameDuration = 0.1;
 
-    CALayer *layer = [CALayer layer];
-    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
-    [animation setCalculationMode:kCAAnimationDiscrete];
-    [animation setDuration:duration];
-    [animation setRepeatCount:HUGE_VALF];
-    [animation setValues:iconImages];
+    currentFrameIconAnimation++;
 
-    [layer setFrame:NSMakeRect(0, 0, 18, 18)];
-    layer.bounds = NSMakeRect(0, 0, 18, 18);
+    if(currentIconAnimation == SBIconAnimationUpload) {
 
-    [layer addAnimation:animation forKey:@"contents"];
+        if(currentFrameIconAnimation > 11) {
 
-    [statusItem setView:nil];
+            currentFrameIconAnimation = 1;
+        }
 
-    NSView *animationView = [[NSView alloc] initWithFrame:CGRectMake(0, 3, 18, 18)];
+    } else if (currentIconAnimation == SBIconAnimationEndUpload) {
 
-    NSView *view = [[NSView alloc] initWithFrame:CGRectMake(0, 0, 22, 21)];
+        if(currentFrameIconAnimation > 16) {
 
-    [view addSubview:animationView];
+            [self stopIconAnimation];
 
-    [animationView setLayer:layer];
+            return;
+        }
 
-    [animationView setWantsLayer:YES];
+    } else if (currentIconAnimation == SBIconAnimationFastPaste) {
 
-    [statusItem setView:view];
+        frameDuration = 0.2;
+
+        if(currentFrameIconAnimation > 17) {
+
+            [self stopIconAnimation];
+
+            return;
+        }
+    }
+
+    [statusItem setImage:[NSImage imageNamed:[NSString stringWithFormat:@"statusbar_anim%d", currentFrameIconAnimation]]];
+
+    [NSTimer scheduledTimerWithTimeInterval:frameDuration
+                                     target:self
+                                   selector:@selector(renderIconAnimation)
+                                   userInfo:nil
+                                    repeats:NO];
+}
+
+- (void)stopIconAnimation {
+
+    currentIconAnimation = SBIconAnimationNone;
+
+    [self setNormalStatusIcon];
 }
 
 - (BOOL)isNewObject:(NSObject *)object {
@@ -309,7 +334,7 @@ typedef enum {
     if ([_oldObject isEqualToData:data]) {
         return NO;
     }
-    
+
     self.oldObject = data;
     return ([self isFirstTime] ? NO : YES );
 }
@@ -335,10 +360,10 @@ typedef enum {
 - (IBAction)didPressClearData:(id)sender {
     return; // TODO: удалено по соглашению с Виталей до полноценной версии десктопной прилаги
     [self disableShotBuf];
-    
+
     DBTable *bufsTbl = [self.store getTable:BUFS_TABLE];
     NSArray *records = [bufsTbl query:nil error:nil];
-    
+
     for (DBRecord *record in records) {
         SBRecord* sbRecord = [SBRecord recordByDBRecord:record];
         if (sbRecord.isImage) {
@@ -349,7 +374,7 @@ typedef enum {
         [sbRecord deleteRecord];
         // TODO: если тип картинка - удалить и файлы из директории приложения
     }
-    
+
     [self enableShotBuf];
 
 }
@@ -376,7 +401,7 @@ typedef enum {
     NSString* plistPath = [@"~/Library/LaunchAgents/com.shotbuf.ShotBuf.plist" stringByExpandingTildeInPath];
     bool plistExist = [[NSFileManager defaultManager] fileExistsAtPath:plistPath];
     if (plistExist) return;
-    
+
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *pathToSourcePlist = [bundle pathForResource:@"com.shotbuf.ShotBuf" ofType:@"plist"];
     NSFileManager *manager = [[NSFileManager alloc] init];
@@ -386,7 +411,7 @@ typedef enum {
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 
     [self setupHockey];
-    
+
     [self checkAndSetupRunAtStartup];
     self.justStarted = YES;
     [self setupDroboxSharedManager];
@@ -394,7 +419,7 @@ typedef enum {
 }
 
 - (void)setupHockey {
-    
+
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"7c721693a4d55d95e14969a4d3015f9b" companyName:@"ShotBuf" delegate:nil];
     [[BITHockeyManager sharedHockeyManager] startManager];
 }
@@ -407,12 +432,12 @@ typedef enum {
 - (void)passWelcomeScenario {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setBool:NO forKey:@"welcomePassed"];
-    
+
     if ([defaults boolForKey:@"welcomePassed"] || self.account) {
         [self setupShotbuf];
         return;
     }
-    
+
     [defaults setBool:YES forKey:@"welcomePassed"];
     [self presentWelcomeWindow];
 }
@@ -422,10 +447,10 @@ typedef enum {
     [self.unlinkDropboxItem setEnabled:NO];
     [self.enableShotBufItem setEnabled:NO];
     [self.clearDataItem setEnabled:NO];
-    
+
     [self.welcomeWindow setLevel:NSModalPanelWindowLevel];
     [self.welcomeWindow makeKeyAndOrderFront:self];
-    
+
     // Make the window visible on all Spaces
     if([self.welcomeWindow respondsToSelector: @selector(setCollectionBehavior:)]) {
         [self.welcomeWindow setCollectionBehavior: NSWindowCollectionBehaviorCanJoinAllSpaces];
@@ -459,7 +484,7 @@ typedef enum {
         [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
         [self.accountManager removeObserver:self];
     }];
-    
+
     [self.store addObserver:self block:^(){
     }];
 
@@ -490,7 +515,7 @@ typedef enum {
                                                       repeats:YES];
     [self setNormalStatusIcon];
     self.shotBufEnabled = YES;
-    
+
     [[DBFilesystem sharedFilesystem] addObserver:self block:^(){
         DBError *error = nil;
         [self.store sync:&error];
@@ -514,7 +539,7 @@ typedef enum {
     if (!self.welcomeWindow.isVisible) {
         [self.welcomeWindow makeKeyAndOrderFront:self];
     }
-    
+
     __weak AppDelegate *weakSelf = self;
     [[DBAccountManager sharedManager]
      linkFromWindow:self.welcomeWindow withCompletionBlock:^(DBAccount *account){
@@ -553,13 +578,13 @@ typedef enum {
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:self.menu];
     [statusItem setHighlightMode:YES];
-    
+
     [self setDisabledStatusIcon];
     [self setAlternativeStatusIcon];
 }
 
 - (void)setAlternativeStatusIcon {
-    NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbaricon_invert"];
+    NSImage* statusIconHighlighted = [NSImage imageNamed:@"statusbar_anim_invert"];
     [statusItem setAlternateImage:statusIconHighlighted];
 }
 
@@ -570,8 +595,6 @@ typedef enum {
 }
 
 - (void)setNormalStatusIcon {
-
-    statusItem.view = nil;
 
     NSImage* statusIcon = [NSImage imageNamed:@"statusbar_stat_blue"];
     [statusItem setImage:statusIcon];
