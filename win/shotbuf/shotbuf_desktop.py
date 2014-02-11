@@ -8,7 +8,7 @@ import tempfile
 from shotbuf_app import ShotBufApp
 from token_provider import TokenProvider
 from dropbox_api import DropboxApi
-import numpy
+import array
 
 ACCESS_TOKEN = ''
 
@@ -160,7 +160,6 @@ def OnPasteButton(event):
 		wx.TheClipboard.Open()
 		bitmap_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_BITMAP))
 		
-		print 'succes: %s' % bitmap_success
 		text_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT))
 		if bitmap_success or text_success:
 
@@ -170,22 +169,18 @@ def OnPasteButton(event):
 			do.Add(bitmap_data_object, True)
 			do.Add(text_data_object, True)
 			success = wx.TheClipboard.GetData(do)
-			print 172
 			if success:
-				print 174
 				format = do.GetReceivedFormat()
 				data_object = do.GetObject(format)
 
 				format_type = format.GetType()
-				print 'format_type', format_type
-				print 'format types values'
-				print 'wx.DF_BITMAP', wx.DF_BITMAP
-				print '[wx.DF_UNICODETEXT, wx.DF_TEXT]', [wx.DF_UNICODETEXT, wx.DF_TEXT]
 
 				if format_type in [wx.DF_DIB, wx.DF_BITMAP]:
 					bitmap = bitmap_data_object.GetBitmap()
 					size = bitmap.GetSize()
-					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
+
+					bpp = 3
+					image_data = array.array('B', [0] * size[0] * size[1] * bpp)
 
 					image = bitmap.ConvertToImage()
 					rgb_bitmap = image.ConvertToBitmap()
