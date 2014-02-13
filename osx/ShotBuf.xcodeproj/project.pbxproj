@@ -326,10 +326,10 @@
 		67C40D4B181566EE005B06DA /* ShotBuf */ = {
 			isa = PBXGroup;
 			children = (
+				67C40D4C181566EE005B06DA /* Supporting Files */,
 				67C40D57181566EE005B06DA /* AppDelegate.h */,
 				67C40D58181566EE005B06DA /* AppDelegate.m */,
 				678B6DFD181608AE00E3F0DA /* MainMenu.xib */,
-				67C40D4C181566EE005B06DA /* Supporting Files */,
 			);
 			name = ShotBuf;
 			path = Tasks;

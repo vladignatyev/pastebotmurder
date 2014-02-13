@@ -39,7 +39,8 @@ typedef enum {
 @property(nonatomic, retain) DBDatastore *store;
 @property(nonatomic, retain) NSTimer *clipboardTimer;
 
-@property(nonatomic, retain) NSData *oldObject;
+@property(nonatomic, retain) NSData *savedData;
+@property(nonatomic, assign) int savedDataType;
 
 @property(nonatomic, assign) BOOL justStarted;
 @property(nonatomic, assign) BOOL shotBufEnabled;
@@ -78,6 +79,8 @@ typedef enum {
 }
 
 - (void)timerHandler {
+    if (![self.account isLinked]) return;
+    
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
     NSArray *classes = [[NSArray alloc]
             initWithObjects:
@@ -86,145 +89,190 @@ typedef enum {
                     nil];
     NSDictionary *options = [NSDictionary dictionary];
     NSArray *copiedItems = [pasteboard readObjectsForClasses:classes options:options];
+    
+    if (copiedItems == nil || [copiedItems count] == 0) return;
+    
+    [self processCopiedItems:copiedItems];
+}
 
-    if (copiedItems != nil && [copiedItems count] > 0 && [self.account isLinked]) {
-        NSObject *obj = [copiedItems objectAtIndex:0];
+- (void) uploadImageWithData:(NSData*) data {
+    NSString *tmpFileName = [self getFileTmpName];
+    
+    DBFilesystem *filesystem = [self fileSystem];
+    DBPath *path = [[DBPath root] childPath:tmpFileName];
+    
+    DBError *error = nil;
+    //            if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
+    // Report error if path look up failed for some other reason than NOT FOUND
+    //                if ([error code] != DBErrorParamsNotFound) {
+    //                    NSLog(@"Error if path look up failed for some other reason than NOT FOUND %@", error);
+    //                }
+    
 
-        if (![self isNewObject:obj]) {
+    
+    
+    
+    if(uploadingImagesCount == 0) {
+        
+        [self createIconAnimation:SBIconAnimationUpload];
+    }
+    
+    uploadingImagesCount++;
+    
+//    [NSTimer scheduledTimerWithTimeInterval:0.2
+//                                     target:self
+//                                   selector:@selector(uploadingImageProcess:)
+//                                   userInfo:file
+//                                    repeats:YES];
+    
+    
+    
+    DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
+    
+    [tasksTbl insert:@{@"value" : tmpFileName,
+                       @"type" : @"image",
+                       @"created" : [NSDate date]}];
+    
+    error = nil;
+    NSDictionary *dictionary = [self.store sync:&error]; //
+    NSLog(@"dictionary %@", dictionary);
+    if (error) {
+        NSLog(@"Error while syncing %@", error);
+    }
+    
+    // Create a new file.
+    DBFile *file = [filesystem createFile:path error:&error];
+    if (!file) {
+        NSLog(@"Error while creating new test file %@", error);
+    }
+    
+    // Write to the new test file.
+    if (![file writeData:data error:&error]) {
+        NSLog(@"Error while writing data into test file %@", error);
+    }
+    
+    [file close];
+
+}
+
+#define IMAGE 100
+#define TEXT 200
+
+
+- (NSData*) getImageDataIfNew:(NSImage*) image {
+    if (self.savedDataType != IMAGE && ![self isFirstTime]) {
+        self.savedDataType = IMAGE;
+        self.savedData = [self getDataFromImage:image];
+        return self.savedData;
+    } else {
+        NSData* newData = [self getDataFromImage:image];
+        if ([newData isEqualToData:self.savedData]) return nil;
+        self.savedData = newData;
+        return newData;
+    }
+    return nil;
+}
+
+- (NSString*) getTitleFromPage:(NSString*) pageContent {
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<title>([^<]+)</title>"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    
+    NSTextCheckingResult *result = [regex firstMatchInString:pageContent options:0 range:NSMakeRange(0, [pageContent length])];
+    
+    if (result && [result numberOfRanges] > 1) {
+        NSString *title = [pageContent substringWithRange:[result rangeAtIndex:1]];
+        return title;
+    }
+    
+    return nil;
+}
+
+- (void) updateBufTitleByURL:(NSString*) url andBuf:(DBRecord*) record {
+
+    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]
+                                       queue:[NSOperationQueue new]
+                           completionHandler:
+     
+     ^(NSURLResponse *response, NSData *data, NSError *error) {
+
+        NSString *responseText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if (!responseText) {
+            return;
+        }
+        NSString* title = [self getTitleFromPage:responseText];
+        if (!title) return;
+         
+        record[@"title"] = title;
+
+        DBError *e = nil;
+        [self.store sync:&e];
+         
+        if (e) {
+            NSLog(@"Error while syncing after title preloading%@", e);
+        }
+   }];
+}
+
+- (NSString*) getStringIfNew:(NSString*) string {
+    NSData* data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    if (self.savedDataType == TEXT && [data isEqualToData:self.savedData]) return nil;
+    self.savedData = data;
+    self.savedDataType = TEXT;
+    return string;
+}
+
+- (void) processCopiedItems:(NSArray *) items {
+    NSObject * obj = [items objectAtIndex:0]; // todo
+
+    if ([obj isKindOfClass:[NSImage class]]) {
+        NSData* data = [self getImageDataIfNew:(NSImage*) obj];
+        
+        if (data == nil) {
+            return;
+        }
+        
+        [self uploadImageWithData:data];
+        
+    } else if ([obj isKindOfClass:[NSString class]]) {
+        NSString *string = [self getStringIfNew:(NSString*)obj];
+        if (!string) {
             return;
         }
 
-        if ([obj isKindOfClass:[NSImage class]]) {
+        if(uploadingImagesCount == 0){
+            [self createIconAnimation:SBIconAnimationFastPaste];
+        }
+        
+        
+        NSString* cleanedString = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        
+        NSString *stringType = @"plain";
+        if ([cleanedString isEmail]) {
+            stringType = @"email";
+        } else if ([cleanedString isSchemeLink]) {
+            stringType = @"scheme";
+        } else if ([cleanedString isWebURL]) {
+            stringType = @"www";
+        }
+        
+        DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
+        __strong DBRecord *buf = [tasksTbl insert:@{@"value" : string,
+                                                    @"type" : stringType,
+                                                    @"created" : [NSDate date]}];
+        DBError *error = nil;
+        NSDictionary* dictionary =[self.store sync:&error];
 
-            NSData *data = [self getDataFromImage:(NSImage *) obj];
-
-            NSString *tmpFileName = [self getFileTmpName];
-
-
-
-//            [data writeToFile:[@"/tmp/" stringByAppendingString:tmpFileName]
-//                   atomically:NO];
-
-            DBFilesystem *filesystem = [self fileSystem];
-            DBPath *path = [[DBPath root] childPath:tmpFileName];
-
-            DBError *error = nil;
-//            if (![filesystem fileInfoForPath:path error:&error]) { // see if path exists
-                // Report error if path look up failed for some other reason than NOT FOUND
-//                if ([error code] != DBErrorParamsNotFound) {
-//                    NSLog(@"Error if path look up failed for some other reason than NOT FOUND %@", error);
-//                }
-
-            // Create a new file.
-            DBFile *file = [filesystem createFile:path error:&error];
-            if (!file) {
-                NSLog(@"Error while creating new test file %@", error);
-            }
-
-            // Write to the new test file.
-            if (![file writeData:data error:&error]) {
-                NSLog(@"Error while writing data into test file %@", error);
-            }
-
-            //[file close];
-
-
-            if(uploadingImagesCount == 0) {
-
-                [self createIconAnimation:SBIconAnimationUpload];
-            }
-
-            uploadingImagesCount++;
-
-            [NSTimer scheduledTimerWithTimeInterval:0.2
-                                             target:self
-                                           selector:@selector(uploadingImageProcess:)
-                                           userInfo:file
-                                            repeats:YES];
-
-
-
-            DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-
-            [tasksTbl insert:@{@"value" : tmpFileName,
-                               @"type" : @"image",
-                               @"created" : [NSDate date]}];
-
-            error = nil;
-            NSDictionary *dictionary = [self.store sync:&error]; //
-            NSLog(@"dictionary %@", dictionary);
-            if (error) {
-                NSLog(@"Error while syncing %@", error);
-            }
-
-        } else if ([obj isKindOfClass:[NSString class]]) {
-
-            if(uploadingImagesCount == 0){
-
-                [self createIconAnimation:SBIconAnimationFastPaste];
-            }
-
-            NSString *string = (NSString *) obj;
-
-            string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-            NSString *stringType = @"plain";
-            if ([string isEmail]) {
-                stringType = @"email";
-            } else if ([string isSchemeLink]) {
-                stringType = @"scheme";
-            } else if ([string isWebURL]) {
-                stringType = @"www";
-            }
-
-            DBTable *tasksTbl = [self.store getTable:BUFS_TABLE];
-            __strong DBRecord *buf = [tasksTbl insert:@{@"value" : string,
-                    @"type" : stringType,
-                    @"created" : [NSDate date]}];
-
-
-            if ([string isWebURL]) {
-
-                [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]
-                                                   queue:[NSOperationQueue new]
-                                       completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-
-                                           NSString *responseText = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
-                                           if (responseText) {
-
-                                               NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<title>([^<]+)</title>"
-                                                                                                                      options:NSRegularExpressionCaseInsensitive
-                                                                                                                        error:&error];
-
-                                               NSTextCheckingResult *result = [regex firstMatchInString:responseText options:0 range:NSMakeRange(0, [responseText length])];
-
-                                               if (result && [result numberOfRanges] > 1) {
-
-                                                   NSString *title = [responseText substringWithRange:[result rangeAtIndex:1]];
-
-                                                   buf[@"title"] = title;
-
-                                                   DBError *error = nil;
-                                                   [self.store sync:&error];
-                                                   if (error) {
-                                                       NSLog(@"Error while syncing after title preloading%@", error);
-                                                   }
-
-                                               }
-                                           }
-                                       }];
-            }
-
-            DBError *error = nil;
-            NSDictionary* dictionary =[self.store sync:&error];
-            NSLog(@"dictionary %@", dictionary);
-            if (error) {
-                NSLog(@"Error while syncing %@", error);
-            }
-
+        if (error) {
+            NSLog(@"Error while syncing %@", error);
+        }
+        
+        if ([string isWebURL]) {
+            [self updateBufTitleByURL:string andBuf:buf];
         }
     }
+
 }
 
 - (void)uploadingImageProcess:(NSTimer *)timer {
@@ -307,11 +355,11 @@ typedef enum {
 
     [statusItem setImage:[NSImage imageNamed:[NSString stringWithFormat:@"statusbar_anim%d", currentFrameIconAnimation]]];
 
-    [NSTimer scheduledTimerWithTimeInterval:frameDuration
-                                     target:self
-                                   selector:@selector(renderIconAnimation)
-                                   userInfo:nil
-                                    repeats:NO];
+//    [NSTimer scheduledTimerWithTimeInterval:frameDuration
+//                                     target:self
+//                                   selector:@selector(renderIconAnimation)
+//                                   userInfo:nil
+//                                    repeats:NO];
 }
 
 - (void)stopIconAnimation {
@@ -319,24 +367,6 @@ typedef enum {
     currentIconAnimation = SBIconAnimationNone;
 
     [self setNormalStatusIcon];
-}
-
-- (BOOL)isNewObject:(NSObject *)object {
-    NSData *data;
-    if ([object isKindOfClass:[NSImage class]]) {
-        NSImage *img = (NSImage *) object;
-        data = [img TIFFRepresentation];
-    } else if ([object isKindOfClass:[NSString class]]) {
-        NSString *string = (NSString *) object;
-        data = [string dataUsingEncoding:NSUTF8StringEncoding];
-    }
-
-    if ([_oldObject isEqualToData:data]) {
-        return NO;
-    }
-
-    self.oldObject = data;
-    return ([self isFirstTime] ? NO : YES );
 }
 
 #pragma mark - target-actions
@@ -389,13 +419,6 @@ typedef enum {
 }
 
 #pragma mark - lifecycle
-
-//void MyLog(NSString* formattedString)
-//{
-//    NSFileHandle *myHandle = [NSFileHandle fileHandleForWritingAtPath:@"/tmp/shotbuflog.txt"];
-//    [myHandle seekToEndOfFile];
-//    [myHandle writeData:[formattedString dataUsingEncoding:NSUTF8StringEncoding]];
-//}
 
 - (void)checkAndSetupRunAtStartup {
     NSString* plistPath = [@"~/Library/LaunchAgents/com.shotbuf.ShotBuf.plist" stringByExpandingTildeInPath];
@@ -479,6 +502,7 @@ typedef enum {
         [self tearDownShotBuf];
         return;
     }
+    
     __weak AppDelegate* weakSelf = self;
     [self.accountManager addObserver:self block:^(DBAccount *account) {
         [weakSelf tearDownShotBuf]; // https://www.dropbox.com/developers/sync/docs/osx#DBAccountManager
@@ -550,6 +574,7 @@ typedef enum {
 
 - (void) unlinkAccount {
     [[[DBAccountManager sharedManager] linkedAccount] unlink];
+    [DBFilesystem setSharedFilesystem:nil];
     [self tearDownShotBuf];
 }
 
