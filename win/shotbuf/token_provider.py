@@ -1,9 +1,10 @@
-import shelve
 import os.path
+import util
 
-STORAGE_PATH = 'storage.txt'
+from util import resource_path
 
-ACCESS_TOKEN_KEY = 'access_token'
+STORAGE_PATH = resource_path('storage.txt')
+
 class TokenProvider(object):
 
 	def get_access_token(self):
@@ -11,23 +12,25 @@ class TokenProvider(object):
 			print 'Not file'
 			return None
 
+		f = open(STORAGE_PATH, 'r')
 
-		d = shelve.open(STORAGE_PATH)
+		result = f.readline().strip()
 
-		result = d.get(ACCESS_TOKEN_KEY, None)
-
-		d.close()
+		f.close()
 
 		return result
-		
+
 	def set_access_token(self, token):
-		d = shelve.open(STORAGE_PATH)
-		d[ACCESS_TOKEN_KEY] = token
+		print 'Token set ', type(token), token
+		f = open(STORAGE_PATH, 'w')
 
-		d.close()
+		f.write(token)
 
-	def remove_token(self):
-		d = shelve.open(STORAGE_PATH)
-		del d[ACCESS_TOKEN_KEY]
-		d.close()
-	
+		f.close()
+
+	def remove_token_storage(self):
+		if os.path.isfile(STORAGE_PATH):
+			os.remove(STORAGE_PATH)
+
+	def storage_path(self):
+		return resource_path(STORAGE_PATH)

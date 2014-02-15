@@ -10,7 +10,11 @@ import tempfile
 from shotbuf_app import ShotBufApp
 from token_provider import TokenProvider
 from dropbox_api import DropboxApi
+from util import resource_path
 import array
+import numpy
+
+from wx.lib.delayedresult import startWorker
 
 ACCESS_TOKEN = ''
 
@@ -27,7 +31,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		super(CustomTaskBarIcon, self).__init__()
 
 		#Setup
-		icon = wx.Icon("statusbaricon.png", wx.BITMAP_TYPE_PNG)
+		icon = wx.Icon(resource_path("statusbaricon.png"), wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
 		self.isEnabled = False
 
@@ -145,11 +149,14 @@ class WebViewDialog(wx.Dialog):
 			self.parent.Hide()
 			self.Destroy()
 			
-			self.shotBufApp.did_finish_auth(auth_code)
-			enable_shotbuf()
+			startWorker(did_login, self.shotBufApp.did_finish_auth(auth_code))
+			
 
 		else:
 			print 'Fail'
+
+def did_login(result):
+	enable_shotbuf()
 	
 def disable_shotbuf():
 	print 'time stop'
@@ -161,7 +168,14 @@ def enable_shotbuf():
 	shotBufApp.enable()
 
 	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
-	timer.Start(100)
+	timer.Start(1000)
+
+def upload_finish(result):
+	print 'result finish', result.get()
+
+def upload_file(filename):
+	shotBufApp.paste_file(filename)
+	return filename
 
 def OnPasteButton(event):
 	if not wx.TheClipboard.IsOpened():
@@ -188,7 +202,7 @@ def OnPasteButton(event):
 					size = bitmap.GetSize()
 
 					bpp = 3
-					image_data = array.array('B', [0] * size[0] * size[1] * bpp)
+					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
 
 					image = bitmap.ConvertToImage()
 					rgb_bitmap = image.ConvertToBitmap()
@@ -201,10 +215,12 @@ def OnPasteButton(event):
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)
 						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
 
+						# startWorker(upload_finish, upload_file, wkwargs = {'filename':fileTemp.name})
 						shotBufApp.paste_file(fileTemp.name)
 
 				elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 					text = text_data_object.GetText()
+					print 'text', text
 					shotBufApp.paste_text_if_new(text)
 					
 				
@@ -219,7 +235,13 @@ shotBufApp = ShotBufApp(dropboxApi, tokenProvider)
 
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 
-logging.basicConfig(filename='shotbuf.log',level=logging.DEBUG)
+logging.basicConfig(filename='/Users/nep/shotbuf.log',level=logging.DEBUG)
+
+logging.info('asdasdasd')
+stor = resource_path('storage.txt')
+cert = resource_path('trusted-certs.crt')
+logging.info(stor)
+logging.info(cert)
 
 def my_handler(type, value, tb):
     logging.exception("Uncaught exception: {0}".format(str(value)))

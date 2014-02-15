@@ -3,6 +3,8 @@ from validate_email import validate_email
 
 from urlparse import urlparse
 
+import numpy
+
 PLAIN_TYPE = 'plain'
 EMAIL_TYPE = 'email'
 WEB_URL_TYPE = 'www'
@@ -81,7 +83,7 @@ class ShotBufApp(object):
 		def setDataFunc(image_data):
 			self.lastImageData = image_data
 		def compareImageFunc(image_data):
-			return not self.lastImageData == image_data
+			return not numpy.array_equal(self.lastImageData, image_data)
 
 		return self.set_data_if_new(image_data, setDataFunc, compareImageFunc)
 

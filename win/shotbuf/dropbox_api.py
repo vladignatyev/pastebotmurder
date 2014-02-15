@@ -3,6 +3,7 @@ from dropbox.datastore import DatastoreError, DatastoreManager, Date, Bytes
 from datetime import datetime
 from dropbox import rest as dbrest
 from dropbox.client import DropboxOAuth2FlowNoRedirect
+from util import resource_path
 
 APP_KEY = '84zxlqvsmm2py5y'
 APP_SECRET = 'u5sva6uz22bvuyy'
