@@ -22,7 +22,8 @@
             <sparkle:releaseNotesLink>
               http://shotbuf.com/app/1.2.0.html
             </sparkle:releaseNotesLink>
-           <pubDate></pubDate>
+
+           <pubDate>Fri, 7 Feb 2014 10:31:28 +0000</pubDate>
            <enclosure url="http://shotbuf.com/app/ShotBuf 1.2.0.dmg" sparkle:version="120" sparkle:shortVersionString="1.2.0" sparkle:dsaSignature="MCwCFDIHV0wrGpDwnvJku6b2Y4Dn5JeMAhQcrZkA1LV0MSYzeVWL4eRaWUE5sg==" length="1938151" type="application/octet-stream" />
         </item>
 				<item>

@@ -1,6 +1,8 @@
 #!/usr/bin/env python	
 import wx
 import wx.html2
+import sys
+import logging
 from wx.webkit import WebKitCtrl
 
 from time import time
@@ -8,7 +10,7 @@ import tempfile
 from shotbuf_app import ShotBufApp
 from token_provider import TokenProvider
 from dropbox_api import DropboxApi
-import numpy
+import array
 
 ACCESS_TOKEN = ''
 
@@ -51,7 +53,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 		self.menu.AppendSeparator()
 		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
-		self.menu.Append(wx.ID_CLOSE, "Quit ShotBuf")
+		self.menu.Append(wx.ID_EXIT, "Quit ShotBuf")
 		return self.menu
 
 	def OnMenu(self, event):
@@ -66,6 +68,10 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 			shotBufApp.unlink_dropbox()
 			frame.ShowAsTopWindow()
 			disable_shotbuf()
+		elif evt_id == wx.ID_EXIT:
+			disable_shotbuf()
+			print 'Quit'
+			app.ExitMainLoop()
 		# 	wx.MessageBox("Hello World!", "Hello")
 		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
 		# 	wx.MessageBox("Hi Again!", "Hi!")
@@ -101,6 +107,7 @@ class ShotBufFrame(wx.Frame):
 
 	def ShowAsTopWindow(self):
 		self.SetWindowStyle(self.style | wx.STAY_ON_TOP)
+		self.Center()
 		self.Show(True)
 	
 
@@ -113,9 +120,10 @@ class WebViewDialog(wx.Dialog):
 		self.browser = wx.html2.WebView.New(self)
 		sizer.Add(self.browser, 1, wx.EXPAND, 10)
 		self.SetSizer(sizer)
-		self.SetSize((700, 700))
+		self.SetSize((1024, 768))
 		self.Bind(wx.html2.EVT_WEBVIEW_LOADED, self.OnNavigated, self.browser)
 
+		self.Center()
 		self.SetTitle('Dropbox authorization')
 
 	def OnNavigated(self, event):
@@ -160,7 +168,6 @@ def OnPasteButton(event):
 		wx.TheClipboard.Open()
 		bitmap_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_BITMAP))
 		
-		print 'succes: %s' % bitmap_success
 		text_success = wx.TheClipboard.IsSupported(wx.DataFormat(wx.DF_TEXT))
 		if bitmap_success or text_success:
 
@@ -170,24 +177,24 @@ def OnPasteButton(event):
 			do.Add(bitmap_data_object, True)
 			do.Add(text_data_object, True)
 			success = wx.TheClipboard.GetData(do)
-			print 172
 			if success:
-				print 174
 				format = do.GetReceivedFormat()
 				data_object = do.GetObject(format)
 
 				format_type = format.GetType()
-				print 'format_type', format_type
-				print 'format types values'
-				print 'wx.DF_BITMAP', wx.DF_BITMAP
-				print '[wx.DF_UNICODETEXT, wx.DF_TEXT]', [wx.DF_UNICODETEXT, wx.DF_TEXT]
 
 				if format_type in [wx.DF_DIB, wx.DF_BITMAP]:
 					bitmap = bitmap_data_object.GetBitmap()
 					size = bitmap.GetSize()
-					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
-					bitmap.CopyToBuffer(image_data)
+
+					bpp = 3
+					image_data = array.array('B', [0] * size[0] * size[1] * bpp)
+
+					image = bitmap.ConvertToImage()
+					rgb_bitmap = image.ConvertToBitmap()
+					rgb_bitmap.CopyToBuffer(image_data)
 				
+
 					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
 
@@ -212,7 +219,13 @@ shotBufApp = ShotBufApp(dropboxApi, tokenProvider)
 
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 
+logging.basicConfig(filename='shotbuf.log',level=logging.DEBUG)
 
+def my_handler(type, value, tb):
+    logging.exception("Uncaught exception: {0}".format(str(value)))
+
+# Install exception handler
+sys.excepthook = my_handler
 
 def main():
 	
@@ -222,7 +235,7 @@ def main():
 	tbiicon.parent = frame
 	
 	if not shotBufApp.is_logined():
-		frame.Show(True)
+		frame.ShowAsTopWindow()
 	else:
 		shotBufApp.did_login()
 		enable_shotbuf()

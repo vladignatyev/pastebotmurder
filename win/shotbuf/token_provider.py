@@ -1,8 +1,9 @@
-import sqlite3
+import shelve
 import os.path
 
 STORAGE_PATH = 'storage.txt'
 
+ACCESS_TOKEN_KEY = 'access_token'
 class TokenProvider(object):
 
 	def get_access_token(self):
@@ -10,23 +11,23 @@ class TokenProvider(object):
 			print 'Not file'
 			return None
 
-		f = open(STORAGE_PATH, 'r')
 
-		result = f.readline().strip()
+		d = shelve.open(STORAGE_PATH)
 
-		f.close()
+		result = d.get(ACCESS_TOKEN_KEY, None)
+
+		d.close()
 
 		return result
 		
 	def set_access_token(self, token):
-		print 'Token set ', type(token), token
-		f = open(STORAGE_PATH, 'w')
+		d = shelve.open(STORAGE_PATH)
+		d[ACCESS_TOKEN_KEY] = token
 
-		f.write(token)
+		d.close()
 
-		f.close()
-
-	def remove_token_storage(self):
-		if os.path.isfile(STORAGE_PATH):
-			os.remove(STORAGE_PATH)
+	def remove_token(self):
+		d = shelve.open(STORAGE_PATH)
+		del d[ACCESS_TOKEN_KEY]
+		d.close()
 	

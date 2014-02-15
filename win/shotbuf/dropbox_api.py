@@ -57,6 +57,8 @@ class DropboxApi(object):
 
 		upload_file_name = 'Shot at %s.png' % dt.strftime("%d.%m.%y %H:%M:%S")
 
+		self.datastore.transaction(insert_record, max_tries=4)
+
 		response = self.client.put_file(upload_file_name, f)
 		
-		self.datastore.transaction(insert_record, max_tries=4)
+		
