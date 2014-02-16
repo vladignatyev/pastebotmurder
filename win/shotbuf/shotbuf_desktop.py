@@ -135,8 +135,28 @@ class ShotBufFrame(wx.Frame):
 		wx.Frame.__init__(self, parent, -1, title, size=(410,290), style = self.style | wx.STAY_ON_TOP)
 
 		self.panel = wx.Panel(self)
-		button = wx.Button(self.panel, label="Connect now", pos=(130,200), size=(140,50))
+		width, height = self.GetSize()
+		print 'width, height', width, height
+		
 
+		backgroundImg = wx.Image('welcome.png', wx.BITMAP_TYPE_ANY)
+		backgroundImg.Resize((width,height), pos=(width/4-30,height/4-25), r=255, g=255, b=255)
+
+
+
+		scaledImg = backgroundImg.Scale(width, height, wx.IMAGE_QUALITY_HIGH)
+		print 'scaled', scaledImg
+		backgroundBitmap = wx.StaticBitmap(self.panel, -1, wx.BitmapFromImage(backgroundImg))
+
+		dropboxImg = wx.Image('dropbox@2x.png', wx.BITMAP_TYPE_ANY)
+		dropboxImg.Rescale(120, 36, wx.IMAGE_QUALITY_HIGH)
+		dropboxBitmap = wx.StaticBitmap(backgroundBitmap, -1, wx.BitmapFromImage(dropboxImg), pos=(285, 210))
+
+		connectText = wx.StaticText(backgroundBitmap, -1, 'Connect to your Dropbox account', size=(20, 279), pos=(66, 25)) 
+		font = wx.Font(16, wx.FONTFAMILY_DEFAULT, wx.NORMAL,wx.FONTWEIGHT_BOLD)
+		connectText.SetFont(font)
+
+		button = wx.Button(backgroundBitmap, label="Connect now", pos=(130,185), size=(140,80))
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
 
 	
