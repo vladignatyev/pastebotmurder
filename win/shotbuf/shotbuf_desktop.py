@@ -24,6 +24,26 @@ from wx.lib.delayedresult import startWorker
 
 ACCESS_TOKEN = ''
 
+def check_if_new_version_is_available():
+	result = updateChecker.is_newest_version_available()
+	if updateChecker.is_newest_version_available():
+		print 'asd'
+		message = 'You are currently running version %s, version %s is now available for download.\n\nDo you wish to install it now?'
+		message = message % (update_checker.CURRENT_VERSION, updateChecker.get_newest_version())
+		print message
+		dlg = wx.MessageDialog(frame, message, 'A new version of Shotbuf is available.', wx.YES_NO | wx.YES_DEFAULT | wx.ICON_QUESTION)
+		# dlg.SetIcon('distributive.icns')
+		retCode = dlg.ShowModal()
+		if (retCode == wx.ID_YES):
+			print "yes"
+			webbrowser.open('http://shotbuf.com/d')
+			# dlg.ShowModal()
+			dlg.Destroy()
+			print 'after'
+	return result
+
+
+
 class CustomTaskBarIcon(wx.TaskBarIcon):
 	ID_ENABLE_SHOTBUF = wx.NewId()
 	ID_DISABLE_SHOTBUF = wx.NewId()
@@ -79,25 +99,9 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 			disable_shotbuf()
 		elif evt_id == CustomTaskBarIcon.ID_CHECK_UPDATES:
 			print 'Check updates'
-			if updateChecker.is_newest_version_available():
-				print 'asd'
-				message = 'You are currently running version %s, version %s is now available for download.\n\nDo you wish to install it now?'
-				message = message % (update_checker.CURRENT_VERSION, updateChecker.get_newest_version())
-				print message
-				dlg = wx.MessageDialog(frame, message, 'A new version of Shotbuf is available.', wx.YES_NO | wx.YES_DEFAULT | wx.ICON_QUESTION)
-				# dlg.SetIcon('distributive.icns')
-				retCode = dlg.ShowModal()
-				if (retCode == wx.ID_YES):
-					print "yes"
-					webbrowser.open('http://shotbuf.com/d')
-				# dlg.ShowModal()
-				dlg.Destroy()
-				print 'after'
-			else:
+			if not check_if_new_version_is_available():
 				message = 'ShotBuf %s is currently the newest version available.' % update_checker.CURRENT_VERSION
 				dlg = wx.MessageDialog(frame, message, "You're up to date!", wx.OK | wx.ICON_INFORMATION | wx.STAY_ON_TOP)
-				# dlg.CreateButtonSizer(wx.OK)
-				# dlg.SetIcon('distributive.icns')
 				dlg = dlg.ShowModal()
 				
 			# dlg.ShowModal()
@@ -123,21 +127,6 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		# 	self.Destroy()
 		# else:
 		event.Skip()
-
-class UpdateCheckerFrame(wx.Frame):
-	def __init__(self, parent, id, title):
-		self.shotBufApp = shotBufApp
-		self.style = wx.DEFAULT_FRAME_STYLE 
-		wx.Frame.__init__(self, parent, -1, title, size=(600,500), style = self.style | wx.STAY_ON_TOP)
-
-		self.panel = wx.Panel(self)
-		newVersionText = wx.StaticText(self, -1, 'A new version of Shotbuf is available.', (60,15))
-		informationText = wx.StaticText(self, -1, 'You are currently running version 0.0.1, version 0.1.0 is now available for download.', (60,55))
-
-	def ShowAsTopWindow(self):
-		self.SetWindowStyle(self.style | wx.STAY_ON_TOP)
-		self.Center()
-		self.Show(True)
 
 class ShotBufFrame(wx.Frame):
 	def __init__(self, parent, id, title, shotBufApp):
@@ -290,7 +279,6 @@ appcastReader = AppCastParser("http://shotbuf.com/exe/appcast64.xml")
 updateChecker = UpdateChecker(appcastReader)
 
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
-updateCheckerFrame = UpdateCheckerFrame(None, -1, 'Software Update')
 
 logging.basicConfig(filename='/Users/nep/shotbuf.log',level=logging.DEBUG)
 
@@ -317,6 +305,7 @@ def main():
 		frame.ShowAsTopWindow()
 	else:
 		shotBufApp.did_login()
+		check_if_new_version_is_available()
 		enable_shotbuf()
 	app.MainLoop()
 	print 'Start'
