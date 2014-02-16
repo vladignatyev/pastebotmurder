@@ -4,6 +4,7 @@ import wx.html2
 import sys
 import logging
 from wx.webkit import WebKitCtrl
+import wx.html
 
 from time import time
 import tempfile
@@ -11,13 +12,17 @@ from shotbuf_app import ShotBufApp
 from token_provider import TokenProvider
 from dropbox_api import DropboxApi
 from util import resource_path
+from update_checker import UpdateChecker
+import update_checker
+from appcast_parser import AppCastParser
 import array
 import numpy
+import webbrowser
+import wx.lib.agw.genericmessagedialog as GMD
 
 from wx.lib.delayedresult import startWorker
 
 ACCESS_TOKEN = ''
-
 
 class CustomTaskBarIcon(wx.TaskBarIcon):
 	ID_ENABLE_SHOTBUF = wx.NewId()
@@ -72,10 +77,44 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 			shotBufApp.unlink_dropbox()
 			frame.ShowAsTopWindow()
 			disable_shotbuf()
-		elif evt_id == wx.ID_EXIT:
-			disable_shotbuf()
-			print 'Quit'
-			app.ExitMainLoop()
+		elif evt_id == CustomTaskBarIcon.ID_CHECK_UPDATES:
+			print 'Check updates'
+			if updateChecker.is_newest_version_available():
+				print 'asd'
+				message = 'You are currently running version %s, version %s is now available for download.\n\nDo you wish to install it now?'
+				message = message % (update_checker.CURRENT_VERSION, updateChecker.get_newest_version())
+				print message
+				dlg = wx.MessageDialog(frame, message, 'A new version of Shotbuf is available.', wx.YES_NO | wx.YES_DEFAULT | wx.ICON_QUESTION)
+				# dlg.SetIcon('distributive.icns')
+				retCode = dlg.ShowModal()
+				if (retCode == wx.ID_YES):
+					print "yes"
+					webbrowser.open('http://shotbuf.com/d')
+				# dlg.ShowModal()
+				dlg.Destroy()
+				print 'after'
+			else:
+				message = 'ShotBuf %s is currently the newest version available.' % update_checker.CURRENT_VERSION
+				dlg = wx.MessageDialog(frame, message, "You're up to date!", wx.OK | wx.ICON_INFORMATION | wx.STAY_ON_TOP)
+				# dlg.CreateButtonSizer(wx.OK)
+				# dlg.SetIcon('distributive.icns')
+				dlg = dlg.ShowModal()
+				
+			# dlg.ShowModal()
+				print 'After modal'
+			# dlg.Destroy()
+			# dialog = MyDialog(self, -1)
+			# print 'dialog', dialog
+			# dialog.Show()
+			# # if not updateChecker.is_newest_version_available():
+			# updateChecker.is_newest_version_available()
+			# updateCheckerFrame.ShowAsTopWindow()
+        	# dlg.Destroy()
+        	# else:
+   #      elif evt_id == wx.ID_EXIT:
+			# disable_shotbuf()
+			# print 'Quit'
+			# app.ExitMainLoop()
 		# 	wx.MessageBox("Hello World!", "Hello")
 		# elif evt_id == CustomTaskBarIcon.ID_HELLO2:
 		# 	wx.MessageBox("Hi Again!", "Hi!")
@@ -84,6 +123,21 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		# 	self.Destroy()
 		# else:
 		event.Skip()
+
+class UpdateCheckerFrame(wx.Frame):
+	def __init__(self, parent, id, title):
+		self.shotBufApp = shotBufApp
+		self.style = wx.DEFAULT_FRAME_STYLE 
+		wx.Frame.__init__(self, parent, -1, title, size=(600,500), style = self.style | wx.STAY_ON_TOP)
+
+		self.panel = wx.Panel(self)
+		newVersionText = wx.StaticText(self, -1, 'A new version of Shotbuf is available.', (60,15))
+		informationText = wx.StaticText(self, -1, 'You are currently running version 0.0.1, version 0.1.0 is now available for download.', (60,55))
+
+	def ShowAsTopWindow(self):
+		self.SetWindowStyle(self.style | wx.STAY_ON_TOP)
+		self.Center()
+		self.Show(True)
 
 class ShotBufFrame(wx.Frame):
 	def __init__(self, parent, id, title, shotBufApp):
@@ -114,7 +168,6 @@ class ShotBufFrame(wx.Frame):
 		self.Center()
 		self.Show(True)
 	
-
 
 
 class WebViewDialog(wx.Dialog):
@@ -220,7 +273,7 @@ def OnPasteButton(event):
 
 				elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 					text = text_data_object.GetText()
-					print 'text', text
+					# print 'text', text
 					shotBufApp.paste_text_if_new(text)
 					
 				
@@ -233,7 +286,11 @@ tokenProvider = TokenProvider()
 
 shotBufApp = ShotBufApp(dropboxApi, tokenProvider)
 
+appcastReader = AppCastParser("http://shotbuf.com/exe/appcast64.xml")
+updateChecker = UpdateChecker(appcastReader)
+
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
+updateCheckerFrame = UpdateCheckerFrame(None, -1, 'Software Update')
 
 logging.basicConfig(filename='/Users/nep/shotbuf.log',level=logging.DEBUG)
 
@@ -247,7 +304,7 @@ def my_handler(type, value, tb):
     logging.exception("Uncaught exception: {0}".format(str(value)))
 
 # Install exception handler
-sys.excepthook = my_handler
+# sys.excepthook = my_handler
 
 def main():
 	
