@@ -89,11 +89,11 @@ class ShotBufApp(object):
 
 
 	def set_data_if_new(self, data, setDataFunc, compareFunc):
-		if self.isFirstPaste:
-			setDataFunc(data)
-			self.isFirstPaste = False
-			return False
-		isNewData = compareFunc(data)
+		# if self.isFirstPaste:
+		# 	setDataFunc(data)
+		# 	self.isFirstPaste = False
+		# 	return False
+		# isNewData = compareFunc(data)
 		if isNewData: 
 			setDataFunc(data)	
 		return isNewData
