@@ -56,27 +56,11 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 	def __init__(self):
 		super(CustomTaskBarIcon, self).__init__()
 
-		#Setup
-		self.ChangeDisableIcon()
 		self.isEnabled = False
 
 		self.Bind(wx.EVT_MENU, self.OnMenu)
-
-	def ChangeEnableIcon(self):
-		# icon = wx.Icon(resource_path("trayicon_uploading.ico"), wx.BITMAP_TYPE_ICO)
-
-		icon = wx.Icon(resource_path("trayicon_active.ico"), wx.BITMAP_TYPE_ICO)
+		icon = wx.Icon(resource_path("statusbaricon.png"), wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
-
-	def ChangeDisableIcon(self):
-		icon = wx.Icon(resource_path("trayicon_inactive.ico"), wx.BITMAP_TYPE_ICO)
-		self.SetIcon(icon)
-
-	def ChangePasteIcon(self):
-		print 'change icon paste'
-		icon = wx.Icon(resource_path("trayicon_uploading.ico"), wx.BITMAP_TYPE_ICO)
-		self.SetIcon(icon)
-
 
 	def CreatePopupMenu(self):
 		self.menu = wx.Menu()
@@ -237,26 +221,15 @@ def did_login(result):
 	enable_shotbuf()
 	
 def disable_shotbuf():
-	tbiicon.ChangeDisableIcon()
-	print 'time stop'
 	timer.Stop()
 	frame.Unbind(wx.EVT_TIMER)
 
 def enable_shotbuf():
-	tbiicon.ChangeEnableIcon()
-	print 'enable shotbuf'
 	shotBufApp.enable()
 
 
 	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
 	timer.Start(1000)
-
-def paste_info():
-	print 'paste icon'
-	tbiicon.ChangePasteIcon()
-
-def stop_paste_info():
-	tbiicon.ChangeEnableIcon()
 
 def upload_finish(result):
 	print 'result finish', result.get()
@@ -299,21 +272,15 @@ def OnPasteButton(event):
 
 					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
-						print ''
-						paste_info()
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)
 						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
 
-						# startWorker(upload_finish, upload_file, wkwargs = {'filename':fileTemp.name})
 						shotBufApp.paste_file(fileTemp.name)
-						# stop_paste_info()
 
 				elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
 					paste_info()
 					text = text_data_object.GetText()
-					# print 'text', text
 					shotBufApp.paste_text_if_new(text)
-					# stop_paste_info()
 					
 				
 		wx.TheClipboard.Close()
@@ -333,7 +300,7 @@ frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 tbiicon = CustomTaskBarIcon()
 tbiicon.parent = frame
 
-logging.basicConfig(filename='/Users/nep/shotbuf.log',level=logging.DEBUG)
+logging.basicConfig(filename='C:\shotbuf.log',level=logging.DEBUG)
 
 logging.info('asdasdasd')
 stor = resource_path('storage.txt')
