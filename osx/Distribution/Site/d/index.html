@@ -26,6 +26,8 @@
   ga('send', 'pageview');
 
 </script>
+
+<iframe width="1" height="1" frameborder="0" src="" id="hiddenDownloader"></iframe>
 	  <div class="pagewrap">
 	    <div class="container">
 		    <div class="row bottom-hr">
@@ -38,12 +40,13 @@
 		    			<p class="bigger">Press button to start downloading desktop client for your Mac or PC</p>
 		    		</div>
 		    		<div class="row top15">
-		    			<div class="col-md-6 no-left-offset"><a href="/app/ShotBuf 1.2.0.dmg" class="download mac selected">Download for Mac</a></div>
-		    			<div class="col-md-6"><a href="javascript:alert('PC version is coming soon!');" class="download pc">Download for PC</a></div>
+		    			<div class="col-md-6 no-left-offset"><a rel="downloadMacBlock" id="downloadMac" href="/app/ShotBuf 1.2.0.dmg" class="download mac selected">Download for Mac</a></div>
+		    			<div class="col-md-6"><a rel="downloadPCBlock" id="downloadPC" href="/exe/ShotBuf 1.2.0.exe" class="download pc">Download for PC</a></div>
 		    		</div>
 		    	</div>
 		    </div>
-		    <div class="row bottom-hr-gray top15 screenshots">
+
+		    <div id="downloadMacBlock" class="row bottom-hr-gray top15 screenshots">
 		    	<div class="col-md-3">
 		    		<img class="screenshot" src="/img/d/screenshot-download.png" />
 		    		<h4>1. Download ShotBuf</h4>
@@ -61,6 +64,29 @@
 		    	</div>
 		    	<div class="col-md-3">
 		    		<img class="screenshot" src="/img/d/screenshot-welcome.png" />
+		    		<h4>4. You're good to go!</h4>
+		    		<p>Connect to your Dropbox account and copy-paste as usual.</p>
+		    	</div>
+		    </div>
+
+		    <div id="downloadPCBlock" style="display:none;" class="row bottom-hr-gray top15 screenshots">
+		    	<div class="col-md-3">
+		    		<img class="screenshot" src="/img/d/win-screenshot-download.png" />
+		    		<h4>1. Download ShotBuf</h4>
+		    		<p>Click "Download for PC" button if download wasn't started automatically.</p>
+		    	</div>
+		    	<div class="col-md-3">
+		    		<img class="screenshot" src="/img/d/win-screenshot-drag.png" />
+		    		<h4>2. Pass ShotBuf installation process</h4>
+		    		<p>Open downloaded .exe installation file and pass standard installation process.</p>
+		    	</div>
+		    	<div class="col-md-3">
+		    		<img class="screenshot" src="/img/d/win-screenshot-taskbar.png" />
+		    		<h4>3. Run ShotBuf</h4>
+		    		<p>Open ShotBuf from the "Start" menu</p>
+		    	</div>
+		    	<div class="col-md-3">
+		    		<img class="screenshot" src="/img/d/win-screenshot-welcome.png" />
 		    		<h4>4. You're good to go!</h4>
 		    		<p>Connect to your Dropbox account and copy-paste as usual.</p>
 		    	</div>
@@ -106,5 +132,38 @@
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+	    if (navigator.userAgent.indexOf('Windows') >= 0) {
+	    	$('#downloadMacBlock').hide();	
+	    	$('#downloadPCBlock').show();
+	    	// window.location.href = $('#downloadPC').attr('href');
+	    } else {
+	    	$('#downloadMacBlock').show();	
+	    	$('#downloadPCBlock').hide();	
+	    	// window.location.href = $('#downloadMac').attr('href');
+	    }
+    
+
+
+    	$('#downloadMac').mouseenter(function(){
+    		$('#downloadMac').addClass('selected');
+    		$('#downloadPC').removeClass('selected');
+
+    		$('#downloadMacBlock').show();
+    		$('#downloadPCBlock').hide();
+    	});
+    	$('#downloadPC').mouseenter(function(){
+    		$('#downloadMac').removeClass('selected');
+    		$('#downloadPC').addClass('selected');
+    		
+    		$('#downloadPCBlock').show();
+    		$('#downloadMacBlock').hide();
+    	});
+    });
+    </script>
   </body>
 </html>
