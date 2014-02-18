@@ -27,7 +27,7 @@
 
 </script>
 
-<iframe width="1" height="1" frameborder="0" src="" id="hiddenDownloader"></iframe>
+
 	  <div class="pagewrap">
 	    <div class="container">
 		    <div class="row bottom-hr">
@@ -40,8 +40,8 @@
 		    			<p class="bigger">Press button to start downloading desktop client for your Mac or PC</p>
 		    		</div>
 		    		<div class="row top15">
-		    			<div class="col-md-6 no-left-offset"><a rel="downloadMacBlock" id="downloadMac" href="/app/ShotBuf 1.2.0.dmg" class="download mac selected">Download for Mac</a></div>
-		    			<div class="col-md-6"><a rel="downloadPCBlock" id="downloadPC" href="/exe/ShotBuf 1.2.0.exe" class="download pc">Download for PC</a></div>
+		    			<div class="col-md-6 no-left-offset"><a rel="downloadMacBlock" target="_blank" id="downloadMac" href="/app/ShotBuf 1.2.0.dmg" class="download mac selected">Download for Mac</a></div>
+		    			<div class="col-md-6"><a rel="downloadPCBlock" target="_blank" id="downloadPC" href="/exe/ShotBuf 1.2.0 32-bit.exe" class="download pc">Download for PC</a></div>
 		    		</div>
 		    	</div>
 		    </div>
@@ -101,16 +101,16 @@
 		    	</div>
 		    	<div class="col-xs-2">
 		    		<ul class="menu">
-		    			<li><a href="#">Support</a></li>
+		    			<li><a href="/help">Support</a></li>
 		    			<li><a href="http://www.apple.com/legal/internet-services/itunes/appstore/dev/stdeula/">EULA</a></li>
 		    			<li><a href="#">Terms Of Service</a></li>
 		    		</ul>
 		    	</div>
 		    	<div class="col-xs-2">
 		    		<ul class="menu">
-		    			<li><a href="#">iOS</a></li>
+		    			<li><a href="https://itunes.apple.com/us/app/shotbuf/id796410550?ls=1&mt=8">iOS</a></li>
 		    			<li><a href="#">Android</a></li>
-		    			<li><a href="">Desktop</a></li>
+		    			<li><a href="/d">Mac & Windows</a></li>
 		    		</ul>
 		    	</div>
 		    	<div class="col-xs-2">
@@ -140,10 +140,15 @@
 	    if (navigator.userAgent.indexOf('Windows') >= 0) {
 	    	$('#downloadMacBlock').hide();	
 	    	$('#downloadPCBlock').show();
+    		$('#downloadMac').removeClass('selected');
+    		$('#downloadPC').addClass('selected');
+
 	    	// window.location.href = $('#downloadPC').attr('href');
 	    } else {
 	    	$('#downloadMacBlock').show();	
 	    	$('#downloadPCBlock').hide();	
+	    	$('#downloadMac').addClass('selected');
+    		$('#downloadPC').removeClass('selected');
 	    	// window.location.href = $('#downloadMac').attr('href');
 	    }
     
