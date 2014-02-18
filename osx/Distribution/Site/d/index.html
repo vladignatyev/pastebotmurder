@@ -26,9 +26,18 @@
   ga('send', 'pageview');
 
 </script>
-
-
-	  <div class="pagewrap">
+		<div class="container mobileonly" style="display:none;">
+			<div class="row">
+				<div class="col-md-12">
+				<center>
+					<p style="font-size:30pt; font-weight:bolder; margin-top:30pt;">Open this page on your Mac or PC</p>
+					<p style="color: #007ee5; font-size:30pt;">shotbuf.com/d</p>
+					</center>
+				</div>
+				<center><a href="/"><img src="/img/d/logo.png" width="100" style="margin-bottom:30pt;" /></a></center>
+			</div>
+		</div>
+	  <div class="pagewrap desktoponly"  style="display:none;">
 	    <div class="container">
 		    <div class="row bottom-hr">
 		    	<div class="col-md-3">
@@ -122,7 +131,7 @@
 		    </div>
 	    </div>
 		</div>
-    <div class="after">
+    <div class="after desktoponly">
     	Questions? Send to <a href="mailto:hey@shotbuf.com?subject=Inquiry from site">hey@shotbuf.com</a>
     </div>
 
@@ -136,6 +145,16 @@
 
     <script type="text/javascript">
     $(document).ready(function(){
+
+    	if (navigator.userAgent.indexOf('Mobile') >= 0) {
+    		$('.desktoponly').hide();
+    		$('.mobileonly').show();
+    		return;
+    	} else {
+    		$('.desktoponly').show();
+    		$('.mobileonly').hide();
+    	}
+
 
 	    if (navigator.userAgent.indexOf('Windows') >= 0) {
 	    	$('#downloadMacBlock').hide();	
