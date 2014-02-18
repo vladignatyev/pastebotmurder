@@ -28,7 +28,6 @@ ACCESS_TOKEN = ''
 def check_if_new_version_is_available():
 	result = updateChecker.is_newest_version_available()
 	if updateChecker.is_newest_version_available():
-		print 'asd'
 		message = 'You are currently running version %s, version %s is now available for download.\n\nDo you wish to install it now?'
 		message = message % (update_checker.CURRENT_VERSION, updateChecker.get_newest_version())
 		print message
@@ -52,6 +51,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 	ID_LINK_DROPBOX = wx.NewId()
 	ID_CLEAR_DATA = wx.NewId()
 	ID_CHECK_UPDATES = wx.NewId()
+	ID_QUIT_SHOTBUF = wx.NewId() 
 
 	def __init__(self):
 		super(CustomTaskBarIcon, self).__init__()
@@ -70,7 +70,6 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		else:
 			self.menu.Append(CustomTaskBarIcon.ID_ENABLE_SHOTBUF, "Enable ShotBuf")
 		self.menu.AppendSeparator()
-
 		if shotBufApp.is_logined():
 			self.menu.Append(CustomTaskBarIcon.ID_UNLINK_DROPBOX, "Unlink Dropbox")
 		else:
@@ -82,7 +81,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 
 		self.menu.AppendSeparator()
 		self.menu.Append(CustomTaskBarIcon.ID_CHECK_UPDATES, "Check for updates...")
-		self.menu.Append(wx.ID_EXIT, "Quit ShotBuf")
+		self.menu.Append(CustomTaskBarIcon.ID_QUIT_SHOTBUF, "Quit ShotBuf")
 		return self.menu
 
 	def OnMenu(self, event):
@@ -105,7 +104,8 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 				dlg = dlg.ShowModal()
 				
 			# dlg.ShowModal()
-				print 'After modal'
+		elif evt_id == CustomTaskBarIcon.ID_QUIT_SHOTBUF:
+			app.ExitMainLoop()
 			# dlg.Destroy()
 			# dialog = MyDialog(self, -1)
 			# print 'dialog', dialog
@@ -156,7 +156,7 @@ class TransparentText(wx.StaticText):
 class ShotBufFrame(wx.Frame):
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
-		self.style = wx.DEFAULT_FRAME_STYLE 
+		self.style = (wx.DEFAULT_FRAME_STYLE  ^ wx.RESIZE_BORDER)
 		wx.Frame.__init__(self, parent, -1, title, size=(410,290), style = self.style | wx.STAY_ON_TOP)
 
 		self.panel = wx.Panel(self)
@@ -256,7 +256,7 @@ def enable_shotbuf():
 
 
 	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
-	timer.Start(1000)
+	timer.Start(100)
 
 def upload_finish(result):
 	print 'result finish', result.get()
@@ -289,14 +289,13 @@ def OnPasteButton(event):
 					bitmap = bitmap_data_object.GetBitmap()
 					size = bitmap.GetSize()
 
-					bpp = 3
 					image_data = numpy.zeros((size[0], size[1], 3), dtype=numpy.uint8)
 
 					image = bitmap.ConvertToImage()
 					rgb_bitmap = image.ConvertToBitmap()
 					rgb_bitmap.CopyToBuffer(image_data)
 				
-
+	
 					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)

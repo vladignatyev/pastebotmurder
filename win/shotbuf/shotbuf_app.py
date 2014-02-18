@@ -93,7 +93,7 @@ class ShotBufApp(object):
 		# 	setDataFunc(data)
 		# 	self.isFirstPaste = False
 		# 	return False
-		# isNewData = compareFunc(data)
+		isNewData = compareFunc(data)
 		if isNewData: 
 			setDataFunc(data)	
 		return isNewData
