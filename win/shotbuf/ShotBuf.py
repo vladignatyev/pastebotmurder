@@ -305,7 +305,6 @@ def OnPasteButton(event):
 						shotBufApp.paste_file(fileTemp.name)
 
 				elif format_type in [wx.DF_UNICODETEXT, wx.DF_TEXT]:
-					paste_info()
 					text = text_data_object.GetText()
 					shotBufApp.paste_text_if_new(text)
 					
@@ -327,7 +326,7 @@ frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
 tbiicon = CustomTaskBarIcon()
 tbiicon.parent = frame
 
-logging.basicConfig(filename='C:\shotbuf.log',level=logging.DEBUG)
+logging.basicConfig(filename='shotbuf.log',level=logging.DEBUG)
 
 logging.info('asdasdasd')
 stor = resource_path('storage.txt')
