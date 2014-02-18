@@ -1,1 +1,1 @@
-pyi-build --clean -y shotbuf_desktop.spec
+pyi-build --clean -y ShotBuf.spec

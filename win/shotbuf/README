@@ -21,9 +21,20 @@ Use pyinstaller and edit dropbox sdk rest.py
 TRUSTED_CERT_FILE = 'trusted-certs.crt' # pkg_resources.resource_filename(__name__, 'trusted-certs.crt')
 Copy trusted-certs.crt from your folder to dist
 
+pyi-build --clean -y ShotBuf.spec
+
 Edit pyinstaller  setup.py http://stackoverflow.com/a/20976593
 
    def append(self, tpl):
         try:
             fn = tpl[0]
             if tpl[2] in ["BINARY","DATA"]:
+Software:
+Python2.7
+wxpython32bit
+numpy32
+validate_email
+dropbox
+pip
+pywin32
+innosetup

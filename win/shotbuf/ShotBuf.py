@@ -59,7 +59,15 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		self.isEnabled = False
 
 		self.Bind(wx.EVT_MENU, self.OnMenu)
-		icon = wx.Icon(resource_path("statusbaricon.png"), wx.BITMAP_TYPE_PNG)
+		
+		self.ChangeDisableIcon()
+
+	def ChangeActiveIcon(self):
+		icon = wx.Icon(resource_path("active.png"), wx.BITMAP_TYPE_PNG)
+		self.SetIcon(icon)
+
+	def ChangeDisableIcon(self):
+		icon = wx.Icon(resource_path("inactive.png"), wx.BITMAP_TYPE_PNG)
 		self.SetIcon(icon)
 
 	def CreatePopupMenu(self):
@@ -156,8 +164,10 @@ class TransparentText(wx.StaticText):
 class ShotBufFrame(wx.Frame):
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
-		self.style = (wx.DEFAULT_FRAME_STYLE  ^ wx.RESIZE_BORDER)
-		wx.Frame.__init__(self, parent, -1, title, size=(410,290), style = self.style | wx.STAY_ON_TOP)
+		self.style = (wx.DEFAULT_FRAME_STYLE  ^ wx.RESIZE_BORDER ^ wx.CLOSE_BOX ^ wx.MAXIMIZE_BOX)
+		# self.style =   wx.MINIMIZE_BOX | wx.MAXIMIZE_BOX | wx.RESIZE_BORDER | wx.SYSTEM_MENU | wx.CLOSE_BOX | wx.CLIP_CHILDREN
+
+		wx.Frame.__init__(self, parent, -1, title, size=(410,305), style = self.style | wx.STAY_ON_TOP)
 
 		self.panel = wx.Panel(self)
 		width, height = self.GetSize()
@@ -183,7 +193,7 @@ class ShotBufFrame(wx.Frame):
 		font = wx.Font(13, wx.FONTFAMILY_DEFAULT, wx.NORMAL,wx.FONTWEIGHT_BOLD)
 		connectText.SetFont(font)
 
-		button = wx.Button(backgroundBitmap, label="Connect now", pos=(130,210), size=(140,40))
+		button = wx.Button(backgroundBitmap, label="Connect now", pos=(130,213), size=(140,35))
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
 
 	
@@ -248,12 +258,13 @@ def did_login(result):
 	enable_shotbuf()
 	
 def disable_shotbuf():
+	tbiicon.ChangeDisableIcon()
 	timer.Stop()
 	frame.Unbind(wx.EVT_TIMER)
 
 def enable_shotbuf():
 	shotBufApp.enable()
-
+	tbiicon.ChangeActiveIcon()
 
 	timer.Bind(wx.EVT_TIMER, OnPasteButton, timer)
 	timer.Start(100)
@@ -317,7 +328,7 @@ tokenProvider = TokenProvider()
 
 shotBufApp = ShotBufApp(dropboxApi, tokenProvider)
 
-appcastReader = AppCastParser("http://shotbuf.com/exe/appcast64.xml")
+appcastReader = AppCastParser("http://shotbuf.com/exe/appcast32.xml")
 updateChecker = UpdateChecker(appcastReader)
 
 frame = ShotBufFrame(None, -1, 'ShotBuf', shotBufApp)
@@ -340,11 +351,12 @@ def my_handler(type, value, tb):
 sys.excepthook = my_handler
 
 def main():
-	
+	logging.info('is logined')
 	print 'is logined', shotBufApp.is_logined()
 	
 	if not shotBufApp.is_logined():
 		print 'Show top frame'
+		logging.info('Show top frame')
 		frame.ShowAsTopWindow()
 		app.MainLoop()
 	else:
