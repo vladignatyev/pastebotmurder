@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url> 
     <loc>http://shotbuf.com/</loc>
+  </url>
+  <url>
     <loc>http://shotbuf.com/d/</loc>
+  </url>
+  <url>
     <loc>http://shotbuf.com/help/</loc>
   </url>
 </urlset>
