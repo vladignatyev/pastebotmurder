@@ -1,8 +1,8 @@
 [Setup]
-AppName=Shotbuf
-AppVerName=Shotbuf v 1.1
-AppVersion=1.1
-DefaultDirName={pf}\Shotbuf
+AppName=ShotBuf
+AppVerName=ShotBuf v 1.2.0
+AppVersion=1.2.0
+DefaultDirName={pf}\ShotBuf
 OutputDir=.
 Compression=lzma/ultra
 InternalCompressLevel=ultra
