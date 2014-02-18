@@ -128,6 +128,31 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 		# else:
 		event.Skip()
 
+class TransparentText(wx.StaticText):
+  def __init__(self, parent, id=wx.ID_ANY, label='', 
+               pos=wx.DefaultPosition, size=wx.DefaultSize, 
+               style=wx.TRANSPARENT_WINDOW, name='transparenttext'):
+    wx.StaticText.__init__(self, parent, id, label, pos, size, style, name)
+
+    self.Bind(wx.EVT_PAINT, self.on_paint)
+    self.Bind(wx.EVT_ERASE_BACKGROUND, lambda event: None)
+    self.Bind(wx.EVT_SIZE, self.on_size)
+
+  def on_paint(self, event):
+    bdc = wx.PaintDC(self)
+    dc = wx.GCDC(bdc)
+
+    font_face = self.GetFont()
+    font_color = self.GetForegroundColour()
+
+    dc.SetFont(font_face)
+    dc.SetTextForeground(font_color)
+    dc.DrawText(self.GetLabel(), 0, 0)
+
+  def on_size(self, event):
+    self.Refresh()
+    event.Skip()
+
 class ShotBufFrame(wx.Frame):
 	def __init__(self, parent, id, title, shotBufApp):
 		self.shotBufApp = shotBufApp
@@ -150,13 +175,16 @@ class ShotBufFrame(wx.Frame):
 
 		dropboxImg = wx.Image('dropbox@2x.png', wx.BITMAP_TYPE_ANY)
 		dropboxImg.Rescale(120, 36, wx.IMAGE_QUALITY_HIGH)
-		dropboxBitmap = wx.StaticBitmap(backgroundBitmap, -1, wx.BitmapFromImage(dropboxImg), pos=(285, 210))
+		dropboxImg.SetMaskColour(0,0,0)
 
-		connectText = wx.StaticText(backgroundBitmap, -1, 'Connect to your Dropbox account', size=(20, 279), pos=(66, 25)) 
-		# font = wx.Font(16, wx.FONTFAMILY_DEFAULT, wx.NORMAL,wx.FONTWEIGHT_BOLD)
-		# connectText.SetFont(font)
+		
+		dropboxBitmap = wx.StaticBitmap(self.panel, -1, dropboxImg.ConvertToBitmap(), pos=(275, 210))
 
-		button = wx.Button(backgroundBitmap, label="Connect now", pos=(130,185), size=(140,80))
+		connectText = TransparentText(self.panel, -1, 'Connect to your Dropbox account', size=(279, 20), pos=(66, 25)) 
+		font = wx.Font(13, wx.FONTFAMILY_DEFAULT, wx.NORMAL,wx.FONTWEIGHT_BOLD)
+		connectText.SetFont(font)
+
+		button = wx.Button(backgroundBitmap, label="Connect now", pos=(130,210), size=(140,40))
 		self.Bind(wx.EVT_BUTTON, self.OnConnectDropbox, button)
 
 	
