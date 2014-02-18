@@ -173,9 +173,8 @@ class ShotBufFrame(wx.Frame):
 		print 'scaled', scaledImg
 		backgroundBitmap = wx.StaticBitmap(self.panel, -1, wx.BitmapFromImage(backgroundImg))
 
-		dropboxImg = wx.Image('dropbox@2x.png', wx.BITMAP_TYPE_ANY)
+		dropboxImg = wx.Image('dropbox.png', wx.BITMAP_TYPE_PNG)
 		dropboxImg.Rescale(120, 36, wx.IMAGE_QUALITY_HIGH)
-		dropboxImg.SetMaskColour(0,0,0)
 
 		
 		dropboxBitmap = wx.StaticBitmap(self.panel, -1, dropboxImg.ConvertToBitmap(), pos=(275, 210))
