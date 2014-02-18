@@ -1,4 +1,5 @@
 User-agent: *
-Allow: *
+Allow: /
 Allow: /help/
 Allow: /d/
+Sitemap: http://shotbuf.com/sitemap.xml
