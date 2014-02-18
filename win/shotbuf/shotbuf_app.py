@@ -3,6 +3,8 @@ from validate_email import validate_email
 
 from urlparse import urlparse
 
+from util import track_event
+
 import numpy
 
 PLAIN_TYPE = 'plain'
@@ -108,6 +110,7 @@ class ShotBufApp(object):
 	def paste_text_if_new(self, text):
 		isNew = self.set_text_data_if_new(text)
 		if isNew:
+			track_event('Paste new text')
 			self.paste_text(text)
 
 	def enable(self):

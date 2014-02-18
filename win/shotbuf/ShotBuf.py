@@ -23,11 +23,14 @@ import wx.lib.agw.genericmessagedialog as GMD
 
 from wx.lib.delayedresult import startWorker
 
+from util import track_event
+
 ACCESS_TOKEN = ''
 
 def check_if_new_version_is_available():
 	result = updateChecker.is_newest_version_available()
 	if updateChecker.is_newest_version_available():
+		track_event('Newest version is available')
 		message = 'You are currently running version %s, version %s is now available for download.\n\nDo you wish to install it now?'
 		message = message % (update_checker.CURRENT_VERSION, updateChecker.get_newest_version())
 		print message
@@ -35,11 +38,12 @@ def check_if_new_version_is_available():
 		# dlg.SetIcon('distributive.icns')
 		retCode = dlg.ShowModal()
 		if (retCode == wx.ID_YES):
-			print "yes"
+			track_event('Agree to install newest version')
 			webbrowser.open('http://shotbuf.com/d')
 			# dlg.ShowModal()
 			dlg.Destroy()
-			print 'after'
+		else:
+			track_event('Disagree to install newest version')
 	return result
 
 
@@ -95,17 +99,20 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 	def OnMenu(self, event):
 		evt_id = event.GetId()
 		if evt_id == CustomTaskBarIcon.ID_DISABLE_SHOTBUF:
+			track_event('Disable shotbuf')
 			self.isEnabled = True
 			disable_shotbuf()
 		if evt_id == CustomTaskBarIcon.ID_ENABLE_SHOTBUF:
+			track_event('Enable shotbuf')
 			self.isEnabled = False
 			enable_shotbuf()	
 		elif evt_id == CustomTaskBarIcon.ID_UNLINK_DROPBOX:
+			track_event('unlink dropbox account')
 			shotBufApp.unlink_dropbox()
 			frame.ShowAsTopWindow()
 			disable_shotbuf()
 		elif evt_id == CustomTaskBarIcon.ID_CHECK_UPDATES:
-			print 'Check updates'
+			track_event('check updates clicked')
 			if not check_if_new_version_is_available():
 				message = 'ShotBuf %s is currently the newest version available.' % update_checker.CURRENT_VERSION
 				dlg = wx.MessageDialog(frame, message, "You're up to date!", wx.OK | wx.ICON_INFORMATION | wx.STAY_ON_TOP)
@@ -113,6 +120,7 @@ class CustomTaskBarIcon(wx.TaskBarIcon):
 				
 			# dlg.ShowModal()
 		elif evt_id == CustomTaskBarIcon.ID_QUIT_SHOTBUF:
+			track_event('Quit Shotbuf')
 			app.ExitMainLoop()
 			# dlg.Destroy()
 			# dialog = MyDialog(self, -1)
@@ -200,6 +208,7 @@ class ShotBufFrame(wx.Frame):
 	
 
 	def OnConnectDropbox(self, event):
+		track_event('Connect button pressed')
 		self.dialog = WebViewDialog(self, -1)
 		self.dialog.parent = self
 		self.dialog.shotBufApp = self.shotBufApp
@@ -248,6 +257,8 @@ class WebViewDialog(wx.Dialog):
 			self.parent.Hide()
 			self.Destroy()
 			
+			track_event('Dropbox auth finished')
+
 			startWorker(did_login, self.shotBufApp.did_finish_auth(auth_code))
 			
 
@@ -255,6 +266,7 @@ class WebViewDialog(wx.Dialog):
 			print 'Fail'
 
 def did_login(result):
+	track_event('Did login')
 	enable_shotbuf()
 	
 def disable_shotbuf():
@@ -309,6 +321,7 @@ def OnPasteButton(event):
 	
 					isNewImage = shotBufApp.set_image_data_if_new(image_data) 
 					if isNewImage:
+						track_event('Paste new Image')
 						fileTemp = tempfile.NamedTemporaryFile(delete = False)
 						bitmap.SaveFile(fileTemp.name, wx.BITMAP_TYPE_PNG)
 
@@ -351,13 +364,10 @@ def my_handler(type, value, tb):
 sys.excepthook = my_handler
 
 def main():
-	logging.info('is logined')
-	print 'is logined', shotBufApp.is_logined()
-	
+	track_event('Launch App')	
 	if not shotBufApp.is_logined():
-		print 'Show top frame'
-		logging.info('Show top frame')
 		frame.ShowAsTopWindow()
+		track_event('Connect Dropbox')
 		app.MainLoop()
 	else:
 		try:
@@ -366,6 +376,7 @@ def main():
 			enable_shotbuf()
 			app.MainLoop()
 		except urllib3.exceptions.MaxRetryError:
+			track_event('Login connection error')
 			dlg = wx.MessageDialog(frame, "Please, check your internet connection.", "Network error!", wx.OK | wx.ICON_ERROR | wx.STAY_ON_TOP)
 
 			dlg.ShowModal()
