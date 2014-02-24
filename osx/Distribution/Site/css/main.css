@@ -130,3 +130,9 @@ html, body {
 	margin:0 !important;
 	padding: 0;
 }
+
+.appstore {
+	background: url('/img/Download_on_the_App_Store_Badge_US-UK_135x40.png') no-repeat center center;
+	width: 135px;
+	height: 40px;
+}
