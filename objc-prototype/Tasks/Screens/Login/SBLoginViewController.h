@@ -8,6 +8,7 @@
 
 @interface SBLoginViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 - (IBAction)loginButtonTapped:(UIButton *)sender;

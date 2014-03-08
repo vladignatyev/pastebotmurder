@@ -13,6 +13,7 @@
 		152679CD186EE37100CC5B55 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 152679CC186EE37100CC5B55 /* Accelerate.framework */; };
 		152AFCED189ABBE70019EF3A /* welcomeImg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 152AFCEC189ABBE70019EF3A /* welcomeImg@2x.png */; };
 		154330A21876B6010063892C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 154330A11876B6010063892C /* AudioToolbox.framework */; };
+		15979F2B18CB146D000096D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 15979F2D18CB146D000096D6 /* Localizable.strings */; };
 		15FC240D187BF98F00C69824 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15FC240C187BF98F00C69824 /* Crashlytics.framework */; };
 		677DB08E0297BFB5F10D0BBC /* MPSurveyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB1747358CC9715B3E3E2 /* MPSurveyNavigationController.m */; };
 		677DB11FC5E980106A31847B /* MPSurveyQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 677DB615093F5803A29F6DBD /* MPSurveyQuestionViewController.m */; };
@@ -105,6 +106,8 @@
 		152679CC186EE37100CC5B55 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		152AFCEC189ABBE70019EF3A /* welcomeImg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeImg@2x.png"; sourceTree = "<group>"; };
 		154330A11876B6010063892C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AudioToolbox.framework; sourceTree = DEVELOPER_DIR; };
+		15979F2C18CB146D000096D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		15979F2E18CB14A0000096D6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		15FC240C187BF98F00C69824 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		677DB04028F46CC152B25107 /* MPSurveyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSurveyNavigationController.h; sourceTree = "<group>"; };
 		677DB0532F2E87107E83CAE6 /* SBBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBaseCell.m; sourceTree = "<group>"; };
@@ -538,6 +541,7 @@
 				677DB47EA59C527AA7C8CF7B /* Managers */,
 				677DB31BAFB524FE2E3862FF /* Images */,
 				677DB83B38041B20D88A7BB3 /* WelcomeScreen.png */,
+				15979F2D18CB146D000096D6 /* Localizable.strings */,
 			);
 			name = ShotBuf;
 			path = Tasks;
@@ -591,6 +595,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 			);
 			mainGroup = D358F6AF17659D1C007C6115;
 			productRefGroup = D358F6BB17659D35007C6115 /* Products */;
@@ -617,6 +622,7 @@
 				D3B589391780FD3B009E2333 /* Storyboard.storyboard in Resources */,
 				800D9223185FD8E6003A09C6 /* AppIcon40x40@2x.png in Resources */,
 				80F2A19418919F970073AB34 /* dropboxLogo@2x.png in Resources */,
+				15979F2B18CB146D000096D6 /* Localizable.strings in Resources */,
 				800D922E185FD8E6003A09C6 /* AppIcon60x60@2x.png in Resources */,
 				80F2A1981891A5340073AB34 /* dropboxLogoSmall@2x.png in Resources */,
 				800D9228185FD8E6003A09C6 /* AppIcon60x60.png in Resources */,
@@ -696,6 +702,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		15979F2D18CB146D000096D6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				15979F2C18CB146D000096D6 /* en */,
+				15979F2E18CB14A0000096D6 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		80C8CD4F18842CD800F39427 /* Default.png */ = {
 			isa = PBXVariantGroup;
 			children = (

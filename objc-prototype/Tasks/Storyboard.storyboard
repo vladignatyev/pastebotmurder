@@ -475,6 +475,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="loginButton" destination="2Gc-lb-BCg" id="3ci-3s-ba5"/>
+                        <outlet property="titleLabel" destination="wqD-bW-oL8" id="rw3-j1-SHb"/>
                         <segue destination="zji-Yj-eIJ" kind="push" identifier="mainScreen" id="MEq-ji-yMN"/>
                     </connections>
                 </viewController>

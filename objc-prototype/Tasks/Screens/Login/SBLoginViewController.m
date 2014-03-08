@@ -27,6 +27,13 @@
             [self showMainScreen];
         }
     }];
+    
+    [self localization];
+}
+
+- (void)localization {
+
+    self.titleLabel.text = NSLocalizedString(_titleLabel.text, nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
