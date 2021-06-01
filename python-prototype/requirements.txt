@@ -1,4 +1,4 @@
 #dropbox==2.0-b2
 https://dl.dropboxusercontent.com/s/4b02smkjw3rssiu/dropbox-python-sdk-2.0-b2.zip
-urllib3==1.7.1
+urllib3==1.26.5
 wsgiref==0.1.2
